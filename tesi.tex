@@ -1,0 +1,272 @@
+\documentclass[a4paper]{article}
+
+\usepackage[T1]{fontenc}
+% many useful symbols
+\usepackage{textcomp}
+\usepackage[english]{babel}
+\usepackage{hyperref}
+\usepackage{amsmath, amssymb, amsthm}
+% for \lightning
+\usepackage{stmaryrd}
+\usepackage{geometry}
+\usepackage{tikz-cd}
+\usepackage{bold-extra}
+% for \coloneqq
+\usepackage{mathtools}
+
+% Remove indentation globally
+\setlength{\parindent}{0pt}
+% Have blank lines between paragraphs
+\usepackage[parfill]{parskip}
+
+\hypersetup{
+    colorlinks = true, % links instead of boxes
+    urlcolor   = cyan, % external hyperlinks
+    linkcolor  = blue, % internal links
+    citecolor  = cyan   % citations
+}
+
+% Definitions
+\def\R{\mathbb{R}}
+\def\C{\mathbb{C}}
+\def\Q{\mathbb{Q}}
+\def\N{\mathbb{N}}
+\def\Z{\mathbb{Z}}
+\def\K{K}
+\def\Kx{\overline{\K}^\times}
+\def\Qp{\mathbb{Q}_p}
+\def\Zp{\mathbb{Z}_p}
+\def\Gmod{\mathsf{Mod}_\mathsf{G}}
+\def\Hmod{\mathsf{Mod}_\mathsf{H}}
+\def\GHmod{\mathsf{Mod}_{\mathsf{G}/\mathsf{H}}}
+
+% Operators
+\newcommand{\Gal}[1]{\mathrm{Gal}\left( #1^sep/#1 \right)}
+\newcommand{\Aut}[1]{\mathrm{Aut}\left( #1 \right)}
+\renewcommand{\H}[3]{H^{#1}\left( #2, \, #3 \right)}
+\newcommand{\HH}[2]{H^2\left( #1, \, #2 \right)}
+\newcommand{\Ind}[2]{\mathrm{I}_{#1}(#2)}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Res}{\mathtt{res}}
+\DeclareMathOperator{\Cor}{\mathtt{cor}}
+\DeclareMathOperator{\Inf}{\mathtt{inf}}
+\DeclareMathOperator{\cd}{cd}
+\DeclareMathOperator{\coker}{Coker}
+
+
+\newcommand\Iso{\xrightarrow{
+   \,\smash{\raisebox{-0.65ex}{\ensuremath{\scriptstyle\sim}}}\,}}
+
+% use bullets for items
+\renewcommand{\labelitemii}{$\circ$}
+\renewcommand{\Im}{\operatorname{Im}}
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+
+\theoremstyle{definition}
+\newtheorem{example}[theorem]{Example}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\begin{document}
+
+\begin{titlepage}
+
+    \begin{figure}[!htb]
+        \centering
+        \includegraphics[scale=0.4]{cherubino.pdf}
+    \end{figure}
+
+    \begin{center}
+        \textcolor[RGB]{2,87,144}{\textbf{\textsc{\huge Università di Pisa}}}\\
+        \vspace{10mm}
+
+        \large{\textsc{Dipartimento di Matematica}}\\
+        \large{\textsc{Corso di Laurea Triennale in Matematica}}\\
+        \vspace{35mm}
+        {\Huge{\bf Local Tate Duality}}
+    \end{center}
+    \vspace{45mm}
+
+    \begin{minipage}[t]{.5\textwidth}
+        {\large{\scshape Candidato}{\normalsize\vspace{3mm}
+                \bf\\ \large{Francesco Minnocci}}}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{.5\textwidth}\raggedleft
+        {\large{\scshape Relatore}{\normalsize\vspace{3mm} \bf\\ \large{Támas Szamuely}}}
+    \end{minipage}
+
+    \vspace{30mm}
+    \centering{\large{\textsc{Anno Accademico 2023/2024}}}
+
+\end{titlepage}
+
+% make TOC
+\tableofcontents
+\newpage
+
+\section*{Introduction}
+\addcontentsline{toc}{section}{Introduction}
+
+\section{Cohomology of Finite Groups}
+
+\section{Cohomology of Profinite Groups}
+
+\subsection{Cohomological Dimension}
+\subsection{Galois Cohomology}
+\subsubsection{Hilbert 90}
+\subsubsection{Kummer Theory}
+\subsubsection{Brauer Group of a Field}
+
+\section{Local Fields}
+
+\subsection{Structure of Local Fields}
+\subsection{Computation of the Brauer Group}
+\subsection{Cohomological Finiteness}
+
+\section{Local Duality}
+
+\subsection{Cup Product}
+
+\subsection{Dualizing Module}
+
+In this section we introduce the dualizing module, a central object for the study of local duality. While it can be defined explicitly (as done in e.g. \cite{Neukirch}),
+whereas we are going to prove its existence by homological methods and only compute it for the absolute group of a p-adic field, which is faster and suffices to prove the duality theorem.
+
+Recall that, if \(B\) is a torsion abelian group, the \textit{Pontryagin dual} of \(B\) is
+
+\[
+    B^*\coloneqq \Hom(B,\Q/\Z).
+\]
+
+The functor \(B\mapsto B^*\)  induces an equivalence of categories
+
+\[
+    \{ \text{Torsion abelian groups} \}^{\text{op}}  \cong \{ \text{Profinite abelian groups}, \}
+\]
+
+as a special case of Pontryagin duality for locally compact abelian groups.
+
+Indeed, for a finite abelian group \(B\), the structure theorem yields a (non-canonical) isomorphism \(B\Iso B^*\), so that by cardinality considerations we have the canonical isomorphism
+\begin{align*}
+    B & \Iso B^{**}                           \\
+    b & \mapsto \left( f\mapsto f(b) \right).
+\end{align*}
+
+For the generalization to torsion abelian groups, writing such a \(B\) as the inductive limit of its finite subgroups \(B_i\) we obtain
+
+\[
+    B^* = \varprojlim_i B_i^*,
+\]
+
+which is profinite, and viceversa if \(G\) is profinite, we can write it as the projective limit of its finite quotients \(G_i\), and then
+
+\[
+    G^* = \varinjlim_i G_i^*,
+\]
+
+which is a torsion group.
+
+and for profinite abelian groups, by the structure theorem we have \(B\Iso B^{**}\).
+
+Given a profinite group \(G\)  of finite cohomological dimension \(\cd(G)=n<\infty,\)
+
+\subsubsection{Existence}
+\subsubsection{Computation for p-adic Fields}
+
+\subsection{Tate Duality}
+
+We can now prove the main result: Tate's local duality theorem for p-adic fields.
+
+\begin{definition}
+    Given a field \(\K\), let  $\Gamma$ be its absolute Galois group and $\mu$ the group of all the roots of unity in $\Kx$.
+    For any finite \(\Gamma\) -module \(M\) whose torsion is prime to the characteristic of \(\K\),
+    we define the \textbf{Cartier dual} of $M$ as
+    \begin{equation*}
+        M^{\prime} = \Hom_{\Z}(M, \Kx)=\Hom_{\Z}(M, \mu),
+    \end{equation*}
+    with the action of $\Gamma$ given by
+    \begin{equation*}
+        (\sigma \cdot f)(m) = \sigma(f(\sigma^{-1}\cdot m)).
+    \end{equation*}
+\end{definition}
+
+\begin{theorem}
+    Let $\K$ be a p-adic field, and $M$ a finite $\Gamma$-module.
+    Then, for $i=0,1,2$ the cup product induces a perfect pairing of finite groups
+    \begin{equation*}
+        H^i(\K, M) \times H^{2-i}(\K, M^{\prime}) \to H^2(\K, \mu) \cong \Q/\Z.
+    \end{equation*}
+\end{theorem}
+\begin{proof}
+    We have already proved the finiteness of all the groups in \eqref{finCohom}.
+    We start from $i=2$, where our computation of the dualizing module pays off: indeed, the content of Lemma \eqref{compDualCup}
+    in this situtation consists of the following commutative diagram
+    \begin{equation*}
+        \begin{tikzcd}
+            {\H{0}{\K}{M^\prime}  \times \HH{\K}{M}} \ar[swap, rd, "\langle - {,} - \rangle_M "] \ar[r, "\cup"] & \HH{\K}{\mu} \ar[d, "i"] \\
+            & \Q/\Z,
+        \end{tikzcd}
+    \end{equation*}
+    where
+    \[
+        i = \langle \operatorname{Id}_{\Q/\Z}, - \rangle : \H{2}{\K}{\mu} \Iso \Q/\Z,
+    \]
+    which concludes as $\langle -{,}- \rangle_M$ is the perfect pairing given by the dualizing module.
+
+    The case $i=0$ then follows by symmetry, as any finite $M$ can be identified with its double dual $M''$.
+    We are now left with $i=1$: here it's enough to show that the map
+    \[
+        \H{1}{\K}{M} \overset{\cup}{\to} \H{1}{\K}{M^\prime}^*
+    \]
+    induced by the cup product is injective, as then applying the same argument to $M^\prime$ gets us surjectivity, since we are working with finite groups.
+    To prove injectivity, we first find a finite $\Gamma$-module $B$ fitting in an exact sequence
+    \begin{equation}\label{injSeq}
+        0\to M\to B\to C\to 0
+    \end{equation}
+    such that the induced map
+    \[
+        \H{1}{\K}{B}\to\H{1}{\K}{B}
+    \]
+    is zero:
+    as usual, we start by injecting $M$ in the induced module $\Ind{\Gamma}{M}$ which is torsion, and by the fundamental property \eqref{indLim} we have
+
+    \[
+        0=\H{n}{\K}{\Ind{\Gamma}{M}}=\varinjlim_{\substack{B\subset\Ind{\Gamma}{M} \\B\text{ finite}}}{\H{n}{\K}{B}},
+    \]
+    which implies the existence of a finite submodule \(B\) with \(\H{n}{\K}{B}=0\). As \(M\) is finite, we can find such a \(B\) which contains \(M\), and then
+    the quotient \(C=B/M\) is finite as well.
+    Now, we can relate the long exact sequences in cohomology associated to the short exact sequence \eqref{injSeq}
+    and its dual using the cup product, which gets us the following commutative diagram (up to a sign, by \eqref{compatCup}) with exact rows:
+    \[
+        \begin{tikzcd}
+            \H{0}{\K}{B} \ar[r] \ar[d, "\cup"] & \H{0}{\K}{C} \ar[r] \ar[d, "\cup"] & \H{1}{\K}{M} \ar[d, "\cup"] \ar[r] & 0 \\
+            \H{2}{\K}{B^\prime}^* \ar[r] & \H{2}{\K}{C^\prime}^* \ar[r] & \H{1}{\K}{M^\prime}^*.
+        \end{tikzcd}
+    \]
+    As \(B\) and \(C\) are finite, the first two vertical maps are isomorphisms by the previous cases, and the third one is injective by diagram chasing.
+
+\end{proof}
+
+% Remark: The theorem also holds local fields of positive characteristic and p-torsion-free modules by <ref>
+
+\section{Consequences}
+
+\subsection{Local Class Field Theory}
+
+% As a first application of local duality, we can prove the existence of the Artin map in the local case.
+
+\thebibliography{9}
+\bibitem{Neukirch} J. Neukirch, A. Schmidt, K. Wingberg, \textit{Cohomology of Number Fields}, Springer-Verlag, 2000.
+\bibitem{Serre} J.-P. Serre, \textit{Galois Cohomology}, Springer-Verlag, 1997.
+\bibitem{Harari} D. Harari, \textit{Galois Cohomology and Class Field Theory}, Universitext, Springer-Verlag, 2020.
+
+\end{document}
