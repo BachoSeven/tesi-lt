@@ -14,6 +14,10 @@
 % for \coloneqq
 \usepackage{mathtools}
 
+% Bibliography
+\usepackage[backend=biber, style=alphabetic]{biblatex}
+\addbibresource{bibliography.bib}
+
 % Remove indentation globally
 \setlength{\parindent}{0pt}
 % Have blank lines between paragraphs
@@ -264,9 +268,7 @@ We can now prove the main result: Tate's local duality theorem for p-adic fields
 
 % As a first application of local duality, we can prove the existence of the Artin map in the local case.
 
-\thebibliography{9}
-\bibitem{Neukirch} J. Neukirch, A. Schmidt, K. Wingberg, \textit{Cohomology of Number Fields}, Springer-Verlag, 2000.
-\bibitem{Serre} J.-P. Serre, \textit{Galois Cohomology}, Springer-Verlag, 1997.
-\bibitem{Harari} D. Harari, \textit{Galois Cohomology and Class Field Theory}, Universitext, Springer-Verlag, 2020.
+\nocite{*}
+\printbibliography
 
 \end{document}
