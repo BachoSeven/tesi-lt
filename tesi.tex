@@ -1,11 +1,12 @@
-\documentclass[a4paper]{article}
+\documentclass[a4paper]{report}
 
 \usepackage[T1]{fontenc}
+\usepackage[charter]{mathdesign}
 % many useful symbols
 \usepackage{textcomp}
 \usepackage[english]{babel}
 \usepackage{hyperref}
-\usepackage{amsmath, amssymb, amsthm}
+\usepackage{amsmath, amsthm}
 % for \lightning
 \usepackage{stmaryrd}
 \usepackage{geometry}
@@ -43,12 +44,14 @@
 \def\Gmod{\mathsf{Mod}_\mathsf{G}}
 \def\Hmod{\mathsf{Mod}_\mathsf{H}}
 \def\GHmod{\mathsf{Mod}_{\mathsf{G}/\mathsf{H}}}
+\def\Gfmod{\mathsf{Mod}_{\mathsf{G}}^f}
+\def\Ab{\mathsf{Ab}}
 
 % Operators
 \newcommand{\Gal}[1]{\mathrm{Gal}\left( #1^sep/#1 \right)}
 \newcommand{\Aut}[1]{\mathrm{Aut}\left( #1 \right)}
-\renewcommand{\H}[3]{H^{#1}\left( #2, \, #3 \right)}
-\newcommand{\HH}[2]{H^2\left( #1, \, #2 \right)}
+\renewcommand{\H}[3]{H^{#1}( #2, \, #3 )}
+\newcommand{\HH}[2]{H^2 #1, \, #2 )}
 \newcommand{\Ind}[2]{\mathrm{I}_{#1}(#2)}
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\Res}{\mathtt{res}}
@@ -67,13 +70,12 @@
 
 \newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
 
+\theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
-
-\theoremstyle{definition}
 \newtheorem{example}[theorem]{Example}
 
 \theoremstyle{remark}
@@ -117,78 +119,140 @@
 \tableofcontents
 \newpage
 
-\section*{Introduction}
+% Notation, introduce as we go? things like Ab
+
+\chapter*{Introduction}
 \addcontentsline{toc}{section}{Introduction}
 
-\section{Cohomology of Finite Groups}
+\chapter{Cohomology of Finite Groups}
 
-\section{Cohomology of Profinite Groups}
+\chapter{Cohomology of Profinite Groups}
 
-\subsection{Cohomological Dimension}
-\subsection{Galois Cohomology}
-\subsubsection{Hilbert 90}
-\subsubsection{Kummer Theory}
-\subsubsection{Brauer Group of a Field}
+\section{Cohomological Dimension}
+\section{Galois Cohomology}
+\subsection{Hilbert 90}
+\subsection{Kummer Theory}
+\subsection{Brauer Group of a Field}
 
-\section{Local Fields}
+\chapter{Local Fields}
 
-\subsection{Structure of Local Fields}
-\subsection{Computation of the Brauer Group}
-\subsection{Cohomological Finiteness}
+\section{Structure of Local Fields}
+\section{Computation of the Brauer Group}
+\section{Cohomological Finiteness}
 
-\section{Local Duality}
+\chapter{Local Duality}
 
-\subsection{Cup Product}
+\section{Cup Product}
 
-\subsection{Dualizing Module}
+\section{Dualizing Module}
 
 In this section we introduce the dualizing module, a central object for the study of local duality. While it can be defined explicitly (as done in e.g. \cite{Neukirch}),
-whereas we are going to prove its existence by homological methods and only compute it for the absolute group of a p-adic field, which is faster and suffices to prove the duality theorem.
+we are going to prove its existence by homological methods and only compute it for the absolute Galois group of a p-adic field, which suffices to prove the duality theorem. We
+start by introducing the type of duality we are interested in:
 
-Recall that, if \(B\) is a torsion abelian group, the \textit{Pontryagin dual} of \(B\) is
+\begin{definition}
+    If \(A\) is an abelian group, we defin \textit{Pontryagin dual} of \(A\) as
 
-\[
-    B^*\coloneqq \Hom(B,\Q/\Z).
-\]
+    \[
+        A^*\coloneqq \Hom_{c}(A,\Q/\Z)
+        .\]
+    If \(A\) is torsion, \(A^*=\Hom(A,\Q/\Z)\) is profinite with the compact-open topology.
+\end{definition}
 
-The functor \(B\mapsto B^*\)  induces an equivalence of categories
+\begin{remark}
+    The functor \(A\mapsto A^*\)  induces an equivalence of categories
 
-\[
-    \{ \text{Torsion abelian groups} \}^{\text{op}}  \cong \{ \text{Profinite abelian groups}, \}
-\]
+    \[
+        \{ \text{Torsion abelian groups} \}^{\text{op}}  \cong \{ \text{Profinite abelian groups}, \}
+    \]
 
-as a special case of Pontryagin duality for locally compact abelian groups.
+    as a special case of Pontryagin duality for locally compact abelian groups.
+    For a finite abelian group \(A\), the structure theorem yields a (non-canonical) isomorphism \(A\Iso A^*\), and by cardinality considerations we have the canonical isomorphism
+    \begin{align*}
+        A & \Iso A^{**}                           \\
+        b & \mapsto \left( f\mapsto f(b) \right).
+    \end{align*}
 
-Indeed, for a finite abelian group \(B\), the structure theorem yields a (non-canonical) isomorphism \(B\Iso B^*\), so that by cardinality considerations we have the canonical isomorphism
-\begin{align*}
-    B & \Iso B^{**}                           \\
-    b & \mapsto \left( f\mapsto f(b) \right).
-\end{align*}
+    Generalizing to torsion abelian groups, we can write such an \(A\) as the inductive limit of its finite subgroups \(A_i\) to get
 
-For the generalization to torsion abelian groups, writing such a \(B\) as the inductive limit of its finite subgroups \(B_i\) we obtain
+    \[
+        A^* = \Hom\left(\varinjlim_i A_i,\Q/\Z\right) = \varprojlim_i A_i^*
+    \]
 
-\[
-    B^* = \varprojlim_i B_i^*,
-\]
+    which is a profinite group. Viceversa, if \(G\) is an abelian profinite group, we can write it as the projective limit of its finite quotients \(G_i\), and then
 
-which is profinite, and viceversa if \(G\) is profinite, we can write it as the projective limit of its finite quotients \(G_i\), and then
+    \[
+        G^* = \Hom_{c}\left( \varprojlim_i G_i,\Q/\Z \right) = \varinjlim_i G_i^*
+    \]
 
-\[
-    G^* = \varinjlim_i G_i^*,
-\]
+    which is a torsion group. One then checks that this induces an equivalence of categories.
+\end{remark}
 
-which is a torsion group.
+\subsection{Existence}
 
-and for profinite abelian groups, by the structure theorem we have \(B\Iso B^{**}\).
+Now, given a profinite group \(G\) of finite cohomological dimension \(\cd(G)=n\), denote by \(\Gfmod\) the category of finite discrete \(G\)-modules.
+Then, by the previous remark we have a contravariant left-exact functor
+\begin{align}\label{eq:CohomDual}
+    \Gfmod & \to \Ab                \\
+    A      & \mapsto \H{n}{G}{A}^*:
+\end{align}
+indeed, \(^*\) is an exact functor because it induces an equivalence, and using the long exact sequence we see that the \(n\)-th cohomology functor is right-exact, so their composition is left-exact by contravariance of \(^*\).
 
-Given a profinite group \(G\)  of finite cohomological dimension \(\cd(G)=n<\infty,\)
+The dualizing module is defined through the following theorem, which gives sufficient conditions to the representability of this functor:
 
-\subsubsection{Existence}
-\subsubsection{Computation for p-adic Fields}
+\begin{theorem}\label{thm:DualMod}
+    Let \(G\) be a profinite group of finite cohomological dimension \(\cd(G)=n\) such that \(\H{n}{G}{A}\) is finite for all \(A\in\Gfmod\).
 
-\subsection{Tate Duality}
+    Then, the functor \eqref{eq:CohomDual} is representable in the category \(\Gfmod\): there exists a torsion discrete \(G\)-module \(I\) together with a natural isomorphism
+    \[
+        \Hom_G\left( -,I \right) \simeq \H{n}{G}{-}^*
+    \]
+    of functors \(\Gfmod\to\Ab\). We say that \(I\) is the \textit{dualizing module} of \(G\).
+\end{theorem}
 
-We can now prove the main result: Tate's local duality theorem for p-adic fields.
+The proof uses a lemma from homological algebra, for which we give a basic definition:
+
+\begin{definition}
+    A category \(\mathcal{C}\) is \textit{Noetherian} if:
+    \begin{itemize}
+        \item it is \textit{essentially small} (i.e. it's equivalent to a category whose objects form a set), and
+        \item every object \(C\) of \(\mathcal{C}\) is \textit{Noetherian} (i.e. every ascending chain of subobjects of \(C\) stabilizes).
+    \end{itemize}
+\end{definition}
+
+\begin{lemma}\label{lm:IndRep}
+    Let \(\mathcal{C}\) be a Noetherian Abelian category, and \(F: \mathcal{C}\to\Ab\) a contravariant left-exact functor.
+    Then, \(F\) is \textup{Ind}-representable: there exists a filtered inductive system \((I_j)\) of objects in \(\mathcal{C}\) such that \(F\) is naturally isomorphic to the functor
+    \[A\mapsto \varinjlim_j \Hom(I_j,A).\]
+\end{lemma}
+
+We first show how this implies the existence of the dualizing module:
+
+\begin{proof}[Proof of Theorem \eqref{thm:DualMod}]
+    We apply Lemma \eqref{lm:IndRep} to the functor \(\H{n}{G}{-}^*\), which we have already shown to be left-exact; the category \(\Gfmod\) is Noetherian as it's small and its objects are finite.
+    Thus, we obtain an inductive system \((I_j)\) and a natural isomorphism
+    \[
+        \H{n}{G}{-}^* \simeq \varinjlim_j \Hom(I_j,-).
+    \]
+    Now, define \(I\) to be the inductive limit of the \(I_j\). This is a discrete torsion \(G\)-module, and since \(A\) is finite, we have
+    \[
+        \Hom_G(A,I) \simeq \varinjlim_j \Hom(A,I_j) = \H{n}{G}{A}^*.
+    \]
+\end{proof}
+
+Now we embark on the proof of Lemma \eqref{lm:IndRep}, which is
+due to Grothendieck (in the case of an Artinian category, see section 3 of \cite{Grothendieck}):
+
+\begin{proof}
+
+\end{proof}
+
+\subsection{Computation for p-adic Fields}
+
+\section{Tate Duality}
+
+Before proving Tate's local duality theorem for p-adic fields, we define
+yet another type of duality for finite groups:
 
 \begin{definition}
     Given a field \(\K\), let  $\Gamma$ be its absolute Galois group and $\mu$ the group of all the roots of unity in $\Kx$.
@@ -211,8 +275,8 @@ We can now prove the main result: Tate's local duality theorem for p-adic fields
     \end{equation*}
 \end{theorem}
 \begin{proof}
-    We have already proved the finiteness of all the groups in \eqref{finCohom}.
-    We start from $i=2$, where our computation of the dualizing module pays off: indeed, the content of Lemma \eqref{compDualCup}
+    We have already proved the finiteness of all the groups in \eqref{thm:FinCohom}.
+    We start from $i=2$, where our computation of the dualizing module pays off: indeed, the content of Lemma \eqref{lm:CompatCupDual}
     in this situtation consists of the following commutative diagram
     \begin{equation*}
         \begin{tikzcd}
@@ -233,7 +297,7 @@ We can now prove the main result: Tate's local duality theorem for p-adic fields
     \]
     induced by the cup product is injective, as then applying the same argument to $M^\prime$ gets us surjectivity, since we are working with finite groups.
     To prove injectivity, we first find a finite $\Gamma$-module $B$ fitting in an exact sequence
-    \begin{equation}\label{injSeq}
+    \begin{equation}\label{eq:InjSeq}
         0\to M\to B\to C\to 0
     \end{equation}
     such that the induced map
@@ -241,15 +305,15 @@ We can now prove the main result: Tate's local duality theorem for p-adic fields
         \H{1}{\K}{B}\to\H{1}{\K}{B}
     \]
     is zero:
-    as usual, we start by injecting $M$ in the induced module $\Ind{\Gamma}{M}$ which is torsion, and by the fundamental property \eqref{indLim} we have
+    as usual, we start by injecting $M$ in the induced module $\Ind{\Gamma}{M}$ which is torsion, and by the fundamental property \eqref{thm:IndLim} we have
 
     \[
         0=\H{n}{\K}{\Ind{\Gamma}{M}}=\varinjlim_{\substack{B\subset\Ind{\Gamma}{M} \\B\text{ finite}}}{\H{n}{\K}{B}},
     \]
     which implies the existence of a finite submodule \(B\) with \(\H{n}{\K}{B}=0\). As \(M\) is finite, we can find such a \(B\) which contains \(M\), and then
     the quotient \(C=B/M\) is finite as well.
-    Now, we can relate the long exact sequences in cohomology associated to the short exact sequence \eqref{injSeq}
-    and its dual using the cup product, which gets us the following commutative diagram (up to a sign, by \eqref{compatCup}) with exact rows:
+    Now, we can relate the long exact sequences in cohomology associated with the short exact sequence \eqref{eq:InjSeq}
+    and its dual using the cup product, which gets us the following commutative diagram (up to a sign, by \eqref{prop:CompatCupDiff}) with exact rows:
     \[
         \begin{tikzcd}
             \H{0}{\K}{B} \ar[r] \ar[d, "\cup"] & \H{0}{\K}{C} \ar[r] \ar[d, "\cup"] & \H{1}{\K}{M} \ar[d, "\cup"] \ar[r] & 0 \\
@@ -262,9 +326,9 @@ We can now prove the main result: Tate's local duality theorem for p-adic fields
 
 % Remark: The theorem also holds local fields of positive characteristic and p-torsion-free modules by <ref>
 
-\section{Consequences}
+\chapter{Consequences}
 
-\subsection{Local Class Field Theory}
+\section{Local Class Field Theory}
 
 % As a first application of local duality, we can prove the existence of the Artin map in the local case.
 
