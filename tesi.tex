@@ -1,12 +1,13 @@
-\documentclass[a4paper]{report}
+\documentclass[a4paper, oneside]{memoir}
 
 \usepackage[T1]{fontenc}
-\usepackage[charter]{mathdesign}
+% \usepackage[charter]{mathdesign}
 % many useful symbols
 \usepackage{textcomp}
 \usepackage[english]{babel}
 \usepackage{hyperref}
 \usepackage{amsmath, amsthm}
+\usepackage{amssymb}
 % for \lightning
 \usepackage{stmaryrd}
 \usepackage{geometry}
@@ -14,15 +15,16 @@
 \usepackage{bold-extra}
 % for \coloneqq
 \usepackage{mathtools}
+\chapterstyle{madsen}
 
 % Bibliography
 \usepackage[backend=biber, style=alphabetic]{biblatex}
 \addbibresource{bibliography.bib}
 
+% Have blank lines between paragraphs
+\nonzeroparskip
 % Remove indentation globally
 \setlength{\parindent}{0pt}
-% Have blank lines between paragraphs
-\usepackage[parfill]{parskip}
 
 \hypersetup{
     colorlinks = true, % links instead of boxes
@@ -66,7 +68,7 @@
 
 % use bullets for items
 \renewcommand{\labelitemii}{$\circ$}
-\renewcommand{\Im}{\operatorname{Im}}
+\renewcommand{\Im}{\operatorname{im}}
 
 \newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
 
@@ -83,7 +85,7 @@
 
 \begin{document}
 
-\begin{titlepage}
+\begin{titlingpage}
 
     \begin{figure}[!htb]
         \centering
@@ -97,29 +99,28 @@
         \large{\textsc{Dipartimento di Matematica}}\\
         \large{\textsc{Corso di Laurea Triennale in Matematica}}\\
         \vspace{35mm}
-        {\Huge{\bf Local Tate Duality}}
+        {\Huge{\bfseries Local Tate Duality}}
     \end{center}
     \vspace{45mm}
 
     \begin{minipage}[t]{.5\textwidth}
         {\large{\scshape Candidato}{\normalsize\vspace{3mm}
-                \bf\\ \large{Francesco Minnocci}}}
+                \bfseries\\ \large{Francesco Minnocci}}}
     \end{minipage}
     \hfill
     \begin{minipage}[t]{.5\textwidth}\raggedleft
-        {\large{\scshape Relatore}{\normalsize\vspace{3mm} \bf\\ \large{Támas Szamuely}}}
+        {\large{\scshape Relatore}{\normalsize\vspace{3mm} \bfseries\\ \large{Támas Szamuely}}}
     \end{minipage}
 
     \vspace{30mm}
     \centering{\large{\textsc{Anno Accademico 2023/2024}}}
 
-\end{titlepage}
+\end{titlingpage}
 
 % make TOC
 \tableofcontents
-\newpage
 
-% Notation, introduce as we go? things like Ab
+% TODO Notation, introduce as we go? things like Ab
 
 \chapter*{Introduction}
 \addcontentsline{toc}{section}{Introduction}
@@ -151,7 +152,7 @@ we are going to prove its existence by homological methods and only compute it f
 start by introducing the type of duality we are interested in:
 
 \begin{definition}
-    If \(A\) is an abelian group, we defin \textit{Pontryagin dual} of \(A\) as
+    If \(A\) is an abelian group, we define the \textit{Pontryagin dual} of \(A\) as
 
     \[
         A^*\coloneqq \Hom_{c}(A,\Q/\Z)
@@ -185,7 +186,7 @@ start by introducing the type of duality we are interested in:
         G^* = \Hom_{c}\left( \varprojlim_i G_i,\Q/\Z \right) = \varinjlim_i G_i^*
     \]
 
-    which is a torsion group. One then checks that this induces an equivalence of categories.
+    which is a torsion group. One then checks that this actually induces an equivalence of categories, for which we refer to \cite{RibesZalesskii}, \S 2.9.
 \end{remark}
 
 \subsection{Existence}
@@ -234,17 +235,42 @@ We first show how this implies the existence of the dualizing module:
     \[
         \H{n}{G}{-}^* \simeq \varinjlim_j \Hom(I_j,-).
     \]
-    Now, define \(I\) to be the inductive limit of the \(I_j\). This is a discrete torsion \(G\)-module, and since \(A\) is finite, we have
+    Now, set \(I\coloneqq \varinjlim_j I_j\). This is a discrete torsion \(G\)-module, and since \(A\) is finite we get
     \[
         \Hom_G(A,I) \simeq \varinjlim_j \Hom(A,I_j) = \H{n}{G}{A}^*.
     \]
 \end{proof}
 
-Now we embark on the proof of Lemma \eqref{lm:IndRep}, which is
-due to Grothendieck (in the case of an Artinian category, see section 3 of \cite{Grothendieck}):
+Let us embark on the proof of Lemma \eqref{lm:IndRep}, which is
+due to Grothendieck (in the case of an Artinian category, see \cite{Grothendieck} \S 3):
 
 \begin{proof}
+    A pair \((A,x)\), for \(A\) in \(\mathcal{C}\) and \(x\) in \(F(A)\), is called
+    \textbf{minimal} if \(x\notin F(B)\) for each surjection \(B\twoheadrightarrow A\) with a non-trivial kernel. This makes sense because \(F\) is left-exact, so we can view \(F(B)\) as a subobject of \(F(A)\) (we shall use this repeatedly in the following).
 
+    Given two pairs \((A,x)\) and \((B,y)\), we say that \((A,x)\) \textbf{dominates} \((B,y)\) if there is a morphism \(p:A\to B\) such that \(F(p)(y)=x\).
+
+    Using the Noetherian hypothesis, we can show that every pair \((A,x)\) is dominated by a minimal pair: to construct it, consider the poset \(\Sigma\) of all subjobects \(A_0 \subset A\) such that \((A/A_0,y)\) dominates \((A,x)\) for some \(y\in F(A/A_0)\)  through the projection morphism \(p:\,A\twoheadrightarrow A/A_0\).
+    Taking \(A_0=0\) and \(y=x\) shows that \(\Sigma\) is non-empty: indeed, \(p=\operatorname{id}_A\) and \(F(p)(y)=\operatorname{id}_{F(A)}(y)=x\). Then, by the Noetherian condition \(\Sigma\) admits a maximal element \(A_0\), and we show that \((A/A_0,y)\) is a minimal pair: given \(p^{\prime} :B\twoheadrightarrow A_0\) with \(\ker(p^{\prime})\neq 0\), if \(y\) is in \(F(B)\) we can consider the pair \((B,y)\) and the morphism \(q\coloneqq p^{\prime} \circ p: A\twoheadrightarrow B\). Then, \((B,y)\) dominates \((A,x)\) since
+    \[F(q)(y)=F(p)(F(p^{\prime} )(y))=F(p)(y),\]  but then \(B= (A/A_0)/\ker(p^{\prime})\) is a quotient of \(A\) which contradicts the maximality of \(A_0\).
+
+    Furthermore, if \((A,x)\) is dominated by a minimal pair \((B,y)\), we claim that there is a \textit{unique} morphism \(p:A\to B\) such that \(F(p)(y)=x\).
+    Indeed, let \(q:A\to B\) be a morphism with \(F(q)(y)=x\), then \[F(p-q)(y)= 0.\]
+    Moreover, the surjection \(A\twoheadrightarrow\Im(p-q)\) induces an injective morphism \(F(\Im(p-q))\hookrightarrow F(A)\), and composing it with the inclusion \(i: \Im(p-q)\hookrightarrow A\) we get a morphism \[F(B)\overset{F(i)}{\to} F(\Im(p-q))\hookrightarrow F(A)\] which sends \(y\) to \(0\), and conclude that \(x\in\ker(F(i))\).
+
+    Finally, taking \(C\) to be the cokernel of \((p-q)\) yields an exact sequence
+    \begin{equation}\label{eq:MinSeq}
+        0\to\Im(p-q)\overset{i}{\to} B\to C\to 0
+    \end{equation}
+    which in turn induces an exact sequence
+    \[0\to F(C)\to F(B) \to F(\Im(p-q)),\]
+    which shows that \(\ker(F(i))=F(C)\), so \(x\) is contained in \(F(C)\). However, by minimality of \((B,y)\) the second
+    map in \eqref{eq:MinSeq} is an isomorphism, which means that \(p=q\).
+
+    Now, we introduce an order on the set of minimal pairs by setting \((A,x)\leq (B,y)\) if \((A,x)\) dominates \((B,y)\), which defines an inductive system \((I_j,x_j)\) since any two minimal pairs \((I_j,x_j)\) and \((I_k,x_k)\) are dominated by their direct sum \(\left(I_j\oplus I_k,(x_j,x_k)\right)\), which is itself dominated by a minimal pair.
+
+
+    % and we are done.
 \end{proof}
 
 \subsection{Computation for p-adic Fields}
@@ -288,7 +314,7 @@ yet another type of duality for finite groups:
     \[
         i = \langle \operatorname{Id}_{\Q/\Z}, - \rangle : \H{2}{\K}{\mu} \Iso \Q/\Z,
     \]
-    which concludes as $\langle -{,}- \rangle_M$ is the perfect pairing given by the dualizing module.
+    from which the conclusion follows as $\langle -{,}- \rangle_M$ is the perfect pairing given by the dualizing module.
 
     The case $i=0$ then follows by symmetry, as any finite $M$ can be identified with its double dual $M''$.
     We are now left with $i=1$: here it's enough to show that the map
@@ -324,7 +350,7 @@ yet another type of duality for finite groups:
 
 \end{proof}
 
-% Remark: The theorem also holds local fields of positive characteristic and p-torsion-free modules by <ref>
+% TODO Remark: The theorem also holds local fields of positive characteristic and p-torsion-free modules by <ref>
 
 \chapter{Consequences}
 
