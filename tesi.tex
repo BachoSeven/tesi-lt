@@ -1,13 +1,12 @@
 \documentclass[a4paper, oneside]{memoir}
 
 \usepackage[T1]{fontenc}
-% \usepackage[charter]{mathdesign}
+\usepackage{mlmodern}
 % many useful symbols
 \usepackage{textcomp}
 \usepackage[english]{babel}
 \usepackage{hyperref}
-\usepackage{amsmath, amsthm}
-\usepackage{amssymb}
+\usepackage{amsmath, amsthm, amssymb}
 % for \lightning
 \usepackage{stmaryrd}
 \usepackage{geometry}
@@ -177,16 +176,16 @@ start by introducing the type of duality we are interested in:
     Generalizing to torsion abelian groups, we can write such an \(A\) as the inductive limit of its finite subgroups \(A_i\) to get
 
     \[
-        A^* = \Hom\left(\varinjlim_i A_i,\Q/\Z\right) = \varprojlim_i A_i^*
+        A^* = \Hom(\varinjlim_i A_i,\Q/\Z) = \varprojlim_i A_i^*,
     \]
 
     which is a profinite group. Viceversa, if \(G\) is an abelian profinite group, we can write it as the projective limit of its finite quotients \(G_i\), and then
 
     \[
-        G^* = \Hom_{c}\left( \varprojlim_i G_i,\Q/\Z \right) = \varinjlim_i G_i^*
+        G^* = \Hom_{c}( \varprojlim_i G_i,\Q/\Z ) = \varinjlim_i G_i^*
     \]
 
-    which is a torsion group. One then checks that this actually induces an equivalence of categories, for which we refer to \cite{RibesZalesskii}, \S 2.9.
+    is a torsion group. One checks that this actually induces an equivalence of categories, for which we refer to \cite{RibesZalesskii}, \S 2.9.
 \end{remark}
 
 \subsection{Existence}
