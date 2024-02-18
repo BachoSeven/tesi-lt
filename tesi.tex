@@ -223,7 +223,7 @@ The proof uses a lemma from homological algebra, for which we give a basic defin
 \begin{lemma}\label{lm:IndRep}
     Let \(\mathcal{C}\) be a Noetherian Abelian category, and \(F: \mathcal{C}\to\Ab\) a contravariant left-exact functor.
     Then, \(F\) is \textup{Ind}-representable: there exists a filtered inductive system \((I_j)\) of objects in \(\mathcal{C}\) such that \(F\) is naturally isomorphic to the functor
-    \[A\mapsto \varinjlim_j \Hom(I_j,A).\]
+    \[A\mapsto \varinjlim_j \Hom(A, I_j).\]
 \end{lemma}
 
 We first show how this implies the existence of the dualizing module:
@@ -232,7 +232,7 @@ We first show how this implies the existence of the dualizing module:
     We apply Lemma \eqref{lm:IndRep} to the functor \(\H{n}{G}{-}^*\), which we have already shown to be left-exact; the category \(\Gfmod\) is Noetherian as it's small and its objects are finite.
     Thus, we obtain an inductive system \((I_j)\) and a natural isomorphism
     \[
-        \H{n}{G}{-}^* \simeq \varinjlim_j \Hom(I_j,-).
+        \H{n}{G}{-}^* \simeq \varinjlim_j \Hom(-,I_j).
     \]
     Now, set \(I\coloneqq \varinjlim_j I_j\). This is a discrete torsion \(G\)-module, and since \(A\) is finite we get
     \[
@@ -245,7 +245,7 @@ due to Grothendieck (in the case of an Artinian category, see \cite{Grothendieck
 
 \begin{proof}
     A pair \((A,x)\), for \(A\) in \(\mathcal{C}\) and \(x\) in \(F(A)\), is called
-    \textbf{minimal} if \(x\notin F(B)\) for each surjection \(B\twoheadrightarrow A\) with a non-trivial kernel. This makes sense because \(F\) is left-exact, so we can view \(F(B)\) as a subobject of \(F(A)\) (we shall use this repeatedly in the following).
+    \textbf{minimal} if \(x\notin F(B)\) for each surjection \(B\twoheadrightarrow A\) with a non-trivial kernel. This makes sense as for \(F\) left-exact we can view \(F(B)\) as a subobject of \(F(A)\); we shall use this repeatedly in the following.
 
     Given two pairs \((A,x)\) and \((B,y)\), we say that \((A,x)\) \textbf{dominates} \((B,y)\) if there is a morphism \(p:A\to B\) such that \(F(p)(y)=x\).
 
@@ -266,11 +266,29 @@ due to Grothendieck (in the case of an Artinian category, see \cite{Grothendieck
     which shows that \(\ker(F(i))=F(C)\), so \(x\) is contained in \(F(C)\). However, by minimality of \((B,y)\) the second
     map in \eqref{eq:MinSeq} is an isomorphism, which means that \(p=q\).
 
-    Now, we introduce an order on the set of minimal pairs by setting \((A,x)\leq (B,y)\) if \((A,x)\) dominates \((B,y)\), which defines an inductive system \((I_j,x_j)\) since any two minimal pairs \((I_j,x_j)\) and \((I_k,x_k)\) are dominated by their direct sum \(\left(I_j\oplus I_k,(x_j,x_k)\right)\), which is itself dominated by a minimal pair.
+    The set of minimal pairs can be ordered by setting \((A,x)\leq (B,y)\) if \((A,x)\) dominates \((B,y)\). This defines an inductive system \((I_j,x_j)\), as any two minimal pairs \((I_j,x_j)\) and \((I_k,x_k)\) are dominated by their direct sum \(\left(I_j\oplus I_k,(x_j,x_k)\right)\), which is itself dominated by a minimal pair.
 
+    We thus get a canonical element \(x\coloneqq (x_j)\) of \(F(I)\coloneqq \varprojlim_j F(I_j)\), which we use to define a homomorphism
 
-    % and we are done.
+    \[
+        \phi: \; \varinjlim_j \Hom(A,I_j)\longrightarrow F(A),
+    \]
+
+    by sending \(f\coloneqq (f_j)\) to \(F(f)(x)\). This is well defined because \(\Hom\) preserves limits, and so
+    \[
+        F(f)\in\varinjlim_j{\Hom(F(I_j),F(A))}=\Hom(F(I),F(A)).
+    \]
+
+    Finally, we show that \(\phi\) is an isomorphism: if \((f_j)\) is sent to \(0\), then for any \(j\) the two morphisms
+    \[
+        F(f_j), F(0):\; F(I_j) \to F(A)
+    \]
+    both send \(x_j\) to \(0.\) Since \((I_j,x_j)\) is a minimal a pair which dominates \((A,0)\), we deduce that \(f_j\) must be the zero morphism, and by arbitrariety of \(j\) we get injectivity.
+
+    For surjectivity, given any \(y\in F(A)\) we know that \((A,y)\) is dominated by a minimal pair \((I_j,x_j),\) so there is a unique \(f_j:\, A\to I_j\) satisfying \(F(f_j)(x_j)=y.\) Then, the limit of the \(f_j\) is sent by \(\phi\) to \(y,\) and we are done.
 \end{proof}
+
+
 
 \subsection{Computation for p-adic Fields}
 
