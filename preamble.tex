@@ -1,0 +1,83 @@
+\usepackage[T1]{fontenc}
+\usepackage{mlmodern}
+% many useful symbols
+\usepackage{textcomp}
+\usepackage[english]{babel}
+\usepackage{hyperref}
+\usepackage{amsmath, amsthm, amssymb}
+% for \lightning
+\usepackage{stmaryrd}
+\usepackage{geometry}
+\usepackage{tikz-cd}
+\usepackage{bold-extra}
+% for \coloneqq
+\usepackage{mathtools}
+
+% Bibliography
+\usepackage[backend=biber, style=alphabetic]{biblatex}
+\addbibresource{bibliography.bib}
+
+% Have blank lines between paragraphs
+\nonzeroparskip
+% Remove indentation globally
+\setlength{\parindent}{0pt}
+
+\hypersetup{
+    colorlinks = true, % links instead of boxes
+    urlcolor   = cyan, % external hyperlinks
+    linkcolor  = blue, % internal links
+    citecolor  = cyan   % citations
+}
+
+% Definitions
+\def\R{\mathbb{R}}
+\def\C{\mathbb{C}}
+\def\Q{\mathbb{Q}}
+\def\N{\mathbb{N}}
+\def\Z{\mathbb{Z}}
+\def\K{K}
+\def\Kx{\overline{\K}^\times}
+\def\Qp{\mathbb{Q}_p}
+\def\Zp{\mathbb{Z}_p}
+\def\Gmod{\mathsf{Mod}_\mathsf{G}}
+\def\Hmod{\mathsf{Mod}_\mathsf{H}}
+\def\GHmod{\mathsf{Mod}_{\mathsf{G}/\mathsf{H}}}
+\def\Gfmod{\mathsf{Mod}_{\mathsf{G}}^f}
+\def\Ab{\mathsf{Ab}}
+
+% Operators
+\newcommand{\Gal}[1]{\mathrm{Gal}\left( #1^sep/#1 \right)}
+\newcommand{\Aut}[1]{\mathrm{Aut}\left( #1 \right)}
+\renewcommand{\H}[3]{H^{#1}( #2, \, #3 )}
+\newcommand{\HH}[2]{H^2(#1, \, #2 )}
+\newcommand{\Ind}[2]{\mathrm{I}_{#1}(#2)}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Res}{\mathtt{res}}
+\DeclareMathOperator{\Cor}{\mathtt{cor}}
+\DeclareMathOperator{\Inf}{\mathtt{inf}}
+\DeclareMathOperator{\cd}{cd}
+\DeclareMathOperator{\coker}{Coker}
+
+
+\newcommand\Iso{\xrightarrow{
+        \,\smash{\raisebox{-0.65ex}{\ensuremath{\scriptstyle\sim}}}\,}}
+
+% use bullets for items
+\renewcommand{\labelitemii}{$\circ$}
+\renewcommand{\Im}{\operatorname{im}}
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\chapterstyle{madsen}

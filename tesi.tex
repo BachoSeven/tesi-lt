@@ -1,86 +1,7 @@
+% remove the oneside option for printing
 \documentclass[a4paper, oneside]{memoir}
 
-\usepackage[T1]{fontenc}
-\usepackage{mlmodern}
-% many useful symbols
-\usepackage{textcomp}
-\usepackage[english]{babel}
-\usepackage{hyperref}
-\usepackage{amsmath, amsthm, amssymb}
-% for \lightning
-\usepackage{stmaryrd}
-\usepackage{geometry}
-\usepackage{tikz-cd}
-\usepackage{bold-extra}
-% for \coloneqq
-\usepackage{mathtools}
-\chapterstyle{madsen}
-
-% Bibliography
-\usepackage[backend=biber, style=alphabetic]{biblatex}
-\addbibresource{bibliography.bib}
-
-% Have blank lines between paragraphs
-\nonzeroparskip
-% Remove indentation globally
-\setlength{\parindent}{0pt}
-
-\hypersetup{
-    colorlinks = true, % links instead of boxes
-    urlcolor   = cyan, % external hyperlinks
-    linkcolor  = blue, % internal links
-    citecolor  = cyan   % citations
-}
-
-% Definitions
-\def\R{\mathbb{R}}
-\def\C{\mathbb{C}}
-\def\Q{\mathbb{Q}}
-\def\N{\mathbb{N}}
-\def\Z{\mathbb{Z}}
-\def\K{K}
-\def\Kx{\overline{\K}^\times}
-\def\Qp{\mathbb{Q}_p}
-\def\Zp{\mathbb{Z}_p}
-\def\Gmod{\mathsf{Mod}_\mathsf{G}}
-\def\Hmod{\mathsf{Mod}_\mathsf{H}}
-\def\GHmod{\mathsf{Mod}_{\mathsf{G}/\mathsf{H}}}
-\def\Gfmod{\mathsf{Mod}_{\mathsf{G}}^f}
-\def\Ab{\mathsf{Ab}}
-
-% Operators
-\newcommand{\Gal}[1]{\mathrm{Gal}\left( #1^sep/#1 \right)}
-\newcommand{\Aut}[1]{\mathrm{Aut}\left( #1 \right)}
-\renewcommand{\H}[3]{H^{#1}( #2, \, #3 )}
-\newcommand{\HH}[2]{H^2 #1, \, #2 )}
-\newcommand{\Ind}[2]{\mathrm{I}_{#1}(#2)}
-\DeclareMathOperator{\Hom}{Hom}
-\DeclareMathOperator{\Res}{\mathtt{res}}
-\DeclareMathOperator{\Cor}{\mathtt{cor}}
-\DeclareMathOperator{\Inf}{\mathtt{inf}}
-\DeclareMathOperator{\cd}{cd}
-\DeclareMathOperator{\coker}{Coker}
-
-
-\newcommand\Iso{\xrightarrow{
-   \,\smash{\raisebox{-0.65ex}{\ensuremath{\scriptstyle\sim}}}\,}}
-
-% use bullets for items
-\renewcommand{\labelitemii}{$\circ$}
-\renewcommand{\Im}{\operatorname{im}}
-
-\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
-
-\theoremstyle{plain}
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{lemma}[theorem]{Lemma}
-
-\theoremstyle{definition}
-\newtheorem{definition}[theorem]{Definition}
-\newtheorem{example}[theorem]{Example}
-
-\theoremstyle{remark}
-\newtheorem*{remark}{Remark}
+\include{preamble}
 
 \begin{document}
 
@@ -143,6 +64,7 @@
 \chapter{Local Duality}
 
 \section{Cup Product}
+% TODO: define pairings
 
 \section{Dualizing Module}
 
@@ -204,11 +126,15 @@ The dualizing module is defined through the following theorem, which gives suffi
     Let \(G\) be a profinite group of finite cohomological dimension \(\cd(G)=n\) such that \(\H{n}{G}{A}\) is finite for all \(A\in\Gfmod\).
 
     Then, the functor \eqref{eq:CohomDual} is representable in the category \(\Gfmod\): there exists a torsion discrete \(G\)-module \(I\) together with a natural isomorphism
-    \[
+    \begin{equation}\label{eq:funcIso}
         \Hom_G\left( -,I \right) \simeq \H{n}{G}{-}^*
-    \]
-    of functors \(\Gfmod\to\Ab\). We say that \(I\) is the \textit{dualizing module} of \(G\).
+    \end{equation}
+    of functors \(\Gfmod\to\Ab\).
 \end{theorem}
+
+\begin{definition}
+    In the situation of Theorem \eqref{thm:DualMod}, \(I\) is called the \textit{dualizing module} of \(G\).
+\end{definition}
 
 The proof uses a lemma from homological algebra, for which we give a basic definition:
 
@@ -227,22 +153,33 @@ The proof uses a lemma from homological algebra, for which we give a basic defin
 \end{lemma}
 
 We first show how this implies the existence of the dualizing module:
-
 \begin{proof}[Proof of Theorem \eqref{thm:DualMod}]
     We apply Lemma \eqref{lm:IndRep} to the functor \(\H{n}{G}{-}^*\), which we have already shown to be left-exact; the category \(\Gfmod\) is Noetherian as it's small and its objects are finite.
     Thus, we obtain an inductive system \((I_j)\) and a natural isomorphism
     \[
         \H{n}{G}{-}^* \simeq \varinjlim_j \Hom(-,I_j).
     \]
-    Now, set \(I\coloneqq \varinjlim_j I_j\). This is a discrete torsion \(G\)-module, and since \(A\) is finite we get
-    \[
-        \Hom_G(A,I) \simeq \varinjlim_j \Hom(A,I_j) = \H{n}{G}{A}^*.
-    \]
+    Now, set \(I\coloneqq \varinjlim_j I_j\). This is a discrete torsion \(G\)-module, and since \(A\) is finite we conclude:
+    \begin{align*}
+        \Hom_G(A,I) & \simeq \varinjlim_j \Hom(A,I_j) \\
+                    & = \H{n}{G}{A}^*.
+    \end{align*}
 \end{proof}
 
-Let us embark on the proof of Lemma \eqref{lm:IndRep}, which is
-due to Grothendieck (in the case of an Artinian category, see \cite{Grothendieck} \S 3):
+\begin{remark}\label{rm:torsion}
+    We can generalize Theorem \eqref{thm:DualMod} to discrete torsion \(G\)-modules, just by writing such an \(A\) as the inductive limit of its finite submodules \(A=\displaystyle\varinjlim_{\substack{B\subset A \\B\text{ finite}}}{B}\):
+    \begin{align*}
+        \H{n}{G}{A}^* & =\varprojlim \H{n}{G}{B}^*     \\
+                      & \simeq \varprojlim \Hom_G(B,I) \\
+                      & = \Hom_G(A,I).
+    \end{align*}
+\end{remark}
+\begin{remark}\label{rm:pTorsion}
+    If we only consider profinite groups \(G\) of finite \(p\)-cohomological dimension \(\cd_p(G)=n\), the analogue of Theorem \eqref{thm:DualMod} holds with the same proof, provided we restrict ourselves to \(p\)-primary torsion modules (as the \(n\)-th cohomology functor is right-exact on the corresponding subcategory)
+\end{remark}
 
+Let us now embark on the proof of Lemma \eqref{lm:IndRep}, which is
+due to Grothendieck (in the case of an Artinian category, see \cite{Grothendieck} \S 3):
 \begin{proof}
     A pair \((A,x)\), for \(A\) in \(\mathcal{C}\) and \(x\) in \(F(A)\), is called
     \textbf{minimal} if \(x\notin F(B)\) for each surjection \(B\twoheadrightarrow A\) with a non-trivial kernel. This makes sense as for \(F\) left-exact we can view \(F(B)\) as a subobject of \(F(A)\); we shall use this repeatedly in the following.
@@ -268,7 +205,7 @@ due to Grothendieck (in the case of an Artinian category, see \cite{Grothendieck
 
     The set of minimal pairs can be ordered by setting \((A,x)\leq (B,y)\) if \((A,x)\) dominates \((B,y)\). This defines an inductive system \((I_j,x_j)\), as any two minimal pairs \((I_j,x_j)\) and \((I_k,x_k)\) are dominated by their direct sum \(\left(I_j\oplus I_k,(x_j,x_k)\right)\), which is itself dominated by a minimal pair.
 
-    We thus get a canonical element \(x\coloneqq (x_j)\) of \(F(I)\coloneqq \varprojlim_j F(I_j)\), which we use to define a homomorphism
+    We thus get a canonical element \(x\coloneqq (x_j)\) of \(F(I)\coloneqq \varprojlim_j F(I_j)\), which we use to define a functorial homomorphism
 
     \[
         \phi: \; \varinjlim_j \Hom(A,I_j)\longrightarrow F(A),
@@ -289,6 +226,73 @@ due to Grothendieck (in the case of an Artinian category, see \cite{Grothendieck
 \end{proof}
 
 
+\begin{remark}
+    We can view the functorial isomorphism \eqref{eq:funcIso} as a \textbf{perfect pairing} of \textit{torsion} groups (in light of Remark \eqref{rm:torsion}):
+    \[
+        \langle-,-\rangle_A:\,\Hom_G(A,I)\times\H{n}{G}{A}\longrightarrow\Q /\Z.
+    \]
+\end{remark}
+
+\begin{definition}
+    For any \(G\)-module \(A\) , we define the \textit{Cartier dual} of \(A\) as
+    \[
+        A^{\prime}\coloneqq \Hom_\Z(A,I),
+    \]
+    which we make into a \(G\)-module by setting
+    \[
+        (\sigma\cdot f)(a)=\sigma(f(\sigma^{-1}\cdot a)).
+    \]
+
+    This yields a pairing
+    \begin{align*}
+        A^\prime\times A & \to I         \\
+        (f,a)            & \mapsto f(a),
+    \end{align*}
+    and thus a cup product
+    \[
+        \H{0}{G}{A^\prime}\times\H{n}{G}{A}\overset{\cup}{\longrightarrow}\H{n}{G}{I}.
+    \]
+
+    This is related to the dual of cohomology by
+    \[
+        \H{0}{G}{A^{\prime}} = \Hom_G(A,I):
+    \]
+    indeed, \(\H{0}{G}{A^{\prime} }\) are the \(G\)-invariants of \(A^{\prime} = \Hom_\Z(A,I)\), so that
+    \[
+        \H{0}{G}{A^{\prime}} = (\Hom_\Z(A,I))^G = \Hom_G(A,I).
+    \]
+\end{definition}
+
+We will need the following compatibility of the cup product with the pairing pairing:
+
+\begin{proposition}\label{prop:CompatCupDiff}
+    In the situation of the previous definition, the pairing \(\langle-,- \rangle_A\) factors through the cup product and the homomorphism \(i: \H{n}{G}{I}\to \Q/\Z\), i.e. the following diagram commutes:
+    \begin{equation*}
+        \begin{tikzcd}
+            {\H{0}{G}{A^\prime}  \times \H{n}{G}{A}} \ar[swap, rd, "\langle - {,} - \rangle_A "] \ar[r, "\cup"] & \H{n}{G}{I} \ar[d, "i"] \\
+            & \Q/\Z.
+        \end{tikzcd}
+    \end{equation*}
+\end{proposition}
+
+\begin{proof}
+    Fix a morphism \(f\in\Hom_G(A,I)\). This induces a morphism in cohomology
+    \[
+        f^*:\, \H{n}{G}{A}\to\H{n}{G}{I},
+    \]
+    and by composition on the left a morphism
+    \[
+        f_*:\, \Hom_G(I,I)\to\Hom_G(A,I)
+    \]
+    by composition. Now, writing out the functorality of the dualizing module gives the following commutative diagram:
+    \begin{equation*}
+        \begin{tikzcd}
+            \Hom_G(A,I) & \times & \H{n}{G}{A} \ar[r, "\langle - {,} - \rangle_A "] \ar[d, "f_*] & \Q/\Z \ar[d, equal] \\
+            \Hom_G(I,I) & \times & \H{n}{G}{I} \ar[u, "f^*] \ar[r, "\langle - {,} - \rangle_I "] & \Q/\Z
+        \end{tikzcd}
+    \end{equation*}
+    % The commutativity of the diagram follows from the definition of the cup product and the pairing, and the fact that the cup product is natural in the second variable.
+\end{proof}
 
 \subsection{Computation for p-adic Fields}
 
@@ -329,9 +333,9 @@ yet another type of duality for finite groups:
     \end{equation*}
     where
     \[
-        i = \langle \operatorname{Id}_{\Q/\Z}, - \rangle : \H{2}{\K}{\mu} \Iso \Q/\Z,
+        i = \langle \operatorname{Id}_{\Q/\Z}, - \rangle : \H{2}{\K}{\mu} \Iso \Q/\Z.
     \]
-    from which the conclusion follows as $\langle -{,}- \rangle_M$ is the perfect pairing given by the dualizing module.
+    Since \(\langle -{,}- \rangle_M\) is a perfect pairing, we are done.
 
     The case $i=0$ then follows by symmetry, as any finite $M$ can be identified with its double dual $M''$.
     We are now left with $i=1$: here it's enough to show that the map
@@ -373,7 +377,7 @@ yet another type of duality for finite groups:
 
 \section{Local Class Field Theory}
 
-% As a first application of local duality, we can prove the existence of the Artin map in the local case.
+% For the chain of isomorphisms, need: remark that the bidual of a (non-necessarily abelian) profinite group is isomorphic to the original group.
 
 \nocite{*}
 \printbibliography
