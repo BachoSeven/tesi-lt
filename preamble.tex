@@ -7,20 +7,22 @@
 \usepackage{amsmath, amsthm, amssymb}
 % for \lightning
 \usepackage{stmaryrd}
+\usepackage{color}
 \usepackage{geometry}
 \usepackage{tikz-cd}
 \usepackage{bold-extra}
 % for \coloneqq
 \usepackage{mathtools}
+\usepackage[capitalise]{cleveref}
 
 % Bibliography
 \usepackage[backend=biber, style=alphabetic]{biblatex}
 \addbibresource{bibliography.bib}
 
-% Have blank lines between paragraphs
-\nonzeroparskip
-% Remove indentation globally
-\setlength{\parindent}{0pt}
+% remove citations
+\renewcommand{\cite}[1]{#1}
+\renewcommand{\nocite}[1]{}
+\def\printbibliography{}
 
 \hypersetup{
     colorlinks = true, % links instead of boxes
@@ -28,6 +30,26 @@
     linkcolor  = blue, % internal links
     citecolor  = cyan   % citations
 }
+
+% Highlight missing references in red
+\makeatletter
+\def\@setref#1#2#3{% csname, extract group, refname
+    \ifx#1\relax
+        \protect\G@refundefinedtrue
+        \nfss@text{\reset@font\bfseries\textcolor{red}{#3}}%
+        \@latex@warning{%
+            Reference `#3' on page \thepage \space undefined%
+        }%
+    \else
+        \expandafter\Hy@setref@link#1\@empty\@empty\@empty\@nil{#2}%
+    \fi
+}
+\makeatother
+
+% Have blank lines between paragraphs
+\nonzeroparskip
+% Remove indentation globally
+\setlength{\parindent}{0pt}
 
 % Definitions
 \def\R{\mathbb{R}}
@@ -39,6 +61,7 @@
 \def\Kx{\overline{\K}^\times}
 \def\Qp{\mathbb{Q}_p}
 \def\Zp{\mathbb{Z}_p}
+\def\Zn{\mathbb{Z}/n\mathbb{Z}}
 \def\Gmod{\mathsf{Mod}_\mathsf{G}}
 \def\Hmod{\mathsf{Mod}_\mathsf{H}}
 \def\GHmod{\mathsf{Mod}_{\mathsf{G}/\mathsf{H}}}
@@ -51,13 +74,14 @@
 \renewcommand{\H}[3]{H^{#1}( #2, \, #3 )}
 \newcommand{\HH}[2]{H^2(#1, \, #2 )}
 \newcommand{\Ind}[2]{\mathrm{I}_{#1}(#2)}
+\newcommand{\ZG}[1]{\Z[#1]}
+\newcommand{\Br}[1]{\mathrm{Br}(#1)}
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\Res}{\mathtt{res}}
 \DeclareMathOperator{\Cor}{\mathtt{cor}}
 \DeclareMathOperator{\Inf}{\mathtt{inf}}
 \DeclareMathOperator{\cd}{cd}
 \DeclareMathOperator{\coker}{Coker}
-
 
 \newcommand\Iso{\xrightarrow{
         \,\smash{\raisebox{-0.65ex}{\ensuremath{\scriptstyle\sim}}}\,}}
@@ -72,6 +96,7 @@
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
 
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}

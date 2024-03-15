@@ -64,7 +64,7 @@
 \chapter{Local Duality}
 
 \section{Cup Product}
-% TODO: define pairings
+% TODO: define pairings, cup product, compatibility
 
 \section{Dualizing Module}
 
@@ -126,14 +126,14 @@ The dualizing module is defined through the following theorem, which gives suffi
     Let \(G\) be a profinite group of finite cohomological dimension \(\cd(G)=n\) such that \(\H{n}{G}{A}\) is finite for all \(A\in\Gfmod\).
 
     Then, the functor \eqref{eq:CohomDual} is representable in the category \(\Gfmod\): there exists a torsion discrete \(G\)-module \(I\) together with a natural isomorphism
-    \begin{equation}\label{eq:funcIso}
+    \begin{equation}\label{eq:FuncIso}
         \Hom_G\left( -,I \right) \simeq \H{n}{G}{-}^*
     \end{equation}
     of functors \(\Gfmod\to\Ab\).
 \end{theorem}
 
 \begin{definition}
-    In the situation of Theorem \eqref{thm:DualMod}, \(I\) is called the \textit{dualizing module} of \(G\).
+    In the situation of Theorem \ref{thm:DualMod}, \(I\) is called the \textit{dualizing module} of \(G\).
 \end{definition}
 
 The proof uses a lemma from homological algebra, for which we give a basic definition:
@@ -153,8 +153,8 @@ The proof uses a lemma from homological algebra, for which we give a basic defin
 \end{lemma}
 
 We first show how this implies the existence of the dualizing module:
-\begin{proof}[Proof of Theorem \eqref{thm:DualMod}]
-    We apply Lemma \eqref{lm:IndRep} to the functor \(\H{n}{G}{-}^*\), which we have already shown to be left-exact; the category \(\Gfmod\) is Noetherian as it's small and its objects are finite.
+\begin{proof}[Proof of Theorem \ref{thm:DualMod}]
+    We apply Lemma \ref{lm:IndRep} to the functor \(\H{n}{G}{-}^*\), which we have already shown to be left-exact; the category \(\Gfmod\) is Noetherian as it's small and its objects are finite.
     Thus, we obtain an inductive system \((I_j)\) and a natural isomorphism
     \[
         \H{n}{G}{-}^* \simeq \varinjlim_j \Hom(-,I_j).
@@ -166,8 +166,8 @@ We first show how this implies the existence of the dualizing module:
     \end{align*}
 \end{proof}
 
-\begin{remark}\label{rm:torsion}
-    We can generalize Theorem \eqref{thm:DualMod} to discrete torsion \(G\)-modules, just by writing such an \(A\) as the inductive limit of its finite submodules \(A=\displaystyle\varinjlim_{\substack{B\subset A \\B\text{ finite}}}{B}\):
+\begin{remark}\label{rm:Torsion}
+    We can generalize Theorem \ref{thm:DualMod} to discrete torsion \(G\)-modules, just by writing such an \(A\) as the inductive limit of its finite submodules \(A=\displaystyle\varinjlim_{\mathclap{\substack{B\subset A \\B\text{ finite}}}}{B}\):
     \begin{align*}
         \H{n}{G}{A}^* & =\varprojlim \H{n}{G}{B}^*     \\
                       & \simeq \varprojlim \Hom_G(B,I) \\
@@ -175,10 +175,10 @@ We first show how this implies the existence of the dualizing module:
     \end{align*}
 \end{remark}
 \begin{remark}\label{rm:pTorsion}
-    If we only consider profinite groups \(G\) of finite \(p\)-cohomological dimension \(\cd_p(G)=n\), the analogue of Theorem \eqref{thm:DualMod} holds with the same proof, provided we restrict ourselves to \(p\)-primary torsion modules (as the \(n\)-th cohomology functor is right-exact on the corresponding subcategory)
+    If we only consider profinite groups of finite \(p\)-cohomological dimension \(n\), the analogue of Theorem \ref{thm:DualMod} holds with the same proof, provided we further restrict ourselves to \(p\)-primary torsion modules (as the \(n\)-th cohomology functor is right-exact on the corresponding subcategory)
 \end{remark}
 
-Let us now embark on the proof of Lemma \eqref{lm:IndRep}, which is
+Let us now embark on the proof of Lemma \ref{lm:IndRep}, which is
 due to Grothendieck (in the case of an Artinian category, see \cite{Grothendieck} \S 3):
 \begin{proof}
     A pair \((A,x)\), for \(A\) in \(\mathcal{C}\) and \(x\) in \(F(A)\), is called
@@ -227,7 +227,7 @@ due to Grothendieck (in the case of an Artinian category, see \cite{Grothendieck
 
 
 \begin{remark}
-    We can view the functorial isomorphism \eqref{eq:funcIso} as a \textbf{perfect pairing} of \textit{torsion} groups (in light of Remark \eqref{rm:torsion}):
+    We can view the functorial isomorphism \eqref{eq:FuncIso} as a \textbf{perfect pairing} of \textit{torsion} groups (in light of Remark \ref{rm:Torsion}, which in particular applies to $A=I$):
     \[
         \langle-,-\rangle_A:\,\Hom_G(A,I)\times\H{n}{G}{A}\longrightarrow\Q /\Z.
     \]
@@ -265,36 +265,144 @@ due to Grothendieck (in the case of an Artinian category, see \cite{Grothendieck
 
 We will need the following compatibility of the cup product with the pairing pairing:
 
-\begin{proposition}\label{prop:CompatCupDiff}
-    In the situation of the previous definition, the pairing \(\langle-,- \rangle_A\) factors through the cup product and the homomorphism \(i: \H{n}{G}{I}\to \Q/\Z\), i.e. the following diagram commutes:
-    \begin{equation*}
+\begin{lemma}\label{lm:CompatCupDual}
+    In the situation of the previous definition, the pairing \(\langle-,- \rangle_A\) factors through the cup product and the homomorphism \(i\coloneqq \langle \operatorname{id}_I,-\rangle_I: \H{n}{G}{I}\to \Q/\Z\), i.e. the following diagram commutes:
+    \[
         \begin{tikzcd}
             {\H{0}{G}{A^\prime}  \times \H{n}{G}{A}} \ar[swap, rd, "\langle - {,} - \rangle_A "] \ar[r, "\cup"] & \H{n}{G}{I} \ar[d, "i"] \\
             & \Q/\Z.
         \end{tikzcd}
-    \end{equation*}
-\end{proposition}
+    \]
+\end{lemma}
 
 \begin{proof}
-    Fix a morphism \(f\in\Hom_G(A,I)\). This induces a morphism in cohomology
+    Any morphism \(f\in\Hom_G(A,I)\) induces a homomorphism in cohomology
     \[
         f^*:\, \H{n}{G}{A}\to\H{n}{G}{I},
     \]
-    and by composition on the left a morphism
+    and by composition on the left a homomorphism
     \[
         f_*:\, \Hom_G(I,I)\to\Hom_G(A,I)
-    \]
-    by composition. Now, writing out the functorality of the dualizing module gives the following commutative diagram:
-    \begin{equation*}
+        .\]
+    Now, writing out the functorality of the dualizing module gives the following commutative diagram:
+    \[
+        \tikzset{
+            symbol/.style={
+                    draw=none,
+                    every to/.append style={
+                            edge node={node [sloped, allow upside down, auto=false]{$#1$}}}
+                }
+        }
         \begin{tikzcd}
-            \Hom_G(A,I) & \times & \H{n}{G}{A} \ar[r, "\langle - {,} - \rangle_A "] \ar[d, "f_*] & \Q/\Z \ar[d, equal] \\
-            \Hom_G(I,I) & \times & \H{n}{G}{I} \ar[u, "f^*] \ar[r, "\langle - {,} - \rangle_I "] & \Q/\Z
+            \Hom_G(A,I) \arrow[r,symbol=\times] &[-2em] \ar[dd, "f^*"] \H{n}{G}{A} \ar[rd, "\langle - {,} - \rangle_A "] &[2em] \\
+            && \Q/\Z \\
+            \Hom_G(I,I)  \arrow[r,symbol=\times] \ar[uu, "f_*"] & \H{n}{G}{I}  \ar[swap, ru, "\langle - {,} - \rangle_I "]
         \end{tikzcd}
-    \end{equation*}
-    % The commutativity of the diagram follows from the definition of the cup product and the pairing, and the fact that the cup product is natural in the second variable.
+    \]
+
+    As remarked in \ref{rm:cup0n}, here the cup product of \(f\in\H{0}{G}{A^{\prime}}\) with some \(\alpha\in\H{n}{G}{A}\) is given by
+    \( f^*(\alpha) \). Since \(f_*\) clearly sends \(\operatorname{id}_I\) to \(f\), the above diagram implies that
+    \[
+        \langle f, \alpha \rangle_A = \langle \operatorname{id}_I, f^*(\alpha)\rangle_I=i(f\cup\alpha).
+    \]
+\end{proof}
+
+\begin{corollary}
+    It follows that the pair \((I,i)\) is unique up to unique isomorphism.
+\end{corollary}
+
+Before moving on to the computation of the dualizing module of the absolute Galois group of a \(p\)-adic field, we need a lemma about dualizing modules of open subgroups:
+
+\begin{lemma}\label{lm:dualOpenSgr}
+    Let \(G\) be a profinite group of finite cohomological dimension \(n\) such that \(\H{n}{G}{A}\) is finite for all \(A\in\Gfmod\). If \(U\subset G\) is an open subgroup and \(I\) is the dualizing module of \(G\), then \(I\) (viewed as an \(U\)-module) is the dualizing module of \(U\), and the homomorphism
+    \[
+        \H{n}{U}{A}\to\H{n}{G}{A}
+    \]
+    defined by dualizing the inclusion \(i:\Hom_G(A,I) \hookrightarrow \Hom_U(A,I) \) is simply the corestriction.
+\end{lemma}
+
+\begin{proof}
+    As \(U\) is open and \(\cd(G)<\infty\), by Proposition \ref{ineqCd} we get \(\cd(U)=\cd(G)\). By uniqueness of the dualizing module, it's enough to show that \(\H{n}{U}{-}^*\simeq\Hom_U(-,I)\), and then the first claim follows from the functorial isomorphisms
+    \begin{align*}
+        \H{n}{U}{A}^* & \simeq \H{n}{G}{\mathrm{I}_G^U(A)}   & \text{(Shapiro)}                               \\
+                      & \simeq \Hom_G(\mathrm{I}_G^U(A),\,I) & \text{($I$ is the dualizing module of $G$)}    \\
+                      & \simeq \Hom_U(A,\,I)                 & \text{(by Proposition \ref{prop:IndLeftAdj})}.
+    \end{align*}
+    For the second claim, recall from remark \ref{rm:Cor} that the corestriction homomorphism is induced by the surjective morphism of \(G\)-modules
+    \[\mathrm{I}_G^U(A) \overset{\pi}{\longrightarrow} A\]
+    defined as
+    \[ \pi(f)= \sum_{g\in G/U}{g\cdot f(g^{-1})}.\]
+    On the other hand, $\pi$ induces a morphism of modules \(\Hom_G(A,I)\overset{\pi_*}{\longrightarrow}\Hom_G(\mathrm{I}_G^U(A),I)\).
+    Using the functoriality of the dualizing module and the Shapiro isomorphism $\operatorname{Sh}$ (\eqref{eq:Shapiro}),
+    we get the following commutative diagram:
+    \[
+        \begin{tikzcd}[column sep=small, row sep=large]
+            \Hom_U(A,I)
+            \rar["\Phi"] &
+            \Hom_G(\mathrm{I}_G^U(A), I)
+            \rar &
+            \H{n}{G}{\mathrm{I}_G^U(A)}^*
+            \rar["(-)^*"]&\H{n}{G}{\mathrm{I}_G^U(A)}
+            \rar["\operatorname{Sh}\ "]
+            \ar[d, "\Cor"]&\H{n}{U}{A}\ar[dl] \\
+            &
+            \Hom_G(A,I) \ar[swap, lu, "i"]
+            \ar[u, "\pi_*"]
+            \rar &
+            \H{n}{G}{A}^*
+            \ar[u,"\pi_n^*"]
+            \rar["(-)^*"] &
+            \H{n}{G}{A} \\
+        \end{tikzcd}
+    \]
+    Here, $\Phi$ is the isomorphism of Proposition \ref{prop:IndLeftAdj},
+    which makes the leftmost triangle commute as
+    \[
+        \pi_*(\varphi)(f) = \varphi\left(\sum\nolimits_{g\in G/U}\;{g\cdot f(g^{-1} )}\right) = \sum\nolimits_{g\in G/U}\;{g\cdot \varphi(f(g^{-1}))} = (\Phi\circ i) (\varphi)(f)
+    \]
+    for any \(\varphi\in\Hom_G(A,I)\) and \(f\in\mathrm{I}_G^U(A)\).
 \end{proof}
 
 \subsection{Computation for p-adic Fields}
+
+Finally, we apply the theory of dualizing modules to the absolute Galois group \(\Gamma\) of a \(p\)-adic field \(\K\): by \ref{thm:CohomFin} we know that \(\cd(\Gamma)=2\), and by \ref{thm:FinCohom} the groups \(\H{2}{\K}{A}\) are finite for any finite \(\Gamma_{\K}\)-module $A$. Thus, by Theorem \ref{thm:DualMod} \(\Gamma\) has a dualizing module \(I\), which we now compute.
+
+\begin{proposition}
+    The dualizing module of \(\Gamma\) is canonically isomorphic to the \(\Gamma\)-module of roots of unity \(\mu\subset\Kx\).
+\end{proposition}
+
+\begin{proof}
+    Let $I_n\coloneqq I[n]$ be the kernel of multiplication by $n$ on $I$, and take an open subgroup $U\subset\Gamma$. By Lemma \ref{lm:dualOpenSgr}, the dualizing module of $U$ is the same as that of $\Gamma$.
+
+    Moreover, by \ref{thm:H2mu} we know that \(\H{2}{U}{\mu_n}^*\simeq\Zn\), and by \ref{thm:padicBrauer} the corestriction $\Br{K^U}\to\Br{K}$ is the identity of $\Q/\Z$.
+
+    Thus, if $U\subset V$ are open subgroups of $\Gamma$, the functoriality of the dualizing module yields the following commutative diagram:
+    \[
+        \begin{tikzcd}
+            \Hom_V(\mu_n,I_n)
+            \ar[d]
+            \ar[r] &
+            \H{2}{V}{\mu_n}^*
+            \ar[d, "\Cor^*=\,\operatorname{id}"]
+            \rar["\sim"] &
+            \Zn
+            \ar[equal, d] \\
+            \Hom_U(\mu_n,I_n)
+            \ar[r] &
+            \H{2}{U}{\mu_n}^*
+            \rar["\sim"] &
+            \Zn,
+        \end{tikzcd}
+    \]
+    where the middle map is the is the corestriction by the second part of Lemma \ref{lm:dualOpenSgr}.
+    This shows that \(\H{2}{U}{\mu_n}\) doesn't depend on \(U\), and by Remark \ref{rm:discGmodUnion} we get
+    \[
+        \Hom_\Z(\mu_n,I_n)=\bigcup_{\mathclap{\substack{U\subset\,\Gamma\\U\text{ open}}}}{\Hom_U(\mu_n,I_n)}\simeq\Zn
+    \]
+    In particular, taking $U$ to be $\Gamma$ tells us that $\Gamma$ acts trivially on $\Hom_\Z(\mu_n,I_n)$, or equivalently that any homomorphism $\mu_n\to I_n$ is $\Gamma$-equivariant.
+
+    Let $f_n$ be the canonical generator of $\Hom_\Z(\mu_n,I_n)$ associated with $1\in\Zn$. Then $f_n$ is injective because it has order $n$, and surjective because otherwise any element outside its image wouldn't be reached by any element of $\langle f_n\rangle=\Hom_\Z(\mu_n,I_n)$, but as $I_n$ has exponent $n$ there are homomorphisms $\mu_n\to I_n$ sending a generator of $\mu_n$ to any element of $I_n$.
+\end{proof}
 
 \section{Tate Duality}
 
@@ -322,8 +430,8 @@ yet another type of duality for finite groups:
     \end{equation*}
 \end{theorem}
 \begin{proof}
-    We have already proved the finiteness of all the groups in \eqref{thm:FinCohom}.
-    We start from $i=2$, where our computation of the dualizing module pays off: indeed, the content of Lemma \eqref{lm:CompatCupDual}
+    We have already proved the finiteness of all the groups in \ref{thm:FinCohom}.
+    We start from $i=2$, where our computation of the dualizing module pays off: indeed, the content of Lemma \ref{lm:CompatCupDual}
     in this situtation consists of the following commutative diagram
     \begin{equation*}
         \begin{tikzcd}
@@ -333,7 +441,7 @@ yet another type of duality for finite groups:
     \end{equation*}
     where
     \[
-        i = \langle \operatorname{Id}_{\Q/\Z}, - \rangle : \H{2}{\K}{\mu} \Iso \Q/\Z.
+        i = \langle \operatorname{id}_{\Q/\Z}, - \rangle : \H{2}{\K}{\mu} \Iso \Q/\Z.
     \]
     Since \(\langle -{,}- \rangle_M\) is a perfect pairing, we are done.
 
@@ -352,7 +460,7 @@ yet another type of duality for finite groups:
         \H{1}{\K}{B}\to\H{1}{\K}{B}
     \]
     is zero:
-    as usual, we start by injecting $M$ in the induced module $\Ind{\Gamma}{M}$ which is torsion, and by the fundamental property \eqref{thm:IndLim} we have
+    as usual, we start by injecting $M$ in the induced module $\Ind{\Gamma}{M}$ which is torsion, and by the fundamental property \ref{thm:IndLim} we have
 
     \[
         0=\H{n}{\K}{\Ind{\Gamma}{M}}=\varinjlim_{\substack{B\subset\Ind{\Gamma}{M} \\B\text{ finite}}}{\H{n}{\K}{B}},
@@ -360,7 +468,7 @@ yet another type of duality for finite groups:
     which implies the existence of a finite submodule \(B\) with \(\H{n}{\K}{B}=0\). As \(M\) is finite, we can find such a \(B\) which contains \(M\), and then
     the quotient \(C=B/M\) is finite as well.
     Now, we can relate the long exact sequences in cohomology associated with the short exact sequence \eqref{eq:InjSeq}
-    and its dual using the cup product, which gets us the following commutative diagram (up to a sign, by \eqref{prop:CompatCupDiff}) with exact rows:
+    and its dual using the cup product, which gets us the following commutative diagram (up to a sign, by \ref{prop:CompatCupDiff}) with exact rows:
     \[
         \begin{tikzcd}
             \H{0}{\K}{B} \ar[r] \ar[d, "\cup"] & \H{0}{\K}{C} \ar[r] \ar[d, "\cup"] & \H{1}{\K}{M} \ar[d, "\cup"] \ar[r] & 0 \\
