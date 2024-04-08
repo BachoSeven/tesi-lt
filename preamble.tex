@@ -60,8 +60,8 @@
 \def\K{K}
 \def\Kx{\overline{\K}^\times}
 \def\Qp{\mathbb{Q}_p}
-\def\Zp{\mathbb{Z}_p}
-\def\Zn{\mathbb{Z}/n\mathbb{Z}}
+\def\Zp{\Z_p}
+\def\Zn{\Z/n\Z}
 \def\Gmod{\mathsf{Mod}_\mathsf{G}}
 \def\Hmod{\mathsf{Mod}_\mathsf{H}}
 \def\GHmod{\mathsf{Mod}_{\mathsf{G}/\mathsf{H}}}
@@ -69,22 +69,38 @@
 \def\Ab{\mathsf{Ab}}
 
 % Operators
-\newcommand{\Gal}[1]{\mathrm{Gal}\left( #1^sep/#1 \right)}
+\newcommand{\Gal}[1]{\mathrm{Gal}\left( #1^{sep}/#1 \right)}
 \newcommand{\Aut}[1]{\mathrm{Aut}\left( #1 \right)}
 \renewcommand{\H}[3]{H^{#1}( #2, \, #3 )}
 \newcommand{\HH}[2]{H^2(#1, \, #2 )}
 \newcommand{\Ind}[2]{\mathrm{I}_{#1}(#2)}
 \newcommand{\ZG}[1]{\Z[#1]}
 \newcommand{\Br}[1]{\mathrm{Br}(#1)}
+\DeclareMathOperator{\St}{\mathrm{St}}
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\Res}{\mathtt{res}}
 \DeclareMathOperator{\Cor}{\mathtt{cor}}
 \DeclareMathOperator{\Inf}{\mathtt{inf}}
 \DeclareMathOperator{\cd}{cd}
 \DeclareMathOperator{\coker}{Coker}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\sh}{\mathtt{sh}}
 
 \newcommand\Iso{\xrightarrow{
         \,\smash{\raisebox{-0.65ex}{\ensuremath{\scriptstyle\sim}}}\,}}
+
+% Display math
+\newcommand{\ssfrac}[2]{
+    \raisebox{+0.3ex}{$#1$}
+    /
+    \raisebox{-0.3ex}{$#2$}
+}
+% Inline math
+\newcommand{\sfrac}[2]{
+    \raisebox{+0.3ex}{\scalebox{0.9}{$#1$}}
+    /
+    \raisebox{-0.3ex}{\scalebox{0.9}{$#2$}}
+}
 
 % use bullets for items
 \renewcommand{\labelitemii}{$\circ$}

@@ -47,6 +47,8 @@
 
 \chapter{Cohomology of Finite Groups}
 
+% TODO use f^* as notation for induced maps in cohomology
+
 \chapter{Cohomology of Profinite Groups}
 
 \section{Cohomological Dimension}
@@ -61,14 +63,157 @@
 \section{Computation of the Brauer Group}
 \section{Cohomological Finiteness}
 
+\begin{theorem}\label{thm:CohomMuN}
+    Let $K$ be a $p$-adic field and $n$ a positive integer.
+    Then,
+    \begin{itemize}
+        \item $\H{1}{\K}{\mu_n} = \K^\times/\K^{\times n}$ is a finite group,
+        \item $\H{2}{\K}{\mu_n} = \Z/n\Z$, and
+        \item $\H{i}{\K}{\mu_n} = 0$ for $i\geq 3$.
+    \end{itemize}
+    In particular, $\H{i}{\K}{\mu_n}$ is finite for all $i$ (for $i=0$ it's just the invariants of $\mu_n$).
+\end{theorem}
+\begin{proof}
+    The first isomorphism follows from \textit{Kummer Theory} \eqref{eq:Kummer}. We can show that $\K^\times/\K^{\times n}$ is finite using the structure theorem for local fields \ref{thm:StructureLocalFields}:
+    \[
+        \K^\times/\K^{\times n} \simeq \Zn \times \kappa^\times/\kappa^{\times n} \times U_\K^1/(U_\K^1)^n,
+    \]
+    where $\kappa$ is the residue field of $\K$ (which is finite), and
+    \[
+        U_\K^1/(U_\K^1)^n \simeq \Zp^{[\K:\Qp]}/n \Zp^{[\K:\Qp]}
+        \times F/F^n \simeq \Zn \times F/F^n
+        ,\]
+    again by Theorem \ref{thm:StructureLocalFields}. Since $F$ is a finite group, we are done.
+
+    For second isomorphism, $\H{2}{\K}{\mu_n}$ is by definition the Brauer group of $\K$, and by Theorem \ref{thm:padicBrauer} $\Br{\K}$ is isomorphic to $\Q/\Z$, so we get
+    \[
+        \H{2}{\K}{\mu_n} = \Br{\K}[n] \simeq \ssfrac{\frac{1}{n}\Z}{\Z} = \Z/n\Z.
+    \]
+    Finally, we have shown in the previous section that the absolute Galois group of a $p$-adic field has cohomological dimension 2, and since $\mu_n$ is torsion we are done.
+\end{proof}
+
+% TODO remark 8.14 about char p (which implies that duality holds for p-torsion-free modules)
+
+\begin{corollary}\label{cor:FinCohom}
+    If $\K$ is a $p$-adic field and $M$ is a finite $\Gamma_K$-module, then
+    \(\H{i}{\K}{M}\) is finite for all $i$.
+\end{corollary}
+\begin{proof}
+    Let $M=\{m_1,\ldots,m_n\}$. Then, the open subgroup
+    \[
+        U\coloneqq \bigcap_{i=1}^n{\St(m_i)}
+    \]
+    acts trivially on $M$, and by Galois theory it corresponds to a finite extension $L^{\prime} $. Then, the absolute Galois group of $L\coloneqq L^{\prime}(\mu_n)$ acts trivially on both $M$ and $\mu_n$. By the structure theorem for finite abelian groups, $M$ is isomorphic (as a $\Gamma_L$-module) to the direct sum of finitely many $\mu_k$, with $k\mid n$.
+
+    However, by the previous theorem $\H{i}{L}{\mu_k}$ is finite for all $i$, so $\H{i}{L}{M}$ is finite as well by additivity. Now, using the Hochschild-Serre spectral sequence \eqref{eq:HS}:
+    \[
+        E_2^{pq}= \H{p}{\mathrm{Gal}{(L / \K)}}{\H{q}{L}{M}} \Rightarrow \H{p+q}{\K}{M}
+    \]
+    we see that $\H{i}{K}{M}$ is finite, as it has a finite filtration whose successive quotients are subquotients of the finite groups $E_2^{pq}$ (which are finite as cohomology groups of a finite module, since $\mathrm{Gal}(L /\K)$ is finite).
+\end{proof}
+
 \chapter{Local Duality}
+In this chapter we are going to define a product on cohomology, the \textit{cup product}, and work through its properties and compatibility with various pairings.
+
+Using the cup product and the previous results on the structure of local fields, we'll prove Tate's local duality theorem for finite modules over the absolute Galois group $\Gamma$ of a $p$-adic field, for which we'll need to show the existence of a dualizing module for $G$, which represents the Pontryagin dual of a specific cohomology functor.
+
+We will then apply all of this machinery by computing the abelianized absolute Galois group of a $p$-adic field, which describes the finite abelian extensions of $\K$.
 
 \section{Cup Product}
-% TODO: define pairings, cup product, compatibility
+
+Let $G$ be a profinite group. Given two $G$-modules $A$ and $B$, we consider their tensor product $A\otimes B$ (over $\Z$) with the natural $G$-module structure
+\[
+    g\cdot (a\otimes b)=g\cdot a\otimes g\cdot b,
+\]
+which extends to a bi-additive map on \textit{homogeneous} cochains
+\begin{align*}
+    K^p(G,A)\times K^q(G,B) & \overset{\cup}{\longrightarrow} K^{p+q}(G,A\otimes B) \\
+    (a,b)                   & \mapsto a\cup b,
+\end{align*}
+by setting
+\[
+    (a\cup b)(g_0,\dots g_{p+q})=a(g_0,\dots,g_p)\otimes b(g_p,\dots,g_{p+q}).
+\]
+
+This extends to a map on cohomology groups:
+
+\begin{theorem}\label{thm:Cup}
+    The cup product induces a bi-additive map
+    \begin{align*}
+        \cup: \H{p}{G}{A}\times\H{q}{G}{B} & \longrightarrow \H{p+q}{G}{A\otimes B} \\
+        (\alpha,\beta)                     & \longmapsto \alpha\cup\beta.
+    \end{align*}
+\end{theorem}
+
+\begin{proof}
+    We only need to prove that the cup product is well-defined, i.e. that it sends pairs of cocycles of $Z^p(G,A)\times Z^q(G,B)$ in cocycles of $Z^{p+q}(G,A\otimes B)$, and that changing one of such representatives by a coboundary doesn't change the cohomology class of the image.
+    It's enough to prove the following formula:
+    \begin{equation}\label{eq:DiffCup}
+        d(a\cup b)=da\cup b+(-1)^pa\cup d b,
+    \end{equation}
+    whose computation follows readily from the definition of the coboundary by cancelling out terms with opposite signs in the right hand side.
+\end{proof}
+
+\begin{remark}\label{rm:Cup0n}
+    Note that for $p=0$, the cup product with a fixed element $a\in \H{0}{G}{A}=A^G$ is a map
+    \[
+        \H{q}{G}{B}\to\H{q}{G}{A\otimes B}
+    \]
+    induced by
+    \begin{align*}
+        B & \longrightarrow A\otimes B \\
+        b & \longmapsto a\otimes b,
+    \end{align*}
+    as is readily checked on cocycles.
+
+    In the case $p=q=0$, we get that the cup product on invariants is just the tensor product $$A^G\otimes B^G\to (A\otimes B)^G.$$
+\end{remark}
+
+\begin{definition}
+    A \textit{pairing} of $G$-modules is a bi-additive map $\varphi: A\times B\to C$ which is $G$-equivariant, i.e. such that
+    \[
+        \varphi(g\cdot a,\,g\cdot b)=g\cdot\varphi(a,b)
+    \]
+    for all $a\in A$, $b\in B$, and $g\in G$.
+\end{definition}
+
+Since any such pairing induces a map $\overline{\varphi}: A\otimes B\to C$, we can use the cup product to define a pairing on cohomology, which we will denote by the same symbol by a slight abuse of notation:
+
+\[
+    \begin{tikzcd}[column sep=small]
+        {\H{p}{G}{A}\times\H{q}{G}{B}} \ar[rd] \ar[rr, "\cup"] && \H{p+q}{G}{C}\\
+        & \H{p+q}{G}{A\otimes B} \ar[ru, swap, "\overline{\varphi}^*"]
+    \end{tikzcd}
+\]
+
+In order to prove the duality theorem, we will need the following compatibility of the cup product with exact sequences:
+
+\begin{proposition}\label{prop:CompatCupDiff}
+    Suppose we have exact sequences of $G$-modules
+    \[
+        0\longrightarrow A\longrightarrow B\longrightarrow C\longrightarrow 0,\qquad
+        0\longrightarrow A^{\prime}\longrightarrow B^{\prime}\longrightarrow C^{\prime}\longrightarrow 0
+    \]
+    and a pairing $\varphi: B\times B^{\prime} \to D$ that sends $A\times A^{\prime}$ to $0$, so that it induces pairings
+    $$\varphi^{\prime} : A\times C^{\prime} \to D$$
+    and
+    $$\varphi^{\prime\prime} : A^{\prime} \times C \to D.$$
+    Then, the cup products associated with $\varphi^{\prime}, \varphi^{\prime\prime}$ are compatible (up to sign) with the coboundaries of the long exact sequences in cohomology:
+    \[
+        \delta\gamma\cup\gamma^{\prime} +(-1)^p(\gamma\cup\delta\gamma^{\prime} )=0
+    \]
+    for all $\gamma\in\H{p}{G}{C}$ and $\gamma^{\prime} \in\H{q-1}{G}{C^{\prime}}$.
+\end{proposition}
+
+\begin{proof}
+    We need explicit the connecting homomorphisms: lift $\gamma$ and $\gamma^{\prime} $ to cocycles $c$ and $c^{\prime}$, and lift those respectively to $b\in K^p(B)$ and $b^{\prime} \in K^{q-1}(B^{\prime} )$. Their images $db$ and $db^{\prime} $ then come from some $a\in K^{p+1}(A)$ and $a^{\prime} \in K^q(A^{\prime} )$ respectively, which are representatives for $\delta \gamma$ and $\delta \gamma^{\prime} $.
+
+    Now, by \eqref{eq:DiffCup} the \textit{coboundary} $d(b\cup b^{\prime} )$ is equal to $$db\cup b^{\prime} +(-1)^p b\cup db^{\prime} = a\cup c^{\prime}  + (-1)^p c \cup a^{\prime},$$ which gives us the result by passing to cohomology.
+\end{proof}
 
 \section{Dualizing Module}
 
-In this section we introduce the dualizing module, a central object for the study of local duality. While it can be defined explicitly (as done in e.g. \cite{Neukirch}),
+In this section we introduce the dualizing module, a type of object which is central in the study of any duality. While it can be defined explicitly (as done in e.g. \cite{Neukirch}),
 we are going to prove its existence by homological methods and only compute it for the absolute Galois group of a p-adic field, which suffices to prove the duality theorem. We
 start by introducing the type of duality we are interested in:
 
@@ -81,7 +226,7 @@ start by introducing the type of duality we are interested in:
     If \(A\) is torsion, \(A^*=\Hom(A,\Q/\Z)\) is profinite with the compact-open topology.
 \end{definition}
 
-\begin{remark}
+\begin{remark}\label{rm:Pontryagin}
     The functor \(A\mapsto A^*\)  induces an equivalence of categories
 
     \[
@@ -187,7 +332,7 @@ due to Grothendieck (in the case of an Artinian category, see \cite{Grothendieck
     Given two pairs \((A,x)\) and \((B,y)\), we say that \((A,x)\) \textbf{dominates} \((B,y)\) if there is a morphism \(p:A\to B\) such that \(F(p)(y)=x\).
 
     Using the Noetherian hypothesis, we can show that every pair \((A,x)\) is dominated by a minimal pair: to construct it, consider the poset \(\Sigma\) of all subjobects \(A_0 \subset A\) such that \((A/A_0,y)\) dominates \((A,x)\) for some \(y\in F(A/A_0)\)  through the projection morphism \(p:\,A\twoheadrightarrow A/A_0\).
-    Taking \(A_0=0\) and \(y=x\) shows that \(\Sigma\) is non-empty: indeed, \(p=\operatorname{id}_A\) and \(F(p)(y)=\operatorname{id}_{F(A)}(y)=x\). Then, by the Noetherian condition \(\Sigma\) admits a maximal element \(A_0\), and we show that \((A/A_0,y)\) is a minimal pair: given \(p^{\prime} :B\twoheadrightarrow A_0\) with \(\ker(p^{\prime})\neq 0\), if \(y\) is in \(F(B)\) we can consider the pair \((B,y)\) and the morphism \(q\coloneqq p^{\prime} \circ p: A\twoheadrightarrow B\). Then, \((B,y)\) dominates \((A,x)\) since
+    Taking \(A_0=0\) and \(y=x\) shows that \(\Sigma\) is non-empty: indeed, \(p=\id_A\) and \(F(p)(y)=\id_{F(A)}(y)=x\). Then, by the Noetherian condition \(\Sigma\) admits a maximal element \(A_0\), and we show that \((A/A_0,y)\) is a minimal pair: given \(p^{\prime} :B\twoheadrightarrow A_0\) with \(\ker(p^{\prime})\neq 0\), if \(y\) is in \(F(B)\) we can consider the pair \((B,y)\) and the morphism \(q\coloneqq p^{\prime} \circ p: A\twoheadrightarrow B\). Then, \((B,y)\) dominates \((A,x)\) since
     \[F(q)(y)=F(p)(F(p^{\prime} )(y))=F(p)(y),\]  but then \(B= (A/A_0)/\ker(p^{\prime})\) is a quotient of \(A\) which contradicts the maximality of \(A_0\).
 
     Furthermore, if \((A,x)\) is dominated by a minimal pair \((B,y)\), we claim that there is a \textit{unique} morphism \(p:A\to B\) such that \(F(p)(y)=x\).
@@ -233,40 +378,38 @@ due to Grothendieck (in the case of an Artinian category, see \cite{Grothendieck
     \]
 \end{remark}
 
-\begin{definition}
-    For any \(G\)-module \(A\) , we define the \textit{Cartier dual} of \(A\) as
-    \[
-        A^{\prime}\coloneqq \Hom_\Z(A,I),
-    \]
-    which we make into a \(G\)-module by setting
-    \[
-        (\sigma\cdot f)(a)=\sigma(f(\sigma^{-1}\cdot a)).
-    \]
+For any \(G\)-module \(A\), consider the abelian group
+\[
+    A^{\prime}\coloneqq \Hom_\Z(A,I),
+\]
+which we make into a \(G\)-module by setting
+\begin{equation}\label{eq:TateTwist}
+    (\sigma\cdot f)(a)=\sigma\cdot(f(\sigma^{-1}\cdot a)).
+\end{equation}
 
-    This yields a pairing
-    \begin{align*}
-        A^\prime\times A & \to I         \\
-        (f,a)            & \mapsto f(a),
-    \end{align*}
-    and thus a cup product
-    \[
-        \H{0}{G}{A^\prime}\times\H{n}{G}{A}\overset{\cup}{\longrightarrow}\H{n}{G}{I}.
-    \]
+This action induces a pairing of \(G\)-modules
+\begin{align*}
+    A^\prime\times A & \to I         \\
+    (f,a)            & \mapsto f(a),
+\end{align*}
+and thus a cup product
+\[
+    \H{0}{G}{A^\prime}\times\H{n}{G}{A}\overset{\cup}{\longrightarrow}\H{n}{G}{I}
+\]
 
-    This is related to the dual of cohomology by
-    \[
-        \H{0}{G}{A^{\prime}} = \Hom_G(A,I):
-    \]
-    indeed, \(\H{0}{G}{A^{\prime} }\) are the \(G\)-invariants of \(A^{\prime} = \Hom_\Z(A,I)\), so that
-    \[
-        \H{0}{G}{A^{\prime}} = (\Hom_\Z(A,I))^G = \Hom_G(A,I).
-    \]
-\end{definition}
+which is related to the dual of cohomology by
+\[
+    \H{0}{G}{A^{\prime}} = \Hom_G(A,I).
+\]
+Indeed, the group \(\H{0}{G}{A^{\prime} }\) consists of the \(G\)-invariants of \(A^{\prime} = \Hom_\Z(A,I)\), and so
+\[
+    \H{0}{G}{A^{\prime}} = (\Hom_\Z(A,I))^G = \Hom_G(A,I).
+\]
 
-We will need the following compatibility of the cup product with the pairing pairing:
+We will need the following compatibility of the cup product with the duality pairing:
 
 \begin{lemma}\label{lm:CompatCupDual}
-    In the situation of the previous definition, the pairing \(\langle-,- \rangle_A\) factors through the cup product and the homomorphism \(i\coloneqq \langle \operatorname{id}_I,-\rangle_I: \H{n}{G}{I}\to \Q/\Z\), i.e. the following diagram commutes:
+    In the situation of the previous definition, the pairing \(\langle-,- \rangle_A\) factors through the cup product and the homomorphism \(i\coloneqq \langle \id_I,-\rangle_I: \H{n}{G}{I}\to \Q/\Z\), i.e. the following diagram commutes:
     \[
         \begin{tikzcd}
             {\H{0}{G}{A^\prime}  \times \H{n}{G}{A}} \ar[swap, rd, "\langle - {,} - \rangle_A "] \ar[r, "\cup"] & \H{n}{G}{I} \ar[d, "i"] \\
@@ -300,10 +443,10 @@ We will need the following compatibility of the cup product with the pairing pai
         \end{tikzcd}
     \]
 
-    As remarked in \ref{rm:cup0n}, here the cup product of \(f\in\H{0}{G}{A^{\prime}}\) with some \(\alpha\in\H{n}{G}{A}\) is given by
-    \( f^*(\alpha) \). Since \(f_*\) clearly sends \(\operatorname{id}_I\) to \(f\), the above diagram implies that
+    As remarked in \ref{rm:Cup0n}, here the cup product of \(f\in\H{0}{G}{A^{\prime}}\) with some \(\alpha\in\H{n}{G}{A}\) is given by
+    \( f^*(\alpha) \). Since \(f_*\) clearly sends \(\id_I\) to \(f\), the above diagram implies that
     \[
-        \langle f, \alpha \rangle_A = \langle \operatorname{id}_I, f^*(\alpha)\rangle_I=i(f\cup\alpha).
+        \langle f, \alpha \rangle_A = \langle \id_I, f^*(\alpha)\rangle_I=i(f\cup\alpha).
     \]
 \end{proof}
 
@@ -333,7 +476,7 @@ Before moving on to the computation of the dualizing module of the absolute Galo
     defined as
     \[ \pi(f)= \sum_{g\in G/U}{g\cdot f(g^{-1})}.\]
     On the other hand, $\pi$ induces a morphism of modules \(\Hom_G(A,I)\overset{\pi_*}{\longrightarrow}\Hom_G(\mathrm{I}_G^U(A),I)\).
-    Using the functoriality of the dualizing module and the Shapiro isomorphism $\operatorname{Sh}$ (\eqref{eq:Shapiro}),
+    Using the functoriality of the dualizing module and the Shapiro isomorphism $\sh$ \eqref{eq:Shapiro},
     we get the following commutative diagram:
     \[
         \begin{tikzcd}[column sep=small, row sep=large]
@@ -343,7 +486,7 @@ Before moving on to the computation of the dualizing module of the absolute Galo
             \rar &
             \H{n}{G}{\mathrm{I}_G^U(A)}^*
             \rar["(-)^*"]&\H{n}{G}{\mathrm{I}_G^U(A)}
-            \rar["\operatorname{Sh}\ "]
+            \rar["\sh\ "]
             \ar[d, "\Cor"]&\H{n}{U}{A}\ar[dl] \\
             &
             \Hom_G(A,I) \ar[swap, lu, "i"]
@@ -365,7 +508,7 @@ Before moving on to the computation of the dualizing module of the absolute Galo
 
 \subsection{Computation for p-adic Fields}
 
-Finally, we apply the theory of dualizing modules to the absolute Galois group \(\Gamma\) of a \(p\)-adic field \(\K\): by \ref{thm:CohomFin} we know that \(\cd(\Gamma)=2\), and by \ref{thm:FinCohom} the groups \(\H{2}{\K}{A}\) are finite for any finite \(\Gamma_{\K}\)-module $A$. Thus, by Theorem \ref{thm:DualMod} \(\Gamma\) has a dualizing module \(I\), which we now compute.
+Finally, we apply the theory of dualizing modules to the absolute Galois group \(\Gamma\) of a \(p\)-adic field \(\K\): by \ref{thm:CohomFin} we know that \(\cd(\Gamma)=2\), and by \ref{cor:FinCohom} the groups \(\H{2}{\K}{A}\) are finite for any finite \(\Gamma_{\K}\)-module $A$. Thus, by Theorem \ref{thm:DualMod} \(\Gamma\) has a dualizing module \(I\), which we now compute.
 
 \begin{proposition}
     The dualizing module of \(\Gamma\) is canonically isomorphic to the \(\Gamma\)-module of roots of unity \(\mu\subset\Kx\).
@@ -374,16 +517,16 @@ Finally, we apply the theory of dualizing modules to the absolute Galois group \
 \begin{proof}
     Let $I_n\coloneqq I[n]$ be the kernel of multiplication by $n$ on $I$, and take an open subgroup $U\subset\Gamma$. By Lemma \ref{lm:dualOpenSgr}, the dualizing module of $U$ is the same as that of $\Gamma$.
 
-    Moreover, by \ref{thm:H2mu} we know that \(\H{2}{U}{\mu_n}^*\simeq\Zn\), and by \ref{thm:padicBrauer} the corestriction $\Br{K^U}\to\Br{K}$ is the identity of $\Q/\Z$.
+    Moreover, by Theorem \ref{thm:CohomMuN} we know that \(\H{2}{U}{\mu_n}\simeq\Zn\), and by \ref{thm:padicBrauer} the corestriction $\Br{K^U}\to\Br{K}$ is the identity of $\Q/\Z$.
 
-    Thus, if $U\subset V$ are open subgroups of $\Gamma$, the functoriality of the dualizing module yields the following commutative diagram:
-    \[
+    Thus, if $U\subset V$ are open subgroups of $\Gamma$, the second part of Lemma \ref{lm:dualOpenSgr} yields the following commutative diagram:
+    \begin{equation}\label{eq:FuncDual}
         \begin{tikzcd}
             \Hom_V(\mu_n,I_n)
             \ar[d]
             \ar[r] &
             \H{2}{V}{\mu_n}^*
-            \ar[d, "\Cor^*=\,\operatorname{id}"]
+            \ar[d, "\Cor^*=\,\id"]
             \rar["\sim"] &
             \Zn
             \ar[equal, d] \\
@@ -391,10 +534,9 @@ Finally, we apply the theory of dualizing modules to the absolute Galois group \
             \ar[r] &
             \H{2}{U}{\mu_n}^*
             \rar["\sim"] &
-            \Zn,
+            \Zn.
         \end{tikzcd}
-    \]
-    where the middle map is the is the corestriction by the second part of Lemma \ref{lm:dualOpenSgr}.
+    \end{equation}
     This shows that \(\H{2}{U}{\mu_n}\) doesn't depend on \(U\), and by Remark \ref{rm:discGmodUnion} we get
     \[
         \Hom_\Z(\mu_n,I_n)=\bigcup_{\mathclap{\substack{U\subset\,\Gamma\\U\text{ open}}}}{\Hom_U(\mu_n,I_n)}\simeq\Zn
@@ -402,24 +544,28 @@ Finally, we apply the theory of dualizing modules to the absolute Galois group \
     In particular, taking $U$ to be $\Gamma$ tells us that $\Gamma$ acts trivially on $\Hom_\Z(\mu_n,I_n)$, or equivalently that any homomorphism $\mu_n\to I_n$ is $\Gamma$-equivariant.
 
     Let $f_n$ be the canonical generator of $\Hom_\Z(\mu_n,I_n)$ associated with $1\in\Zn$. Then $f_n$ is injective because it has order $n$, and surjective because otherwise any element outside its image wouldn't be reached by any element of $\langle f_n\rangle=\Hom_\Z(\mu_n,I_n)$, but as $I_n$ has exponent $n$ there are homomorphisms $\mu_n\to I_n$ sending a generator of $\mu_n$ to any element of $I_n$.
+
+    By writing $\mu = \bigcup_n{\mu_n}$ and $I = \bigcup_n{I[n]}$, we get an isomorphism of $\Gamma$-modules, which is well defined thanks to the functoriality of the dualizing module, and canonical because by the map $\H{2}{\Gamma}{\mu_m}\to\H{2}{\Gamma}{\mu_n}$ induces (through $\H{2}{\Gamma}{\mu_n}\simeq\Zn$) the canonical injection $\Z/m\Z\hookrightarrow\Zn$ if $m$ divides $n$.
+    % TODO: controlla meglio/annota l'errore della riga sopra nel libro
+    \[
+        f\coloneqq \varinjlim_n f_n:\, \mu\Iso I.
+    \]
 \end{proof}
 
 \section{Tate Duality}
-
-Before proving Tate's local duality theorem for p-adic fields, we define
-yet another type of duality for finite groups:
-
+We now define yet another type of duality for finite groups:
 \begin{definition}
     Given a field \(\K\), let  $\Gamma$ be its absolute Galois group and $\mu$ the group of all the roots of unity in $\Kx$.
-    For any finite \(\Gamma\) -module \(M\) whose torsion is prime to the characteristic of \(\K\),
-    we define the \textbf{Cartier dual} of $M$ as
+    For any finite \(\Gamma\) -module \(M\) whose torsion is prime to the characteristic of \(\K\), we define the \textbf{Cartier dual} of $M$ as
     \begin{equation*}
         M^{\prime} = \Hom_{\Z}(M, \Kx)=\Hom_{\Z}(M, \mu),
     \end{equation*}
     with the action of $\Gamma$ given by
     \begin{equation*}
-        (\sigma \cdot f)(m) = \sigma(f(\sigma^{-1}\cdot m)).
+        (\sigma \cdot f)(m) = \sigma(f(\sigma^{-1}\cdot m)),
     \end{equation*}
+    just as we did in \eqref{eq:TateTwist}.
+    Notice that with this action, if $M=\mu_n$, then its dual $M^{\prime} = \Hom_{\Z}(\mu_n, \mu_n)$ is isomorphic to $\Zn$ as a $\Gamma$-module.
 \end{definition}
 
 \begin{theorem}
@@ -430,7 +576,7 @@ yet another type of duality for finite groups:
     \end{equation*}
 \end{theorem}
 \begin{proof}
-    We have already proved the finiteness of all the groups in \ref{thm:FinCohom}.
+    We have already proved the finiteness of the groups involved in \ref{cor:FinCohom}, so we only need to show that the pairing is perfect.
     We start from $i=2$, where our computation of the dualizing module pays off: indeed, the content of Lemma \ref{lm:CompatCupDual}
     in this situtation consists of the following commutative diagram
     \begin{equation*}
@@ -441,7 +587,7 @@ yet another type of duality for finite groups:
     \end{equation*}
     where
     \[
-        i = \langle \operatorname{id}_{\Q/\Z}, - \rangle : \H{2}{\K}{\mu} \Iso \Q/\Z.
+        i = \langle \id_{\Q/\Z}, - \rangle : \H{2}{\K}{\mu} \Iso \Q/\Z.
     \]
     Since \(\langle -{,}- \rangle_M\) is a perfect pairing, we are done.
 
@@ -481,9 +627,16 @@ yet another type of duality for finite groups:
 
 % TODO Remark: The theorem also holds local fields of positive characteristic and p-torsion-free modules by <ref>
 
-\chapter{Consequences}
+\subsection{Local Class Field Theory}
 
-\section{Local Class Field Theory}
+Let K be a $p$-adic field with absolute Galois group $\Gamma$. As an immediate application of the local duality theorem, since for any $n>0$ the Cartier dual of the $\Gamma$-module $\mu_n$ is $\Zn$ the cup product induces an isomorphism
+
+
+\[
+    \H{1}{K}{\mu_n} \Iso \H{1}{K}{\Zn}^*.
+\]
+
+Recall that the groups $\K^{\times n}$
 
 % For the chain of isomorphisms, need: remark that the bidual of a (non-necessarily abelian) profinite group is isomorphic to the original group.
 
