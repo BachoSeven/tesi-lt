@@ -36,7 +36,7 @@
 \def\@setref#1#2#3{% csname, extract group, refname
     \ifx#1\relax
         \protect\G@refundefinedtrue
-        \nfss@text{\reset@font\bfseries\textcolor{red}{#3}}%
+        \nfss@text{\reset@font\textcolor{red}{#3}}%
         \@latex@warning{%
             Reference `#3' on page \thepage \space undefined%
         }%
@@ -59,6 +59,7 @@
 \def\Z{\mathbb{Z}}
 \def\K{K}
 \def\Kx{\overline{\K}^\times}
+\def\Ks{\K_{s}}
 \def\Qp{\mathbb{Q}_p}
 \def\Zp{\Z_p}
 \def\Zn{\Z/n\Z}
@@ -69,7 +70,7 @@
 \def\Ab{\mathsf{Ab}}
 
 % Operators
-\newcommand{\Gal}[1]{\mathrm{Gal}\left( #1^{sep}/#1 \right)}
+\newcommand{\Gal}[1]{\mathrm{Gal}\left( #1_{s}/#1 \right)}
 \newcommand{\Aut}[1]{\mathrm{Aut}\left( #1 \right)}
 \renewcommand{\H}[3]{H^{#1}( #2, \, #3 )}
 \newcommand{\HH}[2]{H^2(#1, \, #2 )}

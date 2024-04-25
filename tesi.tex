@@ -40,7 +40,7 @@
 % make TOC
 \tableofcontents
 
-% TODO Notation, introduce as we go? things like Ab
+% TODO Notation section, things like Ab, K_s, p-primary p-torsion, etc.
 
 \chapter*{Introduction}
 \addcontentsline{toc}{section}{Introduction}
@@ -60,7 +60,48 @@
 \chapter{Local Fields}
 
 \section{Structure of Local Fields}
-\section{Computation of the Brauer Group}
+\section{The Brauer Group of a Local Field}
+
+We now explain how to compute the Brauer group of a local field following \S 6.3 of \cite{SzamuelyGille}:
+
+Recall from Remark \ref{rm:CSA} the interpretation of the Brauer group as equivalence classes of central simple algebras, which is crucial in the following. Given a local field $K$, we first reduce to the "relative" Brauer group of the maximal unramified extension $K_{nr}$ of $K$:
+
+\begin{proposition}
+    Let $K$ be a local field and $K_{nr}$ the maximal unramified extension of $K$, with Galois group $G=\operatorname{Gal}{(K_{nr}/K)}$. Then, the inflation map
+    \[
+        \H{2}{G}{K_{nr}^*}\to\H{2}{K}{\Ks^*}= \Br{K}
+    \]
+    is an isomorphism.
+
+\end{proposition}
+
+\begin{proof}{(Sketch)}
+
+    Since G is the quotient of the absolute Galois group $G_K$ of $K$ by the inertia subgroup $\operatorname{Gal}{(K_s/K_{nr})}$, the Hochschild-Serre spectral sequence yields the inflation-restriction exact sequence
+    \[
+        0\to\H{2}{G}{K_{nr}^*}\to\H{2}{K}{\Ks^*}\to\H{2}{K_{nr}}{\Ks^*}.
+    \]
+
+    It's enough to show that the last term is trivial, but $\H{2}{K_{nr}}{\Ks^*}=\Br{K_{nr}}$ is zero by Corollary 2.9.4 of \cite{SzamuelyGille}, which shows the existence of an unramified splitting field for any central simple algebra over $K$ by extending the valuation of $K$ to a central division algebra $D$ equivalent to $A$ through the reduced norm, and using it to show that $D$ has a maximal (and thus splitting) unramified subfield.
+\end{proof}
+
+As the valuation of $K$ extends uniquely to a valuation on $K_{nr}$, we have a split exact sequence as in \eqref{eq:SplitSeq}:
+\[
+    1\to U_{nr} \to\K_{nr}^*\to\Z\to 1,
+\]
+with $U_{nr}$ the group of units of $K_{nr}$. This induces a split exact sequence in cohomology, which in degree 2 reads
+
+\[
+    1\to\H{2}{G}{U_{nr}}\to\H{2}{G}{\K_{nr}^*}\to\H{2}{G}{\Z}\to 1.
+\]
+
+Let's compute each term: using the long exact sequence in cohomology associated with the short exact sequence
+
+\[
+    0\to\Z\to\Q\to\Q/\Z\to 0
+\]
+and Remark \ref{rm:UniqDiv}, we have an isomorphism of $\H{2}{G}{\Z}$ with $\H{1}{G}{\Q/\Z}$, which are the continuous homomorphisms
+
 \section{Cohomological Finiteness}
 
 \begin{theorem}\label{thm:CohomMuN}
@@ -208,7 +249,8 @@ In order to prove the duality theorem, we will need the following compatibility 
 \begin{proof}
     We need explicit the connecting homomorphisms: lift $\gamma$ and $\gamma^{\prime} $ to cocycles $c$ and $c^{\prime}$, and lift those respectively to $b\in K^p(B)$ and $b^{\prime} \in K^{q-1}(B^{\prime} )$. Their images $db$ and $db^{\prime} $ then come from some $a\in K^{p+1}(A)$ and $a^{\prime} \in K^q(A^{\prime} )$ respectively, which are representatives for $\delta \gamma$ and $\delta \gamma^{\prime} $.
 
-    Now, by \eqref{eq:DiffCup} the \textit{coboundary} $d(b\cup b^{\prime} )$ is equal to $$db\cup b^{\prime} +(-1)^p b\cup db^{\prime} = a\cup c^{\prime}  + (-1)^p c \cup a^{\prime},$$ which gives us the result by passing to cohomology.
+    Now, by \eqref{eq:DiffCup} the \textit{coboundary} $d(b\cup b^{\prime} )$ is equal to $$db\cup b^{\prime} +(-1)^p b\cup db^{\prime} = a\cup c^{\prime}  + (-1)^p c \cup
+        a^{\prime},$$ which is thus zero in cohomology.
 \end{proof}
 
 \section{Dualizing Module}
@@ -456,7 +498,7 @@ We will need the following compatibility of the cup product with the duality pai
 
 Before moving on to the computation of the dualizing module of the absolute Galois group of a \(p\)-adic field, we need a lemma about dualizing modules of open subgroups:
 
-\begin{lemma}\label{lm:dualOpenSgr}
+\begin{lemma}\label{lm:DualOpenSgr}
     Let \(G\) be a profinite group of finite cohomological dimension \(n\) such that \(\H{n}{G}{A}\) is finite for all \(A\in\Gfmod\). If \(U\subset G\) is an open subgroup and \(I\) is the dualizing module of \(G\), then \(I\) (viewed as an \(U\)-module) is the dualizing module of \(U\), and the homomorphism
     \[
         \H{n}{U}{A}\to\H{n}{G}{A}
@@ -515,11 +557,11 @@ Finally, we apply the theory of dualizing modules to the absolute Galois group \
 \end{proposition}
 
 \begin{proof}
-    Let $I_n\coloneqq I[n]$ be the kernel of multiplication by $n$ on $I$, and take an open subgroup $U\subset\Gamma$. By Lemma \ref{lm:dualOpenSgr}, the dualizing module of $U$ is the same as that of $\Gamma$.
+    Let $I_n\coloneqq I[n]$ be the kernel of multiplication by $n$ on $I$, and take an open subgroup $U\subset\Gamma$. By Lemma \ref{lm:DualOpenSgr}, the dualizing module of $U$ is the same as that of $\Gamma$.
 
     Moreover, by Theorem \ref{thm:CohomMuN} we know that \(\H{2}{U}{\mu_n}\simeq\Zn\), and by \ref{thm:padicBrauer} the corestriction $\Br{K^U}\to\Br{K}$ is the identity of $\Q/\Z$.
 
-    Thus, if $U\subset V$ are open subgroups of $\Gamma$, the second part of Lemma \ref{lm:dualOpenSgr} yields the following commutative diagram:
+    Thus, if $U\subset V$ are open subgroups of $\Gamma$, the second part of Lemma \ref{lm:DualOpenSgr} yields the following commutative diagram:
     \begin{equation}\label{eq:FuncDual}
         \begin{tikzcd}
             \Hom_V(\mu_n,I_n)
@@ -545,8 +587,8 @@ Finally, we apply the theory of dualizing modules to the absolute Galois group \
 
     Let $f_n$ be the canonical generator of $\Hom_\Z(\mu_n,I_n)$ associated with $1\in\Zn$. Then $f_n$ is injective because it has order $n$, and surjective because otherwise any element outside its image wouldn't be reached by any element of $\langle f_n\rangle=\Hom_\Z(\mu_n,I_n)$, but as $I_n$ has exponent $n$ there are homomorphisms $\mu_n\to I_n$ sending a generator of $\mu_n$ to any element of $I_n$.
 
-    By writing $\mu = \bigcup_n{\mu_n}$ and $I = \bigcup_n{I[n]}$, we get an isomorphism of $\Gamma$-modules, which is well defined thanks to the functoriality of the dualizing module, and canonical because by the map $\H{2}{\Gamma}{\mu_m}\to\H{2}{\Gamma}{\mu_n}$ induces (through $\H{2}{\Gamma}{\mu_n}\simeq\Zn$) the canonical injection $\Z/m\Z\hookrightarrow\Zn$ if $m$ divides $n$.
-    % TODO: controlla meglio/annota l'errore della riga sopra nel libro
+    By writing $\mu = \bigcup_n{\mu_n}$ and $I = \bigcup_n{I[n]}$, we get an isomorphism of $\Gamma$-modules, which is well defined thanks to the functoriality of the dualizing
+    module, and canonical since the map $\H{2}{\Gamma}{\mu_m}\to\H{2}{\Gamma}{\mu_n}$ induces (through $\H{2}{\Gamma}{\mu_n}\simeq\Zn$) the canonical injection $\Z/m\Z\hookrightarrow\Zn$ if $m$ divides $n$:
     \[
         f\coloneqq \varinjlim_n f_n:\, \mu\Iso I.
     \]
@@ -629,16 +671,34 @@ We now define yet another type of duality for finite groups:
 
 \subsection{Local Class Field Theory}
 
-Let K be a $p$-adic field with absolute Galois group $\Gamma$. As an immediate application of the local duality theorem, since for any $n>0$ the Cartier dual of the $\Gamma$-module $\mu_n$ is $\Zn$ the cup product induces an isomorphism
+Let K be a $p$-adic field with absolute Galois group $\Gamma$. As an immediate application of the local duality theorem, since for any $n>0$ the Cartier dual of the $\Gamma$-module $\mu_n$ is $\Zn$, the cup product induces an isomorphism
 
 
 \[
     \H{1}{K}{\mu_n} \Iso \H{1}{K}{\Zn}^*.
 \]
 
-Recall that the groups $\K^{\times n}$
+Recall that the groups $\K^{\times n}$ are open in $\Kx$ (Proposition \ref{prop:KxOpen}), and note that they are cofinal in the open subgroups of finite index (their quotients are
+finite because of \ref{thm:CohomMuN} and \textcolor{red}{TODO}). Thus, we get the following description of the absolute Galois group of a $p$-adic field:
 
-% For the chain of isomorphisms, need: remark that the bidual of a (non-necessarily abelian) profinite group is isomorphic to the original group.
+% isomorphism chain for \Gamma^ab
+
+\begin{align*}
+    \Gamma^{\text{ab}} & = \Hom(\Gamma, \Q/\Z)^*                              & \text{(by Pontryagin duality)}    \\
+                       & = \Hom(\Gamma, \varinjlim_n\nolimits \Zn)^*          & \text{(by \ref{rm:Torsion})}      \\
+                       & = \varprojlim_n\nolimits \Hom(\Gamma, \Zn)^*         & \text{(by contravariance)}        \\
+                       & = \varprojlim_n\nolimits \H{1}{K}{\mu_n}^*           & \text{(by \ref{rm:TrivialModH1})} \\
+                       & = \varprojlim_n\nolimits \H{1}{K}{\Zn}               & \text{(by Tate Duality)}          \\
+                       & = \varprojlim_n\nolimits \K^{\times} / \K^{\times n} & \text{(by \ref{thm:padicBrauer})} \\
+                       & = \hat{\K}^{\times}                                  & \text{(by \ref{prop:KxOpen})}.
+\end{align*}
+
+In particular, by Galois theory we deduce a correspondence
+\[
+    \{\text{finite abelian extensions of }K\} \iff \{\text{finite subgroups of }\hat{\K}^{\times} = \hat{\Z} \times U_K\}
+    .\]
+
+The main result of local class field theory, the existence theorem, makes this correspondence explicit using the \textit{reciprocity map}.
 
 \nocite{*}
 \printbibliography
