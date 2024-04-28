@@ -62,9 +62,9 @@
 \section{Structure of Local Fields}
 \section{The Brauer Group of a Local Field}
 
-We now explain how to compute the Brauer group of a local field following \S 6.3 of \cite{SzamuelyGille}:
+Let $K$ be a local field with residue field $\k$. We now explain how to compute the Brauer group of a local field following \S 6.3 of \cite{SzamuelyGille}:
 
-Recall from Remark \ref{rm:CSA} the interpretation of the Brauer group as equivalence classes of central simple algebras, which is crucial in the following. Given a local field $K$, we first reduce to the "relative" Brauer group of the maximal unramified extension $K_{nr}$ of $K$:
+Recall from Remark \ref{rm:CSA} the interpretation of the Brauer group as equivalence classes of central simple algebras, which is crucial in the following. Given a local field $K$, we first reduce to the relative Brauer group of the maximal unramified extension $K_{nr}$ of $K$:
 
 \begin{proposition}
     Let $K$ be a local field and $K_{nr}$ the maximal unramified extension of $K$, with Galois group $G=\operatorname{Gal}{(K_{nr}/K)}$. Then, the inflation map
@@ -77,7 +77,7 @@ Recall from Remark \ref{rm:CSA} the interpretation of the Brauer group as equiva
 
 \begin{proof}{(Sketch)}
 
-    Since G is the quotient of the absolute Galois group $G_K$ of $K$ by the inertia subgroup $\operatorname{Gal}{(K_s/K_{nr})}$, the Hochschild-Serre spectral sequence yields the inflation-restriction exact sequence
+    Since G is the quotient of the absolute Galois group $\Gamma_K$ of $K$ by the inertia subgroup $\operatorname{Gal}{(\Ks/K_{nr})}$, the Hochschild-Serre spectral sequence yields the inflation-restriction exact sequence
     \[
         0\to\H{2}{G}{K_{nr}^*}\to\H{2}{K}{\Ks^*}\to\H{2}{K_{nr}}{\Ks^*}.
     \]
@@ -91,18 +91,113 @@ As the valuation of $K$ extends uniquely to a valuation on $K_{nr}$, we have a s
 \]
 with $U_{nr}$ the group of units of $K_{nr}$. This induces a split exact sequence in cohomology, which in degree 2 reads
 
-\[
+\begin{equation}\label{eq:BrSeq}
     1\to\H{2}{G}{U_{nr}}\to\H{2}{G}{\K_{nr}^*}\to\H{2}{G}{\Z}\to 1.
-\]
+\end{equation}
 
 Let's compute each term: using the long exact sequence in cohomology associated with the short exact sequence
 
 \[
     0\to\Z\to\Q\to\Q/\Z\to 0
 \]
-and Remark \ref{rm:UniqDiv}, we have an isomorphism of $\H{2}{G}{\Z}$ with $\H{1}{G}{\Q/\Z}$, which are the continuous homomorphisms
+and Remark \ref{rm:UniqDiv}, we have an isomorphism of $\H{2}{G}{\Z}$ with $\H{1}{G}{\Q/\Z}$, which are just the continuous homomorphisms from $G$ to $\Q/\Z$. By Remark
+\ref{rm:FinFields} of the previous
+section, we know that $G=\operatorname{Gal}{(\ks/\k)}\simeq\hat{\Z}$, and so
+\[
+    \H{2}{G}{\Z}=\Hom{(\hat{\Z},\Q/\Z)}\simeq\Q/\Z.
+\]
+
+Morever, using the profinite structure of the group of principal units $U_K^1$ one shows (as in Proposition 6.3.1 of \cite{SzamuelyGille}) that $\H{2}{G}{U_{nr}}$ is isomorphic to
+the Brauer group of the residue field $\Br{\k}=\H{2}{\k}{\ks^*}$.
+
+Finally, the content of the previous proposition is that the middle term is isomorphic to $\Br{K}$, so that \eqref{eq:BrSeq} becomes
+\[
+    1\to\Br{\k}\to\Br{K}\to\Q/\Z\to 1.
+\]
+
+Since $\hat{\Z}$ has cohomological dimension 1 (Example \ref{ex:Zhat}), the first term is trivial, and we get a canonical isomorphism
+\begin{equation}\label{eq:BrK}
+    \Br{K}\simeq\Q/\Z.
+\end{equation}
+
+We also need the following result:
+
+\begin{proposition}\label{prop:BrCorRes}
+    Let $K$ be a local field and $L/K$ a finite separable extension. Then, the restriction map
+    \[
+        \Res: \Br{K}\to\Br{L}
+    \]
+    corresponds to multiplication by $[L:K]$ on $\Q/\Z$,
+    and the corestriction map
+    \[
+        \Cor: \Br{L}\to\Br{K}
+    \]
+    corresponds to the identity of $\Q/\Z$.
+\end{proposition}
+
+\begin{proof}{(Sketch)}
+
+The second statament follows from the first, thanks the formula $\Cor \circ \Res = [L:K]$ (Theorem \ref{thm:CorRes}).
+
+The first statement can be shown by considering an unramified extension of $K$ contained in $L$, as the procyclic structure absolute Galois group of its residue field makes the computation of the corestriction
+straightforward (see Proposition 6.3.7 of \cite{SzamuelyGille}).
+\end{proof}
+
+\begin{corollary}\label{cor:BrRes}
+    In the situation of the previous proposition, if $n=[L:K]$ then an element $a\in\Br{K}$ has trivial image in $\Br{L}$ if and only if $n\cdot a=0$.
+\end{corollary}
+
+\section{Cohomological Dimension}
+
+We now use these results to compute the cohomological dimension of $\Gamma_K$:
+
+\begin{proposition}
+    Let $\K$ be a local field, and $L$ is an algebraic separable extension of $\K$. If $l^\infty \mid [L:\K]$ for some prime $l$, then $\cd{\Gamma_L}\leq 1$ and $\Br{L}\{l\}=0$.
+\end{proposition}
+
+\begin{proof}
+    If $l = \operatorname{char}{\K}$, then we have seen that $\cd_l{(\Gamma_L)}\leq 1$ automatically (Proposition \ref{prop:CdCharP}).
+    Otherwise, by Proposition \ref{prop:CdBr} it's enough to show that $\Br{L}\{l\}=0$ (we should check it for any algebraic separable extension of $L$, but the degree of any such
+    extension is again divisible by $l^\infty$).
+    Now, as in Example \ref{ex:IntOpenSgr} we can write the Brauer group of $L$ as the inductive limit of the Brauer groups of its finite subextensions
+    \[
+        \Br{L}=\varinjlim_{\mathclap{\substack{\K\subset E\subset L \\ E\text{ finite}}}}{\Br{E}},
+    \]
+    where the transition maps are given by restriction.
+    Given such an intermediate field $E$ and an element $\alpha\in E$ killed by $l^m$ for some $m>0$, we can find a finite extension $F$ of $E$ such that $l^m\mid [F:E]$ (since
+    $l^\infty\mid [L:E]$). In other words, $\alpha$ is killed by the degree of $F$ over $E$, so by Corollary \ref{cor:BrRes} it has trivial image in $\Br{F}$, and a fortiori in $\Br{L}$.
+
+\end{proof}
+
+\begin{corollary}
+    The cohomological dimension of the inertia group $I:=\operatorname{Gal}{(\Ks/K_{nr})}$ of $\K$ is at most 1.
+\end{corollary}
+
+\begin{proof}
+    We just apply the previous proposition to the maximal unramified extension $K_{nr}$ of $\K$: as $\operatorname{Gal}{(K_{nr}/K)}\simeq\hat{\Z}$, we have that
+    $l^\infty\mid [K_{nr}:K]$ for any prime $l$.
+\end{proof}
+
+\begin{theorem}
+    If $l$ is a prime different from the characteristic of $\K$, then the cohomological $l$-dimension of $K$ equals 2. In particular, $\cd{(\K)}=2$.
+\end{theorem}
+
+\begin{proof}
+    This is a consequence of the inequality \ref{eq:CdIneq}:
+
+    \[
+        \cd_l{(\K)}\leq \cd_l(I)+\cd_l{(\Gamma_\K / I)} \leq 2
+    \]
+    as $\cd_l(I)\leq 1$ by the previous corollary, and $\cd_l{(\Gamma_\K / I)} = 1$ by Example \ref{ex:Zhat} because $\Gamma_\K / I$ is the absolute Galois group of the residue
+    field $\k$.
+
+    Moreover, if $l\neq \operatorname{char}{\K}$, then the Kummer sequence implies that $\H{2}{K}{\mu_l}=\Br{K}\{l\}$ (Proposition \ref{prop:BrMuN}), which is not trivial by \eqref{eq:BrK}, and
+    therefore $\cd_l{(\K)}=2$ by your favorite criterion about cohomological dimension.
+\end{proof}
 
 \section{Cohomological Finiteness}
+
+We now specialize to the case of a $p$-adic field $K$, by first showing that the cohomology groups of $\mu_n$ are all finite:
 
 \begin{theorem}\label{thm:CohomMuN}
     Let $K$ be a $p$-adic field and $n$ a positive integer.
@@ -126,7 +221,7 @@ and Remark \ref{rm:UniqDiv}, we have an isomorphism of $\H{2}{G}{\Z}$ with $\H{1
         ,\]
     again by Theorem \ref{thm:StructureLocalFields}. Since $F$ is a finite group, we are done.
 
-    For second isomorphism, $\H{2}{\K}{\mu_n}$ is by definition the Brauer group of $\K$, and by Theorem \ref{thm:padicBrauer} $\Br{\K}$ is isomorphic to $\Q/\Z$, so we get
+    For second isomorphism, $\H{2}{\K}{\mu_n}$ is equal to the $n$-torsion of $\Br{\K}$ by Proposition \ref{prop:BrMuN}, which is isomorphic to $\Q/\Z$, so that
     \[
         \H{2}{\K}{\mu_n} = \Br{\K}[n] \simeq \ssfrac{\frac{1}{n}\Z}{\Z} = \Z/n\Z.
     \]
@@ -367,8 +462,7 @@ We first show how this implies the existence of the dualizing module:
 
 Let us now embark on the proof of Lemma \ref{lm:IndRep}, which is
 due to Grothendieck (in the case of an Artinian category, see \cite{Grothendieck} \S 3):
-\begin{proof}
-    A pair \((A,x)\), for \(A\) in \(\mathcal{C}\) and \(x\) in \(F(A)\), is called
+\begin{proof}A pair \((A,x)\), for \(A\) in \(\mathcal{C}\) and \(x\) in \(F(A)\), is called
     \textbf{minimal} if \(x\notin F(B)\) for each surjection \(B\twoheadrightarrow A\) with a non-trivial kernel. This makes sense as for \(F\) left-exact we can view \(F(B)\) as a subobject of \(F(A)\); we shall use this repeatedly in the following.
 
     Given two pairs \((A,x)\) and \((B,y)\), we say that \((A,x)\) \textbf{dominates} \((B,y)\) if there is a morphism \(p:A\to B\) such that \(F(p)(y)=x\).
@@ -550,7 +644,7 @@ Before moving on to the computation of the dualizing module of the absolute Galo
 
 \subsection{Computation for p-adic Fields}
 
-Finally, we apply the theory of dualizing modules to the absolute Galois group \(\Gamma\) of a \(p\)-adic field \(\K\): by \ref{thm:CohomFin} we know that \(\cd(\Gamma)=2\), and by \ref{cor:FinCohom} the groups \(\H{2}{\K}{A}\) are finite for any finite \(\Gamma_{\K}\)-module $A$. Thus, by Theorem \ref{thm:DualMod} \(\Gamma\) has a dualizing module \(I\), which we now compute.
+Finally, we apply the theory of dualizing modules to the absolute Galois group \(\Gamma\) of a \(p\)-adic field \(\K\): by \ref{thm:CohomFin} we know that \(\cd(\Gamma)=2\), and by \ref{cor:FinCohom} the groups \(\H{2}{\K}{A}\) are finite for any finite \(\Gamma_K\)-module $A$. Thus, by Theorem \ref{thm:DualMod} \(\Gamma\) has a dualizing module \(I\), which we now compute explicitly.
 
 \begin{proposition}
     The dualizing module of \(\Gamma\) is canonically isomorphic to the \(\Gamma\)-module of roots of unity \(\mu\subset\Kx\).
@@ -559,7 +653,7 @@ Finally, we apply the theory of dualizing modules to the absolute Galois group \
 \begin{proof}
     Let $I_n\coloneqq I[n]$ be the kernel of multiplication by $n$ on $I$, and take an open subgroup $U\subset\Gamma$. By Lemma \ref{lm:DualOpenSgr}, the dualizing module of $U$ is the same as that of $\Gamma$.
 
-    Moreover, by Theorem \ref{thm:CohomMuN} we know that \(\H{2}{U}{\mu_n}\simeq\Zn\), and by \ref{thm:padicBrauer} the corestriction $\Br{K^U}\to\Br{K}$ is the identity of $\Q/\Z$.
+    The computation of the cohomology of $\mu_n$ (Theorem \ref{thm:CohomMuN}) shows that \(\H{2}{U}{\mu_n}\simeq\Zn\), and by Proposition \ref{prop:BrCorRes} the corestriction $\Br{K^U}\to\Br{K}$ is the identity of $\Q/\Z$.
 
     Thus, if $U\subset V$ are open subgroups of $\Gamma$, the second part of Lemma \ref{lm:DualOpenSgr} yields the following commutative diagram:
     \begin{equation}\label{eq:FuncDual}
@@ -585,7 +679,8 @@ Finally, we apply the theory of dualizing modules to the absolute Galois group \
     \]
     In particular, taking $U$ to be $\Gamma$ tells us that $\Gamma$ acts trivially on $\Hom_\Z(\mu_n,I_n)$, or equivalently that any homomorphism $\mu_n\to I_n$ is $\Gamma$-equivariant.
 
-    Let $f_n$ be the canonical generator of $\Hom_\Z(\mu_n,I_n)$ associated with $1\in\Zn$. Then $f_n$ is injective because it has order $n$, and surjective because otherwise any element outside its image wouldn't be reached by any element of $\langle f_n\rangle=\Hom_\Z(\mu_n,I_n)$, but as $I_n$ has exponent $n$ there are homomorphisms $\mu_n\to I_n$ sending a generator of $\mu_n$ to any element of $I_n$.
+    Let $f_n$ be the canonical generator of $\Hom_\Z(\mu_n,I_n)$ associated with $1\in\Zn$. Then $f_n$ is injective because it has order $n$, and surjective because otherwise any
+    element outside its image wouldn't be reached by any element of $\langle f_n\rangle=\Hom_\Z(\mu_n,I_n)$, but since $I_n$ has exponent $n$ there exist homomorphisms $\mu_n\to I_n$ sending a generator of $\mu_n$ to any element of $I_n$.
 
     By writing $\mu = \bigcup_n{\mu_n}$ and $I = \bigcup_n{I[n]}$, we get an isomorphism of $\Gamma$-modules, which is well defined thanks to the functoriality of the dualizing
     module, and canonical since the map $\H{2}{\Gamma}{\mu_m}\to\H{2}{\Gamma}{\mu_n}$ induces (through $\H{2}{\Gamma}{\mu_n}\simeq\Zn$) the canonical injection $\Z/m\Z\hookrightarrow\Zn$ if $m$ divides $n$:
@@ -653,8 +748,7 @@ We now define yet another type of duality for finite groups:
     \[
         0=\H{n}{\K}{\Ind{\Gamma}{M}}=\varinjlim_{\substack{B\subset\Ind{\Gamma}{M} \\B\text{ finite}}}{\H{n}{\K}{B}},
     \]
-    which implies the existence of a finite submodule \(B\) with \(\H{n}{\K}{B}=0\). As \(M\) is finite, we can find such a \(B\) which contains \(M\), and then
-    the quotient \(C=B/M\) is finite as well.
+    which implies the existence of a finite submodule \(B\) with \(\H{n}{\K}{B}=0\). As \(M\) is finite, we can find such a \(B\) which contains \(M\), whose quotient \(C=B/M\) is finite as well.
     Now, we can relate the long exact sequences in cohomology associated with the short exact sequence \eqref{eq:InjSeq}
     and its dual using the cup product, which gets us the following commutative diagram (up to a sign, by \ref{prop:CompatCupDiff}) with exact rows:
     \[
@@ -685,11 +779,11 @@ finite because of \ref{thm:CohomMuN} and \textcolor{red}{TODO}). Thus, we get th
 
 \begin{align*}
     \Gamma^{\text{ab}} & = \Hom(\Gamma, \Q/\Z)^*                              & \text{(by Pontryagin duality)}    \\
-                       & = \Hom(\Gamma, \varinjlim_n\nolimits \Zn)^*          & \text{(by \ref{rm:Torsion})}      \\
+                       & = \Hom(\Gamma, \varinjlim_n\nolimits \Zn)^*          & \text{(viewing $\Q/\Z$ as a colimit)} \\
                        & = \varprojlim_n\nolimits \Hom(\Gamma, \Zn)^*         & \text{(by contravariance)}        \\
-                       & = \varprojlim_n\nolimits \H{1}{K}{\mu_n}^*           & \text{(by \ref{rm:TrivialModH1})} \\
-                       & = \varprojlim_n\nolimits \H{1}{K}{\Zn}               & \text{(by Tate Duality)}          \\
-                       & = \varprojlim_n\nolimits \K^{\times} / \K^{\times n} & \text{(by \ref{thm:padicBrauer})} \\
+                       & = \varprojlim_n\nolimits \H{1}{K}{\Zn}^*           & \text{(by \ref{rm:TrivialModH1})} \\
+                       & = \varprojlim_n\nolimits \H{1}{K}{\mu_n}               & \text{(by Tate Duality)}          \\
+                       & = \varprojlim_n\nolimits \K^{\times} / \K^{\times n} & \text{(by \ref{thm:CohomMuN})}    \\
                        & = \hat{\K}^{\times}                                  & \text{(by \ref{prop:KxOpen})}.
 \end{align*}
 
@@ -698,7 +792,7 @@ In particular, by Galois theory we deduce a correspondence
     \{\text{finite abelian extensions of }K\} \iff \{\text{finite subgroups of }\hat{\K}^{\times} = \hat{\Z} \times U_K\}
     .\]
 
-The main result of local class field theory, the existence theorem, makes this correspondence explicit using the \textit{reciprocity map}.
+The main result of local class field theory, the existence theorem, makes this correspondence explicit using the \textit{reciprocity map}, which we will not cover here.
 
 \nocite{*}
 \printbibliography
