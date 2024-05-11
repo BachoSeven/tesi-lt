@@ -40,14 +40,73 @@
 % make TOC
 \tableofcontents
 
-% TODO Notation section, things like Ab, K_s, p-primary p-torsion, etc.
-
 \chapter*{Introduction}
+
+% Introduce notation: things like Ab, sep. closure, p-primary p-torsion, etc.
+
 \addcontentsline{toc}{section}{Introduction}
 
 \chapter{Cohomology of Finite Groups}
 
-% TODO use f^* as notation for induced maps in cohomology
+\section{The category of $G$-Modules}
+
+In this chapter, $G$ will always denote a finite multiplicative group. We begin by introducing the notion of a $G$-module:
+
+\begin{definition}
+    A $G$-module is an abelian group $A$ (whose operation we denote additively) endowed with a left action of $G$ such that
+    \begin{align*}
+        A & \longrightarrow A    \\
+        x & \longmapsto g\cdot x
+    \end{align*}
+    is a homomorphism of groups for all $g\in G$.
+\end{definition}
+
+\begin{remark}
+    Let $\Z[G]$ be the group ring of $G$ over $\Z$, that is the set of formal sums
+    \[
+        \sum_{g\in G}{n_g\cdot g}
+    \]
+    with $n_g\in\Z$. The action of $G$ on itself by left multiplication induces a $G$-module structure on $\Z[G]$ by extending linearly.
+
+    More generally, a $G$-module is the same as a (left) module over the ring $\Z[G]$: the action of $G$ extends linearly to multiplication by elements of $\Z[G]$. This does not hold for discrete modules on profinite groups, as we will see later on.
+\end{remark}
+
+As with any category, we need specify the morphisms between objects:
+
+\begin{definition}
+    A morphism of $G$-modules is a group homomorphism $A\overset{f}{\to} B$ which commutes with the action of $G$, that is
+    \[
+        f(g\cdot x)=g\cdot f(x)
+    \]
+    for all $g\in G$ and $x\in A$. Again, this is the same as a morphism of $\Z[G]$-modules.
+\end{definition}
+
+We denote by $\Hom_G{A,B}$ the abelian group of morphisms of $G$-modules between $A$ and $B$, which is a subgroup of all homomorphisms $\Hom_\Z{(A,B)}$.
+
+\begin{example}{$G$-modules}\
+    \begin{itemize}
+        \item Any abelian group $A$ is a $G$-module with the trivial action $g\cdot x=x$ for all $g\in G$ and $x\in A$.
+        \item If $A$ and $B$ are $G$-modules, then the group homomorphisms $\Hom{(A,G)}$ form a $G$-module with the action
+              \[
+                  (g\cdot f)(x)=g\cdot f(g^{-1}\cdot x)
+              \]
+              for all $g\in G$, $f\in\Hom{(A,B)}$ and $x\in A$.
+        \item Let $L / K$ be a finite Galois extension of fields with Galois group $G$. Then, the additive group $L$ and the multiplicative group $L^\times$
+    \end{itemize}
+\end{example}
+
+\section{Group Cohomology}
+
+Given a $G$-module $A$, there is a natural sub-$G$-module of $A$ consisting of the elements fixed by the action of $G$:
+
+\begin{definition}
+    The $G$-\textbf{invariants} of $A$ are the elements $a \in A$ fixed by the action of $G$:
+    \[
+        A^G:=\{x\in A\mid\, g\cdot x=x ~ \forall g\in G\}.
+    \]
+\end{definition}
+
+We can define the cohomology groups of $G$ with coefficients in $A$ as the derived functors of $F$:
 
 \chapter{Cohomology of Profinite Groups}
 
@@ -58,18 +117,233 @@
 \subsection{Brauer Group of a Field}
 
 \chapter{Local Fields}
+In this chapter we are going to recall some notions of algebraic number theory over local fields, that is fields which are complete with respect to a discrete valuation with finite
+residue field. These fields turn out to be isomorphic to a finite extension of either the $p$-adic numbers $\Q_p$ or the Laurent series $\k((t))$ over a finite field $\k$.
+
+We will see how to describe the structure of local fields by looking at certain filtrations of their units, how the extensions of their residue field is related to unramped
+extensions of the field itself, and compute their Brauer group. The exposition of these topics will mainly follow \cite{SerreCL}.
+
+\section{Complete Discretely Valued Fields}
+Let $A$ be a \textit{discrete valuation ring} (or DVR), that is a local principal ideal domain of Krull dimension 1. If $\mathfrak{m}$ is its maximal ideal we denote by $\k$ its
+residue field; a generator $\pi$ of $\mathfrak{m}$ is said to be a \textit{uniformizer} of $A$. Since $A$ is local, the group of invertible elements $A^\times$ is just
+$A\setminus\mathfrak{m}$.
+
+It follows that every non-zero element $x$ of $A$ can be written uniquely as
+\begin{equation}\label{eq:DVR}
+    x=u\cdot\pi^n
+\end{equation}
+for some $u\in A^\times$ and $n\in\N$; by setting $v(x):=n$ and $v(0):=\infty$ we get a \textbf{valuation} on $A$, that is a map $v:\K:=\operatorname{Frac}{(A)}\to\Z\cup\{\infty\}$ which satisfies
+\begin{itemize}
+    \item $v(x)=\infty$ if and only if $x=0$,
+    \item $v(xy)=v(x)+v(y)$,
+    \item $v(x+y)\geq\min\{v(x),v(y)\}$.
+\end{itemize}
+(to extend the valuation to the field of fractions $K$ of $A$ we just set $v(x/y)=v(x)-v(y)$).
+
+In this situation, $A$ is said to be the \textit{ring of integers} of $\K$, that is the subring of $K$ consisting of elements with non-negative valuation. Note that $A^\times$ consists
+of the elements of $A$ whose valuation is zero.
+
+\begin{remark}
+    If \(\K\) has positive characteristic \(p\), then the residue field \(\k\) has to be a finite field of characteristic \(p\). In the same way, if \(\k\) has characteristic \(0\) then
+    the characteristic of \(\K\) is necessarily \(0\). These are the \textit{equal characteristic} cases; however, there are important examples where \(\operatorname{char}{\K}=0\)
+    but \(\operatorname{char}{\k}=p\) (the \textit{mixed characteristic} case):
+\end{remark}
+
+
+\begin{example}[Discrete Valuation Rings]\label{ex:DVR}\
+    \begin{itemize}
+        \item If $p$ is a prime number, then the localization $\Z_{(p)}$ of $\Z$ at the ideal $(p)$ is a discrete valuation ring, with maximal ideal $(p)$, fraction field $\Q$ and residue field
+              $\Z/p\Z$. The valuation is induced by the $p$-adic valuation on $\Z$, which assigns to a non-zero integer $x$ the largest integer $n$ such that $p^n$ divides $x$.
+        \item The ring of \textit{$p$-adic integers} $\Z_p:=\varprojlim_n{\Z/p^n\Z}$ is a discrete valuation ring with maximal ideal $(p)$ and residue field $\Z/p\Z$. It is the completion of
+              $\Z_{(p)}$ with respect to its maximal ideal, and its units are the elements $u=(u_n)$ with $u_1\neq 0$. The valuation of a non-zero element $x=(x_n)$ is $0$ if
+              $x\in\Zp^\times$, and the largest $n$ such that $x_n= 0$ otherwise. Its fraction field $\Q_p$ is called the field of \textit{$p$-adic numbers}.
+        \item The ring of formal power series $\k[[t]$ with coefficients in a field $\k$ is a discrete valuation ring, with the valuation of a non-zero power series $\sum_{n\geq
+                      0}{a_nt^n}$ being the smallest $n$ such that $a_n\neq 0$. Its residue field is $\k=\k[[t]]/(t)$, and its fraction field is the field of \textit{Laurent series} $\k((t))$.
+    \end{itemize}
+\end{example}
+
+Let $a$ be a real number between 0 and 1. Given a discrete valuation ring $A$, the valuation $v$ on its fraction field $\K$ defines an \textbf{ultrametric absolute value} on $\K$ by setting $|x|=a^{v(x)}$ for $x\in\K$ (and
+$|0|=0$). This absolute value satisfies the following properties, and makes $\K$ into a totally disconnected metric space with the distance $d(x,y)=|x-y|$:
+\begin{itemize}
+    \item $|x|=0 \iff x=0$,
+    \item $|xy|=|x|\cdot|y|$,
+    \item $|x+y|\leq\max\{|x|,|y|\}$.
+\end{itemize}
+
+We can now talk about \textit{local fields}:
+
+\begin{definition}
+    A \textbf{local field} is a field $\K$ which is complete with respect to a discrete valuation and has a finite residue field.
+\end{definition}
+
+The following proposition (Prop. 1 of \cite{SerreCL}, Ch. II)
+motivates this definition:
+\begin{proposition}
+    A discretely valued field $\K$ is locally compact with respect to the topology induced by the above distance if and only if it is complete and its residue field is finite. In
+    this case, its ring of integers $A$ is compact, so that by \ref{rm:CptTotDisc} it is also a profinite group.
+\end{proposition}
+
+\begin{example}\
+    \begin{itemize}
+        \item If $\k$ is a field, then $\k((t))$ is complete, and it's locally compact if and only if $\k$ is a finite field.
+        \item The fraction field $\Q$ of $\Z_{(p)}$ from Example \ref{ex:DVR} is not complete with respect to the $p$-adic valuation: its completion is the local field $\Q_p$.
+    \end{itemize}
+\end{example}
+
+\subsubsection{Extensions}
+
+Let now $\K$ be a field complete with respect to a discrete valuation $v$, $A$ its ring of integers and $\k=A/\mathfrak{m}$ its residue field. Given a finite extension $L$ of $\K$, the integral closure $B$ of $A$ in $L$ is a discrete valuation ring and free $A$-module of rank $[L:\K]$, whose induced
+topology on $L$ makes it complete. Moreover, there exists a unique discrete valuation $w$ on $L$ inducing the same topology of $v$ on $\K$.
+
+If $\mathfrak{n}$ is the maximal ideal of $B$, then $\mathfrak{m}B=\mathfrak{n}^e$ for some $e>0$, called the
+\textit{ramification index} of the extension. The degree of the field extension $f:=[B /\mathfrak{n}:\k]$
+is the \textit{residual degree} of the extension, and we have the following relations:
+\begin{itemize}
+    \item \( [L:\K]=e\cdot f \)
+    \item $w(x) = e\cdot v(x)$ for all $x\in \K$.
+\end{itemize}
+
+\begin{definition}
+    With the above notation, the extension $L/\K$ is said to be \textit{unramified} if $e=1$ and $B /\mathfrak{n}$ is separable over $\k$ (for instance when $\k$ is perfect), and \textit{totally ramified} if $f=1$.
+\end{definition}
+
+\begin{example}\
+    \begin{itemize}
+        \item Let $\k$ be a field. Then, the finite separable extensions of $\k((t))$ are exactly $\k^{\prime}((t))$ for $\k^{\prime} $ a finite separable extension of $\k$.
+        \item The extension $\Q_p(\sqrt{p})/\Q_p$ is totally ramified of degree 2. More generally, given a complete DVR $(R,\mathfrak{m})$ with field of fractions $F$ and an \textit{Eisenstein polynomial}
+              \[
+                  f=x^n+a_{n-1}x^{n-1}+\ldots+a_0
+              \]
+              with $a_i\in\mathfrak{m}$ for $i<n$ and $a_0\not\in\mathfrak{m}^2$, the extension $F[x]/(f)$ is totally ramified of degree $n$.
+    \end{itemize}
+\end{example}
+\subsubsection{Galois Theory}
+After discussing extensions, we now present the Galois theory of a complete discretely valued field, under the additional assumption that its residue field is perfect. The main result is summarized by the following Theorem (Thm. 2 of \cite{SerreCL}, Ch. III):
+
+\begin{theorem}Let $\K$ be a field complete for a discrete valuation with \textbf{perfect} residue field $\k$. Then:
+    \begin{itemize}
+        \item for any finite extension $\k^{\prime} $ of \(\k\), there exists a unique (up to isomorphism) finite unramified extension $L / \K$ with residue field $\k^{\prime} $, which is Galois if and only if $k/k^{\prime}$ is.
+        \item Let \(\ks\) be an algebraic closure of \(\k\). If $\Knr$ is the inductive limit of the unramified extensions of $\K$ which correspond to finite extensions
+              contained in $\ks$, then $\Knr$ is a Galois extension of $\K$ with Galois group $\operatorname{Gal}{(\Knr/\K)}\simeq \operatorname{Gal}{(\ks/\k)}$.
+    \end{itemize}
+\end{theorem}
+
+The field $\Knr$ is called the \textit{maximal unramified extension} of $\K$. If $\Ks$ is a separable closure of $\K$, the subgroup
+\[
+    I:=\operatorname{Gal}{(\Ks/\Knr)} < \operatorname{Gal}{(\Ks/\K)}
+\]
+is called the \textit{inertia group} $I$ of $\K$.
+
+\begin{example}\label{ex:FinFields}
+    If $\K$ is a local field with residue field $\k=\mathbb{F}_q$, then for any integer $n>0$, there is a unique extension of $\k$ of degree $n$, which is cyclic with Galois group $\Zn$ (namely $\mathbb{F}_{q^n}$). It follows that
+    \[
+        \operatorname{Gal}{(\Knr/\K)}\simeq \operatorname{Gal}{(\ks / \k)}\simeq \hat{\Z}.
+    \]
+    In particular, there is an automorphism of $\Knr$ which corresponds to the Frobenius automorphism $x\mapsto x^q$ of $\ks$.
+\end{example}
 
 \section{Structure of Local Fields}
+
+The following theorem implies a classification of local fields based on their characteristic (Thm. 2 and 4 of \cite{SerreCL}, Ch. II):
+
+\begin{theorem}
+    Let $\K$ be a field complete with respect to a discrete valuation whose residue field $\k$ has characteristic $p>0$. Then:
+    \begin{itemize}
+        \item if $\K$ has characteristic $p$, it is isomorphic to a finite extension of $\Q_p$,
+        \item if $\K$ has characteristic $0$, it is isomorphic to the field of Laurent series $\k((t))$.
+    \end{itemize}
+\end{theorem}
+
+Let $\K$ be a local field with ring of integers $\mathcal{O}_\K$ and residue field $\k$. We are interested in the multiplicative group $\K^\times$, however it's enough to determine the structure of the group of units $U_\K:=\mathcal{O}_\K^\times$, since after fixing an uniformizer \eqref{eq:DVR} yields an isomorphism $\K^\times\simeq \Z\times U_\K$, or equivalently the following exact sequence splits:
+
+\begin{equation}\label{eq:SplitSeq}
+    1\to U_\K \to \K^\times\overset{v}{\to}\Z\to 0.
+\end{equation}
+
+We first note that $\mathcal{O}_\K$ has a basis of open neighborhoods of $0$ given by the subgroups $\mathfrak{m}^n$ for $n\in\N$, where $\mathfrak{m}$ is the maximal ideal of $\mathcal{O}_\K$. Analogously, the multiplicative group $U_K:=\mathcal{O}_\K^\times$ has a basis of open neighborhoods of $1$ given by the subgroups
+\[
+    U_\K^j:=1+\mathfrak{m}^j,
+\]
+
+which define a filtration $U_\K = U_\K^0\supset U_\K^1\supset U_\K^2\supset\ldots$ of $U_\K$ by open subgroups with $\bigcap_j{U_\K^j}=\{1\}$. Furthermore, $U_\K$ is profinite (as it is closed in $\mathcal{O}_\K$) and so is $U_\K^1=\varprojlim_{j\geq 1}{U_\K^1 / U_\K^j}$, the group of \textit{principal units} of $\K$.
+
+Now, the reduction map $U_\K\to \k^\times$ induces a short exact sequence
+
+\[
+    1\to U_\K^1\to U_K\to \k^\times \to 1,
+\]
+
+which splits thanks to (a version of) \textbf{Hensel's lemma}:
+
+\begin{proposition}
+    Let $\K$ be a field complete for a discrete valuation, with $A$ its ring of integers and residue $\k$.
+    Given a polynomial $f\in A[x]$, any simple root of its reduction $f\in \k[x]$ lifts uniquely to a root of $f$.
+\end{proposition}
+
+Indeed, as $\k^\times$ is cyclic of order $m$ prime to $p$, by Hensel's lemma the polynomial $x^m=1$ has $m$ distinct roots in $U_\K$, which gives the desired section. In particular we get an isomorphism
+\begin{equation}\label{eq:UK}
+    U_\K\simeq U_\K^1\times\k^\times.
+\end{equation}
+
+Analogously, the surjective map
+\begin{align*}
+    U_\K^n       & \to \k               \\
+    1 + u \pi ^n & \mapsto \overline{u}
+\end{align*}
+induces a short exact sequence
+\[
+    1\to U_\K^{n+1} \to U_\K^n\to \k\to 0,
+\]
+
+and thus the successive quotients $U_\K^n/U_\K^{n+1}$ are isomorphic to $\k$, which means that $U_\K^1$ is a \textit{pro-$p$ group}.
+
+Finally, in the case of a $p$-adic field we can explicit the structure of $\K^\times$:
+
+\begin{theorem}\label{thm:StructureLocalFields}
+    If $\K$ is a $p$-adic field with $[\K:\Qp]=n$ and ramification index $e$ over $\Qp$, then
+    \[
+        U_\K^m \subset \K^p
+    \]
+    for all $m> \frac{e}{p-1}$. Moreover, we have the following decomposition of the group of principal units:
+    \begin{equation*}
+        U_\K^1 \simeq \Zp^n \times F, \\
+    \end{equation*}
+    where $F$ is a finite cyclic group of order a power of $p$.
+    By \eqref{eq:SplitSeq} and \eqref{eq:UK}, this determines the structure of $K^\times$:
+    \begin{align*}
+        \K^\times & \simeq \Z \times U_\K                             \\
+                  & \simeq \Z \times \Zp^n \times F \times \k^\times.
+    \end{align*}
+\end{theorem}
+
+We omit the proof, which is a direct consequence of \cite{SerreCL}, Ch. XIV, Prop. 9 and 10.
+
+Using this result, we can show that the $n$-th powers in $\K^\times$ are open:
+\begin{corollary}\label{cor:KxOpen}
+    Let $\K$ be a $p$-adic field. Then, for any $n>0$ the subgroup $\K^{*n}<\K^\times$ of $n$-th powers is open.
+\end{corollary}
+\begin{proof}
+    If $n$ is not divisible by $p$, then we can use Hensel's lemma to show that $\K^{*n}$ contains the principal units $U_\K^1$, which are open in $\K^\times$: for any $a\in U_\K^1$, the polynomial $x^n-a$ reduces to $x^{n} - 1$ in $\k[x]$. Since $1$ is a root of the latter and $n$ is invertible in $\k$, we can lift it to a root of $x^n-a$ in $\K^\times$.
+
+    As for the case $n=p^k$, since $U_\K^m$ is open in $\K^\times$ for any $m$, it's enough to show that $(U_\K^m)^{p^k}$ is open in $U_\K^m$.
+    Then, using Prop. 9 of loc. cit. again we find that for $m>\frac{e}{p-1}$ the map $x\mapsto x^{p^k}$ is an isomorphism of $U_\K^m$ onto $U_\K^{m+ke}$, which is open in $U_\K^m$.
+\end{proof}
+
+\begin{remark}\label{rm:KxOpenCharP}
+    If $\K$ is a local field of characteristic $p>0$, then $\K^{*p}$ cannot be not open in $\K^\times$, otherwise it would contain $U_\K^m$ for $m$ large enough but then $x^p = \pi^m + 1$ would imply $(x-1)^p = \pi^m$, which gives a contradiction whenever $(m,p)=1$.
+    However, if $n$ is prime to $p$ then $\K^{*n}$ is still open in $\K^\times$ by Hensel's lemma, as in the previous corollary.
+\end{remark}
+
 \section{The Brauer Group of a Local Field}
 
 Let $K$ be a local field with residue field $\k$. We now explain how to compute the Brauer group of a local field following \S 6.3 of \cite{SzamuelyGille}:
 
-Recall from Remark \ref{rm:CSA} the interpretation of the Brauer group as equivalence classes of central simple algebras, which is crucial in the following. Given a local field $K$, we first reduce to the relative Brauer group of the maximal unramified extension $K_{nr}$ of $K$:
+Recall from Remark \ref{rm:CSA} the interpretation of the Brauer group as equivalence classes of central simple algebras, which is crucial in the following. Given a local field $K$, we first reduce to the relative Brauer group of the maximal unramified extension $\Knr$ of $K$:
 
 \begin{proposition}
-    Let $K$ be a local field and $K_{nr}$ the maximal unramified extension of $K$, with Galois group $G=\operatorname{Gal}{(K_{nr}/K)}$. Then, the inflation map
+    Let $K$ be a local field and $\Knr$ the maximal unramified extension of $K$, with Galois group $G=\operatorname{Gal}{(\Knr/K)}$. Then, the inflation map
     \[
-        \H{2}{G}{K_{nr}^*}\to\H{2}{K}{\Ks^*}= \Br{K}
+        \H{2}{G}{\Knr^\times}\to\H{2}{K}{\Ks^\times}= \Br{K}
     \]
     is an isomorphism.
 
@@ -77,22 +351,22 @@ Recall from Remark \ref{rm:CSA} the interpretation of the Brauer group as equiva
 
 \begin{proof}{(Sketch)}
 
-    Since G is the quotient of the absolute Galois group $\Gamma_K$ of $K$ by the inertia subgroup $\operatorname{Gal}{(\Ks/K_{nr})}$, the Hochschild-Serre spectral sequence yields the inflation-restriction exact sequence
+    Since G is the quotient of the absolute Galois group $\Gamma_K$ of $K$ by the inertia group $\operatorname{Gal}{(\Ks/\Knr)}$, the Hochschild-Serre spectral sequence yields the inflation-restriction exact sequence
     \[
-        0\to\H{2}{G}{K_{nr}^*}\to\H{2}{K}{\Ks^*}\to\H{2}{K_{nr}}{\Ks^*}.
+        0\to\H{2}{G}{\Knr^\times}\to\H{2}{K}{\Ks^\times}\to\H{2}{\Knr}{\Ks^\times}.
     \]
 
-    It's enough to show that the last term is trivial, but $\H{2}{K_{nr}}{\Ks^*}=\Br{K_{nr}}$ is zero by Corollary 2.9.4 of \cite{SzamuelyGille}, which shows the existence of an unramified splitting field for any central simple algebra over $K$ by extending the valuation of $K$ to a central division algebra $D$ equivalent to $A$ through the reduced norm, and using it to show that $D$ has a maximal (and thus splitting) unramified subfield.
+    It's enough to show that the last term is trivial, but $\H{2}{\Knr}{\Ks^\times}=\Br{\Knr}$ is zero by Corollary 2.9.4 of \cite{SzamuelyGille}, which shows the existence of an unramified splitting field for any central simple algebra over $K$ by extending the valuation of $K$ to a central division algebra $D$ equivalent to $A$ through the reduced norm, and using it to show that $D$ has a maximal (and thus splitting) unramified subfield.
 \end{proof}
 
-As the valuation of $K$ extends uniquely to a valuation on $K_{nr}$, we have a split exact sequence as in \eqref{eq:SplitSeq}:
+As the valuation of $K$ extends uniquely to a valuation on $\Knr$, we have a exact sequence of $G$-modules which splits as in \eqref{eq:SplitSeq}:
 \[
-    1\to U_{nr} \to\K_{nr}^*\to\Z\to 1,
+    1\to U_{\text{nr}} \to \Knr^\times\to\Z\to 1,
 \]
-with $U_{nr}$ the group of units of $K_{nr}$. This induces a split exact sequence in cohomology, which in degree 2 reads
+with $U_{\text{nr}}$ the group of units of $\Knr$. This induces a split exact sequence in cohomology, which in degree 2 reads
 
 \begin{equation}\label{eq:BrSeq}
-    1\to\H{2}{G}{U_{nr}}\to\H{2}{G}{\K_{nr}^*}\to\H{2}{G}{\Z}\to 1.
+    1\to\H{2}{G}{U_{\text{nr}}}\to\H{2}{G}{\Knr^\times}\to\H{2}{G}{\Z}\to 1.
 \end{equation}
 
 Let's compute each term: using the long exact sequence in cohomology associated with the short exact sequence
@@ -100,15 +374,15 @@ Let's compute each term: using the long exact sequence in cohomology associated 
 \[
     0\to\Z\to\Q\to\Q/\Z\to 0
 \]
-and Remark \ref{rm:UniqDiv}, we have an isomorphism of $\H{2}{G}{\Z}$ with $\H{1}{G}{\Q/\Z}$, which are just the continuous homomorphisms from $G$ to $\Q/\Z$. By Remark
-\ref{rm:FinFields} of the previous
-section, we know that $G=\operatorname{Gal}{(\ks/\k)}\simeq\hat{\Z}$, and so
+and Remark \ref{rm:UniqDiv}, we have an isomorphism of $\H{2}{G}{\Z}$ with $\H{1}{G}{\Q/\Z}$, which are just the continuous homomorphisms from $G$ to $\Q/\Z$. Recall from Example
+\ref{ex:FinFields} of the previous
+section that $G=\operatorname{Gal}{(\ks/\k)}\simeq\hat{\Z}$, and so
 \[
     \H{2}{G}{\Z}=\Hom{(\hat{\Z},\Q/\Z)}\simeq\Q/\Z.
 \]
 
-Morever, using the profinite structure of the group of principal units $U_K^1$ one shows (as in Proposition 6.3.1 of \cite{SzamuelyGille}) that $\H{2}{G}{U_{nr}}$ is isomorphic to
-the Brauer group of the residue field $\Br{\k}=\H{2}{\k}{\ks^*}$.
+Morever, using the profinite structure of the group of principal units $U_K^1$ one shows (as in Proposition 6.3.1 of \cite{SzamuelyGille}) that $\H{2}{G}{U_{\text{nr}}}$ is isomorphic to
+the Brauer group of the residue field $\Br{\k}=\H{2}{\k}{\ks^\times}$.
 
 Finally, the content of the previous proposition is that the middle term is isomorphic to $\Br{K}$, so that \eqref{eq:BrSeq} becomes
 \[
@@ -137,10 +411,10 @@ We also need the following result:
 
 \begin{proof}{(Sketch)}
 
-The second statament follows from the first, thanks the formula $\Cor \circ \Res = [L:K]$ (Theorem \ref{thm:CorRes}).
+    The second statament follows from the first, thanks the formula $\Cor \circ \Res = [L:K]$ (Theorem \ref{thm:CorRes}).
 
-The first statement can be shown by considering an unramified extension of $K$ contained in $L$, as the procyclic structure absolute Galois group of its residue field makes the computation of the corestriction
-straightforward (see Proposition 6.3.7 of \cite{SzamuelyGille}).
+    The first statement can be shown by considering an unramified extension of $K$ contained in $L$, as the procyclic structure absolute Galois group of its residue field makes the computation of the corestriction
+    straightforward (see Proposition 6.3.7 of \cite{SzamuelyGille}).
 \end{proof}
 
 \begin{corollary}\label{cor:BrRes}
@@ -170,15 +444,15 @@ We now use these results to compute the cohomological dimension of $\Gamma_K$:
 \end{proof}
 
 \begin{corollary}
-    The cohomological dimension of the inertia group $I:=\operatorname{Gal}{(\Ks/K_{nr})}$ of $\K$ is at most 1.
+    The cohomological dimension of the inertia group $I:=\operatorname{Gal}{(\Ks/\Knr)}$ of $\K$ is at most 1.
 \end{corollary}
 
 \begin{proof}
-    We just apply the previous proposition to the maximal unramified extension $K_{nr}$ of $\K$: as $\operatorname{Gal}{(K_{nr}/K)}\simeq\hat{\Z}$, we have that
-    $l^\infty\mid [K_{nr}:K]$ for any prime $l$.
+    We just apply the previous proposition to the maximal unramified extension $\Knr$ of $\K$: as $\operatorname{Gal}{(\Knr/K)}\simeq\hat{\Z}$, we have that
+    $l^\infty\mid [\Knr:K]$ for any prime $l$.
 \end{proof}
 
-\begin{theorem}
+\begin{theorem}\label{thm:CohomFin}
     If $l$ is a prime different from the characteristic of $\K$, then the cohomological $l$-dimension of $K$ equals 2. In particular, $\cd{(\K)}=2$.
 \end{theorem}
 
@@ -211,15 +485,11 @@ We now specialize to the case of a $p$-adic field $K$, by first showing that the
 \end{theorem}
 \begin{proof}
     The first isomorphism follows from \textit{Kummer Theory} \eqref{eq:Kummer}. We can show that $\K^\times/\K^{\times n}$ is finite using the structure theorem for local fields \ref{thm:StructureLocalFields}:
-    \[
-        \K^\times/\K^{\times n} \simeq \Zn \times \kappa^\times/\kappa^{\times n} \times U_\K^1/(U_\K^1)^n,
-    \]
-    where $\kappa$ is the residue field of $\K$ (which is finite), and
-    \[
-        U_\K^1/(U_\K^1)^n \simeq \Zp^{[\K:\Qp]}/n \Zp^{[\K:\Qp]}
-        \times F/F^n \simeq \Zn \times F/F^n
-        ,\]
-    again by Theorem \ref{thm:StructureLocalFields}. Since $F$ is a finite group, we are done.
+    \begin{align*}
+        \K^\times/\K^{\times n} & \simeq \Zn \times  \times \Zp^{[\K:\Qp]}/n \Zp^{[\K:\Qp]} \times F/F^n \times  \kappa^\times/\kappa^{\times n} \\
+                                & \simeq \Zn \times \kappa^\times/\kappa^{\times n} \times  \Zn \times F/F^n.
+    \end{align*}
+    Since both $\kappa^\times$ and $F$ are finite groups, we are done.
 
     For second isomorphism, $\H{2}{\K}{\mu_n}$ is equal to the $n$-torsion of $\Br{\K}$ by Proposition \ref{prop:BrMuN}, which is isomorphic to $\Q/\Z$, so that
     \[
@@ -229,6 +499,9 @@ We now specialize to the case of a $p$-adic field $K$, by first showing that the
 \end{proof}
 
 % TODO remark 8.14 about char p (which implies that duality holds for p-torsion-free modules)
+\begin{remark}\label{rm:H1CharP}
+    If $\K$ is a local field of characteristic $p>0$, then $\H{1}{\K}{\mu_p}$ is
+\end{remark}
 
 \begin{corollary}\label{cor:FinCohom}
     If $\K$ is a $p$-adic field and $M$ is a finite $\Gamma_K$-module, then
@@ -247,6 +520,9 @@ We now specialize to the case of a $p$-adic field $K$, by first showing that the
     \]
     we see that $\H{i}{K}{M}$ is finite, as it has a finite filtration whose successive quotients are subquotients of the finite groups $E_2^{pq}$ (which are finite as cohomology groups of a finite module, since $\mathrm{Gal}(L /\K)$ is finite).
 \end{proof}
+
+
+
 
 \chapter{Local Duality}
 In this chapter we are going to define a product on cohomology, the \textit{cup product}, and work through its properties and compatibility with various pairings.
@@ -520,7 +796,7 @@ For any \(G\)-module \(A\), consider the abelian group
 \]
 which we make into a \(G\)-module by setting
 \begin{equation}\label{eq:TateTwist}
-    (\sigma\cdot f)(a)=\sigma\cdot(f(\sigma^{-1}\cdot a)).
+    (\sigma\cdot f)(a)=\sigma(f(\sigma^{-1}\cdot a)).
 \end{equation}
 
 This action induces a pairing of \(G\)-modules
@@ -601,7 +877,8 @@ Before moving on to the computation of the dualizing module of the absolute Galo
 \end{lemma}
 
 \begin{proof}
-    As \(U\) is open and \(\cd(G)<\infty\), by Proposition \ref{ineqCd} we get \(\cd(U)=\cd(G)\). By uniqueness of the dualizing module, it's enough to show that \(\H{n}{U}{-}^*\simeq\Hom_U(-,I)\), and then the first claim follows from the functorial isomorphisms
+    As \(U\) is open and \(\cd(G)<\infty\), Proposition \ref{prop:CdSgr} implies \(\cd(U)=\cd(G)\). By uniqueness of the dualizing module, it's enough to show that
+    \(\H{n}{U}{-}^*\simeq\Hom_U(-,I)\), and then the first claim follows from the functorial isomorphisms
     \begin{align*}
         \H{n}{U}{A}^* & \simeq \H{n}{G}{\mathrm{I}_G^U(A)}   & \text{(Shapiro)}                               \\
                       & \simeq \Hom_G(\mathrm{I}_G^U(A),\,I) & \text{($I$ is the dualizing module of $G$)}    \\
@@ -682,11 +959,12 @@ Finally, we apply the theory of dualizing modules to the absolute Galois group \
     Let $f_n$ be the canonical generator of $\Hom_\Z(\mu_n,I_n)$ associated with $1\in\Zn$. Then $f_n$ is injective because it has order $n$, and surjective because otherwise any
     element outside its image wouldn't be reached by any element of $\langle f_n\rangle=\Hom_\Z(\mu_n,I_n)$, but since $I_n$ has exponent $n$ there exist homomorphisms $\mu_n\to I_n$ sending a generator of $\mu_n$ to any element of $I_n$.
 
-    By writing $\mu = \bigcup_n{\mu_n}$ and $I = \bigcup_n{I[n]}$, we get an isomorphism of $\Gamma$-modules, which is well defined thanks to the functoriality of the dualizing
-    module, and canonical since the map $\H{2}{\Gamma}{\mu_m}\to\H{2}{\Gamma}{\mu_n}$ induces (through $\H{2}{\Gamma}{\mu_n}\simeq\Zn$) the canonical injection $\Z/m\Z\hookrightarrow\Zn$ if $m$ divides $n$:
+    By writing $\mu = \bigcup_n{\mu_n}$ and $I = \bigcup_n{I[n]}$, we get an isomorphism of $\Gamma$-module
     \[
-        f\coloneqq \varinjlim_n f_n:\, \mu\Iso I.
+        f\coloneqq \varinjlim_n f_n:\, \mu\Iso I,
     \]
+    which is well defined thanks to the functoriality of the dualizing
+    module, and canonical since the map $\H{2}{\Gamma}{\mu_m}\to\H{2}{\Gamma}{\mu_n}$ induces the canonical injection $\Z/m\Z\hookrightarrow\Zn$ if $m$ divides $n$.
 \end{proof}
 
 \section{Tate Duality}
@@ -772,19 +1050,17 @@ Let K be a $p$-adic field with absolute Galois group $\Gamma$. As an immediate a
     \H{1}{K}{\mu_n} \Iso \H{1}{K}{\Zn}^*.
 \]
 
-Recall that the groups $\K^{\times n}$ are open in $\Kx$ (Proposition \ref{prop:KxOpen}), and note that they are cofinal in the open subgroups of finite index (their quotients are
+Recall that the groups $\K^{\times n}$ are open in $\Kx$ (Proposition \ref{cor:KxOpen}), and note that they are cofinal in the open subgroups of finite index (their quotients are
 finite because of \ref{thm:CohomMuN} and \textcolor{red}{TODO}). Thus, we get the following description of the absolute Galois group of a $p$-adic field:
 
-% isomorphism chain for \Gamma^ab
-
 \begin{align*}
-    \Gamma^{\text{ab}} & = \Hom(\Gamma, \Q/\Z)^*                              & \text{(by Pontryagin duality)}    \\
+    \Gamma^{\text{ab}} & = \Hom(\Gamma, \Q/\Z)^*                              & \text{(by Pontryagin duality)}        \\
                        & = \Hom(\Gamma, \varinjlim_n\nolimits \Zn)^*          & \text{(viewing $\Q/\Z$ as a colimit)} \\
-                       & = \varprojlim_n\nolimits \Hom(\Gamma, \Zn)^*         & \text{(by contravariance)}        \\
-                       & = \varprojlim_n\nolimits \H{1}{K}{\Zn}^*           & \text{(by \ref{rm:TrivialModH1})} \\
-                       & = \varprojlim_n\nolimits \H{1}{K}{\mu_n}               & \text{(by Tate Duality)}          \\
-                       & = \varprojlim_n\nolimits \K^{\times} / \K^{\times n} & \text{(by \ref{thm:CohomMuN})}    \\
-                       & = \hat{\K}^{\times}                                  & \text{(by \ref{prop:KxOpen})}.
+                       & = \varprojlim_n\nolimits \Hom(\Gamma, \Zn)^*         & \text{(by contravariance)}            \\
+                       & = \varprojlim_n\nolimits \H{1}{K}{\Zn}^*             & \text{(by \ref{rm:TrivialModH1})}     \\
+                       & = \varprojlim_n\nolimits \H{1}{K}{\mu_n}             & \text{(by Tate Duality)}              \\
+                       & = \varprojlim_n\nolimits \K^{\times} / \K^{\times n} & \text{(by \ref{thm:CohomMuN})}        \\
+                       & = \hat{\K}^{\times}                                  & \text{(by \ref{cor:KxOpen})}.
 \end{align*}
 
 In particular, by Galois theory we deduce a correspondence
@@ -792,7 +1068,8 @@ In particular, by Galois theory we deduce a correspondence
     \{\text{finite abelian extensions of }K\} \iff \{\text{finite subgroups of }\hat{\K}^{\times} = \hat{\Z} \times U_K\}
     .\]
 
-The main result of local class field theory, the existence theorem, makes this correspondence explicit using the \textit{reciprocity map}, which we will not cover here.
+% TODO: expand on this?
+The main result of local class field theory, the existence theorem, makes this correspondence explicit using the \textit{reciprocity map}, which is outside the scope of this work.
 
 \nocite{*}
 \printbibliography
