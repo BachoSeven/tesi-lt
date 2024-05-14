@@ -41,10 +41,21 @@
 \tableofcontents
 
 \chapter*{Introduction}
+The aim of this work is to provide an exposition of the Local Tate Duality theorem. The main motivation comes from class field theory, which aims to describe the abelian
+extensions of a field in terms of the arithmetic of the field itself; we will use the duality theorem to establish such a correspondence for $p$-adic fields. Historically, local class field theory was formulated by John Tate via a purely cohomological approach,
+which was then used to prove global class field theory as a consequence of the local results.\\
+
+First we will need to develop some machinery, such as the cohomology of (pro)finite groups and the notion of cohomological dimension, in order to sistematically study the absolute Galois group of
+a field, which is profinite. Using this machinery and the topological structure of local fields, we will be able to compute the Brauer group and cohomological dimension of a local field, and prove the
+finiteness of all cohomology groups with finite coefficients in the case of a $p$-adic field.\\
+
+Finally, after introducing an appropriate product in cohomology, we will be able to state and prove the Local Duality theorem, which gives a Poincaré-like duality for finite modules over the
+absolute Galois group of a $p$-adic field. As an application, we will show that the Galois group of the maximal abelian extension of a $p$-adic field is isomorphic to the profinite
+completion of the multiplicative group of the field.\\
 
 % Introduce notation: things like Ab, sep. closure, p-primary p-torsion, etc.
 
-\addcontentsline{toc}{section}{Introduction}
+\addcontentsline{toc}{chapter}{Introduction}
 
 \chapter{Cohomology of Finite Groups}
 
@@ -68,7 +79,7 @@ In this chapter, $G$ will always denote a finite multiplicative group. We begin 
     \]
     with $n_g\in\Z$. The action of $G$ on itself by left multiplication induces a $G$-module structure on $\Z[G]$ by extending linearly.
 
-    More generally, a $G$-module is the same as a (left) module over the ring $\Z[G]$: the action of $G$ extends linearly to multiplication by elements of $\Z[G]$. This does not hold for discrete modules on profinite groups, as we will see later on.
+    More generally, a $G$-module is the same as a (left) module over the ring $\Z[G]$: the action of $G$ extends linearly to multiplication by elements of $\Z[G]$. This does \textit{not} hold for discrete modules on profinite groups, as we will see later on.
 \end{remark}
 
 As with any category, we need specify the morphisms between objects:
@@ -81,9 +92,11 @@ As with any category, we need specify the morphisms between objects:
     for all $g\in G$ and $x\in A$. Again, this is the same as a morphism of $\Z[G]$-modules.
 \end{definition}
 
-We denote by $\Hom_G{A,B}$ the abelian group of morphisms of $G$-modules between $A$ and $B$, which is a subgroup of all homomorphisms $\Hom_\Z{(A,B)}$.
+We denote by $\Hom_G{(A,B)}$ the abelian group of morphisms of $G$-modules between $A$ and $B$, which is a subgroup of $\Hom{(A,B)}$.
 
-\begin{example}{$G$-modules}\
+Finally, we define the category of $G$-modules $\Gmod$, whose objects are $G$-modules and whose morphisms are morphisms of $G$-modules between them. By the above discussion, $\Gmod$ is equivalent to the category of $\Z[G]$-modules, and it is thus an \textbf{abelian} category; in particular it has enough projective and injective objects.
+
+\begin{example}[$G$-modules]\
     \begin{itemize}
         \item Any abelian group $A$ is a $G$-module with the trivial action $g\cdot x=x$ for all $g\in G$ and $x\in A$.
         \item If $A$ and $B$ are $G$-modules, then the group homomorphisms $\Hom{(A,G)}$ form a $G$-module with the action
@@ -91,9 +104,42 @@ We denote by $\Hom_G{A,B}$ the abelian group of morphisms of $G$-modules between
                   (g\cdot f)(x)=g\cdot f(g^{-1}\cdot x)
               \]
               for all $g\in G$, $f\in\Hom{(A,B)}$ and $x\in A$.
-        \item Let $L / K$ be a finite Galois extension of fields with Galois group $G$. Then, the additive group $L$ and the multiplicative group $L^\times$
+        \item Let $L / K$ be a finite Galois extension of fields with Galois group $G=\operatorname{Gal}{(L / K)}$. Then, the additive group $L$ and the multiplicative group $L^\times$ have a natural $G$-module structure for the action of $G$ on $L$ by field automorphisms. In this situation, an interesting arithmetic submodule is the group of invariants under the Galois action; this is a key motivation for the definition of group cohomology.
     \end{itemize}
 \end{example}
+
+
+Given a subgroup $H<G$ and an $H$-module $A$, there are two ways to produce a $G$-module from $A$:
+\[
+    \mathrm{Ind}^G_H{(A)}:=\Z[G]\otimes_{\Z[H]}{A}
+\]
+is the \textit{induced module} of $A$ from $H$ to $G$, while
+
+\[
+    \mathrm{CoInd}^G_H{(A)}:=\{f:G\to A \mid f(hg)=h\cdot f(g) ~\forall h\in H, g\in G\}
+\]
+
+is the \textit{coinduced module} of $A$ from $H$ to $G$, with the action $g \cdot f(x)=f(xg)$. If we identify the latter with the $G$-module
+\[
+    \Hom_H{(\Z[G],A)}
+\]
+on which $G$ acts by right multiplication on the first factor, we see that the two constructions coincide for finite groups: an isomorphism is of $G$-modules is given by the map
+\begin{align*}
+    \Hom_H{(\Z[G],A)} & \to \Z[G]\otimes_{\Z[H]}{A}                                \\
+    f                 & \mapsto \sum_{\overline{g} \in G / H}{g\otimes f(g^{-1})}.
+\end{align*}
+
+We will be particularly interested in the case $H$ where is the trivial subgroup $\{1\}$, in which case we write $\Ind{G}{A}$ for the $G$-module $\operatorname{CoInd}^G_{\{1\}}{(A)}$, called the \textit{induced module} of $A$. This is because of the following result:
+
+\begin{proposition}
+    Any $G$-module $A$ embeds into its induced module $I_G(A)$.
+\end{proposition}
+
+\begin{proof}
+    The map $A\overset{i}{\hookrightarrow} I_G(A)$ sending $a$ to the function $g\mapsto g\cdot a$ is an injective morphism of $G$-modules, as if $g\cdot a = 0 $ for all $g\in G$, then taking $g=1$ gives $a=0$.
+\end{proof}
+
+Finally, we observe that $\operatorname{Ind}^G_H{(-)}$ and $\operatorname{CoInd}^G_H{(-)}$ are adjoint functors to the forgetful functor
 
 \section{Group Cohomology}
 
@@ -218,7 +264,7 @@ is the \textit{residual degree} of the extension, and we have the following rela
     \end{itemize}
 \end{example}
 \subsubsection{Galois Theory}
-After discussing extensions, we now present the Galois theory of a complete discretely valued field, under the additional assumption that its residue field is perfect. The main result is summarized by the following Theorem (Thm. 2 of \cite{SerreCL}, Ch. III):
+After discussing extensions, we present the Galois theory of a complete discretely valued field, under the additional assumption that its residue field is perfect. The main result is summarized by the following Theorem (Thm. 2 of \cite{SerreCL}, Ch. III):
 
 \begin{theorem}Let $\K$ be a field complete for a discrete valuation with \textbf{perfect} residue field $\k$. Then:
     \begin{itemize}
@@ -320,10 +366,10 @@ We omit the proof, which is a direct consequence of \cite{SerreCL}, Ch. XIV, Pro
 
 Using this result, we can show that the $n$-th powers in $\K^\times$ are open:
 \begin{corollary}\label{cor:KxOpen}
-    Let $\K$ be a $p$-adic field. Then, for any $n>0$ the subgroup $\K^{*n}<\K^\times$ of $n$-th powers is open.
+    Let $\K$ be a $p$-adic field. Then, for any $n>0$ the subgroup $\K^{\times n}<\K^\times$ of $n$-th powers is open.
 \end{corollary}
 \begin{proof}
-    If $n$ is not divisible by $p$, then we can use Hensel's lemma to show that $\K^{*n}$ contains the principal units $U_\K^1$, which are open in $\K^\times$: for any $a\in U_\K^1$, the polynomial $x^n-a$ reduces to $x^{n} - 1$ in $\k[x]$. Since $1$ is a root of the latter and $n$ is invertible in $\k$, we can lift it to a root of $x^n-a$ in $\K^\times$.
+    If $n$ is not divisible by $p$, then we can use Hensel's lemma to show that $\K^{\times n}$ contains the principal units $U_\K^1$, which are open in $\K^\times$: for any $a\in U_\K^1$, the polynomial $x^n-a$ reduces to $x^{n} - 1$ in $\k[x]$. Since $1$ is a root of the latter and $n$ is invertible in $\k$, we can lift it to a root of $x^n-a$ in $\K^\times$.
 
     As for the case $n=p^k$, since $U_\K^m$ is open in $\K^\times$ for any $m$, it's enough to show that $(U_\K^m)^{p^k}$ is open in $U_\K^m$.
     Then, using Prop. 9 of loc. cit. again we find that for $m>\frac{e}{p-1}$ the map $x\mapsto x^{p^k}$ is an isomorphism of $U_\K^m$ onto $U_\K^{m+ke}$, which is open in $U_\K^m$.
@@ -331,7 +377,7 @@ Using this result, we can show that the $n$-th powers in $\K^\times$ are open:
 
 \begin{remark}\label{rm:KxOpenCharP}
     If $\K$ is a local field of characteristic $p>0$, then $\K^{*p}$ cannot be not open in $\K^\times$, otherwise it would contain $U_\K^m$ for $m$ large enough but then $x^p = \pi^m + 1$ would imply $(x-1)^p = \pi^m$, which gives a contradiction whenever $(m,p)=1$.
-    However, if $n$ is prime to $p$ then $\K^{*n}$ is still open in $\K^\times$ by Hensel's lemma, as in the previous corollary.
+    However, if $n$ is prime to $p$ then $\K^{\times n}$ is still open in $\K^\times$ by Hensel's lemma, as in the previous corollary.
 \end{remark}
 
 \section{The Brauer Group of a Local Field}
@@ -624,7 +670,7 @@ In order to prove the duality theorem, we will need the following compatibility 
         a^{\prime},$$ which is thus zero in cohomology.
 \end{proof}
 
-\section{Dualizing Module}
+\section{Dualizing Modules}
 
 In this section we introduce the dualizing module, a type of object which is central in the study of any duality. While it can be defined explicitly (as done in e.g. \cite{Neukirch}),
 we are going to prove its existence by homological methods and only compute it for the absolute Galois group of a p-adic field, which suffices to prove the duality theorem. We
@@ -1002,7 +1048,7 @@ We now define yet another type of duality for finite groups:
     \end{equation*}
     where
     \[
-        i = \langle \id_{\Q/\Z}, - \rangle : \H{2}{\K}{\mu} \Iso \Q/\Z.
+        i = \langle \id_{\mu}, - \rangle_\mu : \H{2}{\K}{\mu} \Iso \Q/\Z.
     \]
     Since \(\langle -{,}- \rangle_M\) is a perfect pairing, we are done.
 
@@ -1065,11 +1111,11 @@ finite because of \ref{thm:CohomMuN} and \textcolor{red}{TODO}). Thus, we get th
 
 In particular, by Galois theory we deduce a correspondence
 \[
-    \{\text{finite abelian extensions of }K\} \iff \{\text{finite subgroups of }\hat{\K}^{\times} = \hat{\Z} \times U_K\}
+    \{\text{finite abelian extensions of }K\} \iff \{\text{finite index subgroups of}\hat{\K}^{\times} = \hat{\Z} \times U_K\}
     .\]
 
 % TODO: expand on this?
-The main result of local class field theory, the existence theorem, makes this correspondence explicit using the \textit{reciprocity map}, which is outside the scope of this work.
+The main result of local class field theory, the existence theorem, makes this correspondence explicit using the \textit{reciprocity map}, which is outside the scope of this thesis.
 
 \nocite{*}
 \printbibliography
