@@ -297,20 +297,77 @@ As a consequence, we can compute $\H{i}{G}{A}$ as the $i$-th homology of the com
     \end{itemize}
 \end{example}
 
-We now prove an important result about the cohomology of induced modules:
+We now prove an important result about the cohomology of induced modules, which will allow us to prove statements about group cohomology by a technique known as \textit{dimension
+shifting} (as in \textcolor{red}{TODO} below)
 
 \begin{proposition}
     Let $A$ be a $G$-module. Then, the cohomology groups of $G$ with coefficients in the induced module $\Ind{G}{A}$ are all zero except for $\H{0}{G}{\Ind{G}{A}}\simeq A$.
 \end{proposition}
 
 \begin{proof}
-    The second statement follows immediately from the definition of the action on $\Ind{G}{A}$, as $\H{0}{G}{\Ind{G}{A}}=\operatorname{CoInd}{G}{A}^G$, and if $f: G\to A$ and $f(x)=f(xg)$ for all $x, g\in G$ then $f$ must be constant.
-    Let $C^i:=C^i(G,\Ind{G}{A})$ be the set of inhomogeneous $i$-cochains with coefficients in $\Ind{G}{A}$. If $\alpha$
+    The second statement follows immediately from the definition of the action on $\Ind{G}{A}$, as $\H{0}{G}{\Ind{G}{A}}=(\operatorname{CoInd}^G_{\{1\}}{(A)})^G$, and if $f: G\to A$ and $f(x)=f(xg)$ for all $x, g\in G$ then $f$ must be constant.
+    Let $C^k:=C^k(G,\Ind{G}{A})$ be the set of inhomogeneous $k$-cochains with coefficients in $\Ind{G}{A}$. Let $\alpha\in C^{k} $ be a cocycle. Then for any $x\in G$ we have
+    \begin{align*}
+        0 = (d\alpha)(g_1,\dots , g_{k+1})(x) = (g_1\cdot \alpha)(g_2,\dots , g_{k+1})(x) +\\
+        \sum_{j=1}^{k} (-1)^j \alpha(g_1,\dots , g_j g_{j+1},\dots , g_{k+1})(x) + (-1)^{k+1} \alpha(g_1,\dots , g_k)(x),
+    \end{align*}
+    and setting $x=e$ we get the identity
+    \begin{equation*}\label{eq:Id}
+        \alpha(g_2, \dots , g_{k+1})(g_1) = \sum_{j=1}^{k} (-1)^{j+1} \alpha(g_1,\dots , g_j g_{j+1},\dots , g_{k+1})(e) + (-1)^k \alpha(g_1,\dots , g_k)(e).
+    \end{equation*}
+    To show that $\alpha$ is a coboundary, we define a $(k-1)$-cochain $\beta$ by
+    \[
+        \beta(g_1,\dots , g_{k-1})(x) = \alpha(x,g_1,\dots , g_{k-1})(e),
+    \]
+    and compute its boundary:
+    \begin{align*}
+        d\beta(g_1,\dots , g_k)(x) &= (g_1\cdot \beta)(g_2,\dots , g_k)(x) + \sum_{j=1}^{k-1} (-1)^j \beta(g_1,\dots , g_j g_{j+1},\dots , g_k)(x) + (-1)^k \beta(g_1,\dots , g_{k-1})(x) \\
+                                 &= \alpha(x g_1,\dots , g_k) + \sum_{j=1}^{k-1} (-1)^j \alpha(x,g_1,\dots , g_j g_{j+1},\dots , g_k) + (-1)^k \alpha(x, g_1,\dots , g_{k-1})(e)  \\
+                                 &= \sum_{j=1}^k (-1)^j \alpha(x,g_1,\dots , g_{j-1} g_j,\dots , g_k)(e) + (-1)^k \alpha(x,g_1,\dots , g_{k-1})(e)\\
+                                 &\overset{\eqref{eq:Id}}{=} \alpha(g_1,\dots , g_k)(x)
+    .\end{align*}
+    This shows that $d\beta=\alpha$, and thus $[\alpha]=0$ in $\H{k}{G}{\Ind{G}{A}}$.
 \end{proof}
 
-This will allow
-
 \subsection{Functoriality}
+
+Given a $G$-module $A$ and a group homomorphism $ H\overset{\varphi}{\to} G$, we can define a $H$-module structure on $A$ by "restriction of scalars":
+\[
+    h\cdot a = \varphi(h)\cdot a.
+\]
+If we denote by $\varphi^* A$ the resulting $H$-module, this defines a functor
+\[
+    \varphi^* : \Gmod\to\Hmod
+\]
+induced by $\varphi$, and since $A^G\subseteq (\varphi^*A)^H$, we get a natural transformation
+\[
+    \varphi_0^*: \H{0}{G}{-}\to\H{0}{H}{\varphi^*(-)}
+\]
+which extends by universality to a morphism of $\delta$-functors
+\[
+    \varphi_i^*: \H{i}{G}{-}\to\H{i}{H}{\varphi^*(-)}
+.\]
+From now on, we will just write $A$ instead of $\varphi^*A$ when there is no ambiguity.
+
+We also have functoriality with respect to $A$, provided that we only consider morphisms which are compatible with the action under consideration:
+
+\begin{definition}
+    Let $A$ and $\varphi$ be as above, and let $B$ be a $H$-module. We say that a group homomorphism $A\overset{f}{\to} B$ is \textbf{$\varphi$-compatible} if
+    \[
+      f(\varphi(h)\cdot a)=h\cdot f(a)
+    \]
+    for all $h\in H$ and $a\in A$. This means exactly that $f$ is a morphism of $H$-modules $\varphi^*A\to B$. In particular, for each $i\geq 0$ we get a homomorphism
+    \[
+        f^*: \H{i}{G}{\varphi^*A}\to\H{i}{H}{B},
+    \]
+    and by precomposing with $f_i^*$ we get a morphism of $\delta$-functors
+    \[
+        \H{i}{G}{A}\to\H{i}{H}{B}.
+    \]
+    associated with the pair $(\varphi,f)$. On the level of cochains, it sends $\alpha: G^i\to A$ to
+    \[ f \circ \alpha \circ \varphi^{(i)}: H^i\to B, \]
+    where \( \varphi^{(i)} := (\varphi,\ldots,\varphi) : H^i\to G^i \).
+\end{definition}
 
 \subsection{The Hochschild-Serre Spectral Sequence}
 
