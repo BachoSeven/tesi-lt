@@ -162,7 +162,7 @@ which simply restricts the action of $G$ to $H$. More precisely:
                   \operatorname{CoInd}^G_H{(-)}:\Hmod\to\Gmod
               \]
               preserves injective objects.
-        \item[(b)] We will also need the following adjunction: under the isomorphism \eqref{eq:IndIso}, the isomorphism \eqref{eq:IndAdj} is given by
+        \item[(b)] We will also need the following adjunction: under the isomorphism \eqref{eq:IndIso}, the isomorphism \eqref{eq:IndAdj} becomes
               \begin{align*}
                   \Hom_H{(B,A)} & \to \Hom_G{(\operatorname{CoInd}^G_H{(B)},A)}                                        \\
                   \psi          & \mapsto \left(f\mapsto \sum_{\overline{g} \in G / H}{g\cdot \psi(f(g^{-1}))}\right).
@@ -190,7 +190,7 @@ Here are some general properties of derived functors:
     \item the $(R^iF)_{i\geq 0}$ form a \textit{universal} $\delta$-functor, in the sense that given another $\delta$-functor $S$ equipped with a natural transformation $\alpha^0:F=R^0F\to S^0$ there exists a unique natural transformation $(\alpha^i)_{i\geq 0}$ of $\delta$-functors extending $\alpha^0$, that is a family of natural transformations commuting with the coboundary morphisms.
 \end{itemize}
 
-We now use this general theory to define the cohomology of a group $G$ with coefficients in a $G$-module $A$, by considering a very natural sub-$G$-module of $A$:
+We use this generalities to define the cohomology of a group $G$ with coefficients in a $G$-module $A$, by considering a very natural sub-$G$-module of $A$:
 
 \begin{definition}
     The $G$-\textbf{invariants} of $A$ are the elements $a \in A$ fixed by the action of $G$:
@@ -224,7 +224,7 @@ From the above general properties of derived functors, we get that $\H{0}{G}{A}=
 
 \subsection{Explicit cochain complexes}
 
-It is sometimes more practical to have an explicit description of the groups $\H{i}{G}{A}$. By above the remark, we can compute them using projective resolutions of $\Z$; we now construct such a resolution of $\Z$ by free $\Z[G]$-modules.
+It is sometimes more practical to have an explicit description of the groups $\H{i}{G}{A}$. By above the remark, we can compute them using projective resolutions of $\Z$; we now construct such a resolution of $\Z$ by free (and therefore projective) $\Z[G]$-modules.
 
 For any $i\geq 0$, let $E_i$ be the set of $(i+1)$-tuples of elements of $G$, and define $L_i$ to be the free $\Z$-module with basis $E_i$. Then, the diagonal action of $G$ on $E_i$
 \[
@@ -266,11 +266,11 @@ By applying the functor $\Hom_G{(-,A)}$ to this resolution, we get
     \]
 \end{theorem}
 
-For low-degree computations, it's convenient to use \textit{inhomogeneous} cochains instead, which are defined in degree $i$ as the set of \textit{all} functions $f: G^i\to A$ and are equipped with slightly more complicated boundary maps:
+For low-degree computations, it's convenient to use \textit{inhomogeneous} cochains instead. These arise from the fact that a function $G^{i+1}\to A$ commuting with the diagonal action of $G$ is determined by its values on elements of the form \[(1,g_1,\dots , g_i),\] and define the inhomogeneous $i$-th cochains as \textit{all} functions $f: G^i\to A$ with a slightly denser formula for the boundary maps:
 \[
     (d^i f)(g_1,\dots , g_{i+1})=g_1\cdot f(g_2,\dots , g_{i+1})+\sum_{j=1}^{i} (-1)^j f(g_1,\dots , g_j g_{j+1},\dots , g_{i+1})+(-1)^{i+1} f(g_1,\dots , g_i).
 \]
-If we denote the complex of inhomogeneous cochains by $C^\bullet$, there is an isomorphism of complexes
+If we denote the resulting complex by $C^\bullet$, there is an isomorphism of complexes
 \[
     K^\bullet\overset{\Phi}{\Iso} C^\bullet
 \]
@@ -283,7 +283,7 @@ whose inverse sends $f: G^i\to A$ to the function
 \[
     (g_0,\dots , g_i)\mapsto g_0\cdot f(g_0^{-1}g_1,\dots , g_0^{-1}g_i).
 \]
-As a consequence, we can compute $\H{i}{G}{A}$ as the $i$-th homology of the complex $(C^\bullet, d)$ of inhomogeneous cochains. In particular, we get
+As a consequence, we can also compute $\H{i}{G}{A}$ as the $i$-th homology of the complex $(C^\bullet, d)$ of inhomogeneous cochains.
 
 \begin{corollary}
     Let $G$ be a finite group. If $A$ is a finite $G$-module, then $\H{i}{G}{A}$ is a finite abelian group for all $i$.
@@ -292,15 +292,15 @@ As a consequence, we can compute $\H{i}{G}{A}$ as the $i$-th homology of the com
 \begin{example}[using inhomogeneous cochains]
     \noindent
     \begin{itemize}
-        \item The 1-cocycles $Z^1(G,A)=\ker{d^1}$ are functions $f: G\to A$ satisfying $f(gh)=g\cdot f(h)+f(g)$ for all $g,h\in G$, while the 1-coboundaries $B^1(G,A)=\Im{d^0}$ are functions of the form $g\mapsto g\cdot a-a$ for some $a\in A$.
+        \item The 1-cocycles $Z^1(G,A)=\ker{d^1}$ are functions $f: G\to A$ satisfying $$f(gh)=g\cdot f(h)+f(g)$$ for all $g,h\in G$, while the 1-coboundaries $B^1(G,A)=\Im{d^0}$ are functions of the form $$g\mapsto g\cdot a-a$$ for some $a\in A$.
         \item\label{ex:TrivialModH1} If $A$ is a trivial $G$-module, then $B^1(G,A)$ is trivial, and $Z^1(G,A)$ consists of functions satisfying $f(gh)=f(g)+f(h)$, which are exactly the group homomorphisms $G\to A$. In conclusion, for a trivial $G$-module we have \[\H{1}{G}{A}=\Hom{(G,A)}.\]
     \end{itemize}
 \end{example}
 
 We now prove an important result about the cohomology of induced modules, which will allow us to prove statements about group cohomology by a technique known as \textit{dimension
-shifting} (as in \textcolor{red}{TODO} below)
+    shifting} (as in Proposition \ref{prop:ConjId} below)
 
-\begin{proposition}
+\begin{proposition}\label{prop:IndMod}
     Let $A$ be a $G$-module. Then, the cohomology groups of $G$ with coefficients in the induced module $\Ind{G}{A}$ are all zero except for $\H{0}{G}{\Ind{G}{A}}\simeq A$.
 \end{proposition}
 
@@ -308,7 +308,7 @@ shifting} (as in \textcolor{red}{TODO} below)
     The second statement follows immediately from the definition of the action on $\Ind{G}{A}$, as $\H{0}{G}{\Ind{G}{A}}=(\operatorname{CoInd}^G_{\{1\}}{(A)})^G$, and if $f: G\to A$ and $f(x)=f(xg)$ for all $x, g\in G$ then $f$ must be constant.
     Let $C^k:=C^k(G,\Ind{G}{A})$ be the set of inhomogeneous $k$-cochains with coefficients in $\Ind{G}{A}$. Let $\alpha\in C^{k} $ be a cocycle. Then for any $x\in G$ we have
     \begin{align*}
-        0 = (d\alpha)(g_1,\dots , g_{k+1})(x) = (g_1\cdot \alpha)(g_2,\dots , g_{k+1})(x) +\\
+        0 = (d\alpha)(g_1,\dots , g_{k+1})(x) = (g_1\cdot \alpha)(g_2,\dots , g_{k+1})(x) + \\
         \sum_{j=1}^{k} (-1)^j \alpha(g_1,\dots , g_j g_{j+1},\dots , g_{k+1})(x) + (-1)^{k+1} \alpha(g_1,\dots , g_k)(x),
     \end{align*}
     and setting $x=e$ we get the identity
@@ -321,55 +321,112 @@ shifting} (as in \textcolor{red}{TODO} below)
     \]
     and compute its boundary:
     \begin{align*}
-        d\beta(g_1,\dots , g_k)(x) &= (g_1\cdot \beta)(g_2,\dots , g_k)(x) + \sum_{j=1}^{k-1} (-1)^j \beta(g_1,\dots , g_j g_{j+1},\dots , g_k)(x) + (-1)^k \beta(g_1,\dots , g_{k-1})(x) \\
-                                 &= \alpha(x g_1,\dots , g_k) + \sum_{j=1}^{k-1} (-1)^j \alpha(x,g_1,\dots , g_j g_{j+1},\dots , g_k) + (-1)^k \alpha(x, g_1,\dots , g_{k-1})(e)  \\
-                                 &= \sum_{j=1}^k (-1)^j \alpha(x,g_1,\dots , g_{j-1} g_j,\dots , g_k)(e) + (-1)^k \alpha(x,g_1,\dots , g_{k-1})(e)\\
-                                 &\overset{\eqref{eq:Id}}{=} \alpha(g_1,\dots , g_k)(x)
-    .\end{align*}
+        d\beta(g_1,\dots , g_k)(x) & = (g_1\cdot \beta)(g_2,\dots , g_k)(x) + \sum_{j=1}^{k-1} (-1)^j \beta(g_1,\dots , g_j g_{j+1},\dots , g_k)(x) + (-1)^k \beta(g_1,\dots , g_{k-1})(x) \\
+                                   & = \alpha(x g_1,\dots , g_k) + \sum_{j=1}^{k-1} (-1)^j \alpha(x,g_1,\dots , g_j g_{j+1},\dots , g_k) + (-1)^k \alpha(x, g_1,\dots , g_{k-1})(e)        \\
+                                   & = \sum_{j=1}^k (-1)^j \alpha(x,g_1,\dots , g_{j-1} g_j,\dots , g_k)(e) + (-1)^k \alpha(x,g_1,\dots , g_{k-1})(e)                                      \\
+                                   & \overset{\eqref{eq:Id}}{=} \alpha(g_1,\dots , g_k)(x)
+        .\end{align*}
     This shows that $d\beta=\alpha$, and thus $[\alpha]=0$ in $\H{k}{G}{\Ind{G}{A}}$.
 \end{proof}
 
 \subsection{Functoriality}
 
-Given a $G$-module $A$ and a group homomorphism $ H\overset{\varphi}{\to} G$, we can define a $H$-module structure on $A$ by "restriction of scalars":
+Given a $G$-module $A$ and a group homomorphism $ G^{\prime} \overset{\varphi}{\to} G$, we can define a $G^{\prime} $-module structure on $A$ by "restriction of scalars":
 \[
     h\cdot a = \varphi(h)\cdot a.
 \]
-If we denote by $\varphi^* A$ the resulting $H$-module, this defines a functor
+If we denote by $\varphi^* A$ the resulting $G^{\prime} $-module, this defines a functor
 \[
-    \varphi^* : \Gmod\to\Hmod
+    \varphi^* : \Gmod\to \mathsf{Mod}_\mathsf{G^\prime}
 \]
-induced by $\varphi$, and since $A^G\subseteq (\varphi^*A)^H$, we get a natural transformation
+induced by $\varphi$, and since $A^G\subseteq (\varphi^*A)^{G^{\prime}} $, we get a natural transformation
 \[
-    \varphi_0^*: \H{0}{G}{-}\to\H{0}{H}{\varphi^*(-)}
+    \varphi_0^*: \H{0}{G}{-}\to\H{0}{G^{\prime} }{\varphi^*(-)}
 \]
 which extends by universality to a morphism of $\delta$-functors
 \[
-    \varphi_i^*: \H{i}{G}{-}\to\H{i}{H}{\varphi^*(-)}
-.\]
+    \varphi_i^*: \H{i}{G}{-}\to\H{i}{G^{\prime} }{\varphi^*(-)}
+    .\]
 From now on, we will just write $A$ instead of $\varphi^*A$ when there is no ambiguity.
 
 We also have functoriality with respect to $A$, provided that we only consider morphisms which are compatible with the action under consideration:
 
 \begin{definition}
-    Let $A$ and $\varphi$ be as above, and let $B$ be a $H$-module. We say that a group homomorphism $A\overset{f}{\to} B$ is \textbf{$\varphi$-compatible} if
+    Let $A$ and $\varphi$ be as above, and let $B$ be a $G^{\prime} $-module. We say that a group homomorphism $A\overset{f}{\to} B$ is \textbf{compatible} with $\varphi$ if
     \[
-      f(\varphi(h)\cdot a)=h\cdot f(a)
+        f(\varphi(g)\cdot a)=g\cdot f(a)
     \]
-    for all $h\in H$ and $a\in A$. This means exactly that $f$ is a morphism of $H$-modules $\varphi^*A\to B$. In particular, for each $i\geq 0$ we get a homomorphism
+    for all $g\in G^{\prime} $ and $a\in A$. This means exactly that $f$ is a morphism of $G^{\prime} $-modules $\varphi^*A\to B$. In particular, for each $i\geq 0$ we get a homomorphism
     \[
-        f^*: \H{i}{G}{\varphi^*A}\to\H{i}{H}{B},
+        f^*: \H{i}{G}{\varphi^*A}\to\H{i}{G^{\prime} }{B},
     \]
-    and by precomposing with $f_i^*$ we get a morphism of $\delta$-functors
+    and by precomposing with $f_i^*$ we get a homomorphism
     \[
-        \H{i}{G}{A}\to\H{i}{H}{B}.
+        \H{i}{G}{A}\to\H{i}{G^{\prime} }{B}.
     \]
-    associated with the pair $(\varphi,f)$. On the level of cochains, it sends $\alpha: G^i\to A$ to
-    \[ f \circ \alpha \circ \varphi^{(i)}: H^i\to B, \]
-    where \( \varphi^{(i)} := (\varphi,\ldots,\varphi) : H^i\to G^i \).
+    associated with the pair $(\varphi,f)$ which commutes with the coboundaries.
+    On the level of cochains, it sends $\alpha: G^i\to A$ to
+    \begin{equation*}\label{eq:Explicit} f \circ \alpha \circ \varphi^{(i)}: {(G^{\prime})}^i\to B, \end{equation*}
+    where \(\varphi^{(i)} \coloneqq (\varphi, \dots ,\varphi): {(G^{\prime})}^i\to G^i \).
 \end{definition}
 
+Here are some important examples of the above construction:
+
+\begin{definition}\
+    \begin{itemize}
+        \item   Let $A$ be a $G$-module, and $H$ a subgroup of $G$. The inclusion homomorphism $H\hookrightarrow G$ induces a homomorphism known as the \textbf{restriction} map
+              \[
+                  \Res: \H{i}{G}{A}\to\H{i}{H}{A}
+              \]
+              for all $i\geq 0$. Using \eqref{eq:Explicit} we see that $\Res$ sends a cocycle $\alpha: G^i\to A$ to the restriction of $\alpha$ to $H^i$, from which the name.
+        \item Let $A$ be a $G$-module, and $N$ a normal subgroup of $G$. Then, the quotient $G/N$ acts naturally on $A^N$, and the inclusion of $A^H$ in $A$ is compatible with the projection $\pi: G\to G/N$. This induces the \textbf{inflation} map
+              \[
+                  \Inf: \H{i}{G/N}{A^N}\to\H{i}{G}{A},
+              \]
+              On cochains, this amounts to precomposing a function $(G/N)^i\to A^N$ with the homomorphism $\pi^{(i)}: G^i\to (G/N)^i$.
+
+        \item Functoriality is useful even when there is no "change of group": let $A$ be a $G$-module, and fix an element $t$ of $G$.
+              and consider the automorphism
+              \begin{align*}
+                  f: A & \to A            \\
+                  a    & \mapsto s\cdot a
+                  .\end{align*}
+              Then, $f$ is compatible with the inner automorphism $\sigma$ of $G$ associated with $s^{-1}$:
+              \[
+                  f(\sigma(g)\cdot a)=f(s^{-1}gs\cdot a)=g\cdot f(a),
+              \]
+              and for all $i\geq 0$ we get a map
+              \[
+                  \sigma_s: \H{i}{G}{A}\to\H{i}{G}{A}
+                  .\]
+    \end{itemize}
+\end{definition}
+
+\begin{proposition}\label{prop:ConjId}
+    The homomorphism $\sigma_s$ defined above is the identity in each degree.
+\end{proposition}
+\begin{proof}
+    We prove this by dimension shifting: for $i=0$, by construction $\sigma_s$ sends $a\in A^G$ to $s\cdot a=a$.
+
+    For $i>0$, we proceed by induction on $i$: embed $A$ into $\Ind{G}{A}$, and let $B:=\coker(A\hookrightarrow \Ind{G}{A})$. The exact sequence
+    \[
+        0\to A\to \Ind{G}{A}\to B\to 0
+    \]
+    gives rise to a long exact sequence in cohomology, and by the compatibility of $\sigma_s$ with the coboundaries and Proposition \ref{prop:IndMod} we get a commutative diagram with exact rows
+    \[
+        \begin{tikzcd}
+            \H{i}{G}{I} \arrow[r] \arrow[d, "\sigma_s"] & \H{i}{G}{B} \arrow[r] \arrow[d, "\sigma_s"] & \H{i+1}{G}{A} \arrow[d, "\sigma_s"] \to 0 \\
+            \H{i}{G}{I} \arrow[r]                        & \H{i}{G}{B} \arrow[r]                        & \H{i+1}{G}{A} \to 0.
+        \end{tikzcd}
+    \]
+    By induction, the middle vertical map is the identity, and it follows that the last one is the identity as well.
+\end{proof}
+
 \subsection{The Hochschild-Serre Spectral Sequence}
+
+\subsection{Shapiro's Lemma}
+
+\subsection{Corestriction}
 
 \chapter{Cohomology of Profinite Groups}
 

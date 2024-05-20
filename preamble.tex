@@ -91,8 +91,10 @@
 \DeclareMathOperator{\id}{id}
 \DeclareMathOperator{\sh}{\mathtt{sh}}
 
+% Arrow related
 \newcommand\Iso{\xrightarrow{
         \,\smash{\raisebox{-0.65ex}{\ensuremath{\scriptstyle\sim}}}\,}}
+\newcommand\restrict[1]{\raisebox{-.5ex}{$|$}_{#1}}
 
 % Display math
 \newcommand{\ssfrac}[2]{
@@ -111,6 +113,7 @@
 \renewcommand{\labelitemii}{$\circ$}
 \renewcommand{\Im}{\operatorname{im}}
 
+% Number a specific equation within an unnumbered align
 \newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
 
 \theoremstyle{plain}
