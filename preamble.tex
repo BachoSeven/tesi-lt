@@ -3,16 +3,18 @@
 % many useful symbols
 \usepackage{textcomp}
 \usepackage[english]{babel}
-\usepackage{hyperref}
 \usepackage{amsmath, amsthm, amssymb}
 % for \lightning
 \usepackage{stmaryrd}
 \usepackage{color}
 \usepackage{geometry}
 \usepackage{tikz-cd}
+\usepackage{tikz}
 \usepackage{bold-extra}
 % for \coloneqq
 \usepackage{mathtools}
+% References
+\usepackage{hyperref}
 \usepackage[capitalise]{cleveref}
 
 % Bibliography
@@ -83,13 +85,13 @@
 \DeclareMathOperator{\St}{\mathrm{St}}
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\Ext}{Ext}
-\DeclareMathOperator{\Res}{\mathtt{res}}
-\DeclareMathOperator{\Cor}{\mathtt{cor}}
-\DeclareMathOperator{\Inf}{\mathtt{inf}}
+\DeclareMathOperator{\Res}{Res}
+\DeclareMathOperator{\Cor}{Cor}
+\DeclareMathOperator{\Inf}{Inf}
+\DeclareMathOperator{\sh}{Sh}
 \DeclareMathOperator{\cd}{cd}
 \DeclareMathOperator{\coker}{Coker}
 \DeclareMathOperator{\id}{id}
-\DeclareMathOperator{\sh}{\mathtt{sh}}
 
 % Arrow related
 \newcommand\Iso{\xrightarrow{
@@ -116,6 +118,16 @@
 % Number a specific equation within an unnumbered align
 \newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
 
+% No white line in equal arrows
+\usetikzlibrary{decorations.markings}
+\tikzset{double line with arrow/.style args={#1,#2}{decorate,decoration={markings,%
+                    mark=at position 0 with {\coordinate (ta-base-1) at (0,1pt);
+                            \coordinate (ta-base-2) at (0,-1pt);},
+                    mark=at position 1 with {\draw[#1] (ta-base-1) -- (0,1pt);
+                            \draw[#2] (ta-base-2) -- (0,-1pt);
+                        }}}}
+\tikzset{Equal/.style={-,double line with arrow={-,-}}}
+
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
@@ -130,3 +142,9 @@
 \newtheorem{remark}[theorem]{Remark}
 
 \chapterstyle{madsen}
+
+% Spectral Sequences
+\usepackage{dsfont}
+\usetikzlibrary{matrix}
+\newcommand*\ZZ{\mathds{Z}}
+\newcommand*\ZZZ{|[draw,circle]| \Z_2}

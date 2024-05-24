@@ -53,7 +53,7 @@ Finally, after introducing an appropriate product in cohomology, we will be able
 absolute Galois group of a $p$-adic field. As an application, we will show that the Galois group of the maximal abelian extension of a $p$-adic field is isomorphic to the profinite
 completion of the multiplicative group of the field.\\
 
-% Introduce notation: things like Ab, sep. closure, p-primary p-torsion, etc.
+% Introduce notation: things like Ab, sep. closure, uniquely divisible, p-primary p-torsion, etc.
 
 \addcontentsline{toc}{chapter}{Introduction}
 
@@ -79,7 +79,7 @@ In this chapter, $G$ will always denote a finite multiplicative group. We begin 
     \]
     with $n_g\in\Z$. The action of $G$ on itself by left multiplication induces a $G$-module structure on $\Z[G]$ by extending linearly.
 
-    More generally, a $G$-module is the same as a (left) module over the ring $\Z[G]$: the action of $G$ extends linearly to multiplication by elements of $\Z[G]$. This does \textit{not} hold for discrete modules on profinite groups, as we will see later on.
+    More generally, a $G$-module is the same as a (left) module over the ring $\Z[G]$: the action of $G$ extends linearly to multiplication by elements of $\Z[G]$. This does \textit{not} hold for discrete modules on profinite groups, as we will see later on, however many of the results that we prove in this chapter will hold in that context as well, provided we make some additional topological assumptions.
 \end{remark}
 
 As with any category, we need specify the morphisms between objects:
@@ -118,13 +118,13 @@ is the \textit{induced module} of $A$ from $H$ to $G$, while
 \[
     \mathrm{CoInd}^G_H{(A)}:=\{f:G\to A \mid f(hg)=h\cdot f(g) ~\forall h\in H, g\in G\}
 \]
-is the \textit{coinduced module} of $A$ from $H$ to $G$, with the action $g \cdot f(x)=f(xg)$. If we identify the latter with the $G$-module
+is the \textit{coinduced module} of $A$ from $H$ to $G$, with the action $(g \cdot f)(x)=f(xg)$. If we identify the latter with the $G$-module
 \[
     \Hom_H{(\Z[G],A)}
 \]
 on which $G$ acts by right multiplication on the first factor, we see that the two constructions coincide for finite groups: an isomorphism is of $G$-modules is given by the map
 \begin{align}
-    \Hom_H{(\Z[G],A)} & \to \Z[G]\otimes_{\Z[H]}{A}                                \nonumber        \\
+    \Hom_H{(\Z[G],A)} & \to \Z[G]\otimes_{\ZG{H}}{A}                                \nonumber       \\
     f                 & \mapsto \sum_{\overline{g} \in G / H}{g\otimes f(g^{-1})}\label{eq:IndIso}.
 \end{align}
 
@@ -157,16 +157,17 @@ which simply restricts the action of $G$ to $H$. More precisely:
 
 \begin{remark}\label{rm:Adj}
     \begin{itemize}
-        \item[(a)] As the forgetful functor is exact, by the adjunctions and abstract nonsense we get that the functor
+        \item[(a)] As the forgetful functor is exact, by the adjunction \eqref{eq:CoIndAdj} we deduce that the functor
               \[
                   \operatorname{CoInd}^G_H{(-)}:\Hmod\to\Gmod
               \]
-              preserves injective objects.
+              preserves injective objects, as in an abelian category an object $I$ is injective if and only if $\Hom{(-,I)}$ is exact).
         \item[(b)] We will also need the following adjunction: under the isomorphism \eqref{eq:IndIso}, the isomorphism \eqref{eq:IndAdj} becomes
               \begin{align*}
                   \Hom_H{(B,A)} & \to \Hom_G{(\operatorname{CoInd}^G_H{(B)},A)}                                        \\
                   \psi          & \mapsto \left(f\mapsto \sum_{\overline{g} \in G / H}{g\cdot \psi(f(g^{-1}))}\right).
               \end{align*}
+        \item[(c)] Since $\operatorname{CoInd}^G_H{(-)}$ is a right adjoint it preserves all limits, in particular it is left-exact. Analogously, the functor $\operatorname{Ind}^G_H{(-)}$ is right-exact. By the isomorphism \eqref{eq:IndIso}, we obtain that $\operatorname{CoInd}^G_H{(-)}$ is exact.
     \end{itemize}
 \end{remark}
 
@@ -174,7 +175,7 @@ which simply restricts the action of $G$ to $H$. More precisely:
 
 Recall that in an abelian category $\mathcal{A}$ which has enough injectives, an additive left-exact functor $F:\mathcal{A}\to\mathcal{B}$ with $\mathcal{B}$ abelian admits right derived functors $(R^iF)_{i\geq 0}$, which measure the "failure" of $F$ to be right-exact.
 
-Here are some general properties of derived functors:
+\medskip \noindent Here are some general properties of derived functors:
 \begin{itemize}
     \item in degree $0$ we have $R^0F(A)=F(A)$ for all objects $A$, as follows from the definition via injective resolutions;
     \item as derived functors are in particular $\delta$-functors (\cite{Weibel} Ch. 2)
@@ -189,6 +190,22 @@ Here are some general properties of derived functors:
           which are functorial with respect to morphisms of short exact sequences;
     \item the $(R^iF)_{i\geq 0}$ form a \textit{universal} $\delta$-functor, in the sense that given another $\delta$-functor $S$ equipped with a natural transformation $\alpha^0:F=R^0F\to S^0$ there exists a unique natural transformation $(\alpha^i)_{i\geq 0}$ of $\delta$-functors extending $\alpha^0$, that is a family of natural transformations commuting with the coboundary morphisms.
 \end{itemize}
+
+We will sometimes encounter $\delta$ functors which are not necessarily derived functors:
+\begin{definition}
+    Let $T:\mathcal{A}\to\mathcal{B}$ be a $\delta$-functor. An object $A$ is $T$-\textbf{acyclic} if $T(A)=0$ for all $i>0$.
+\end{definition}
+
+\begin{definition}
+    A $\delta$-functor $T$ is \textbf{effaceable} if for every object $A$ there exists a monomorphism $A\overset{u}{\to} I$ such that $T(u)=0$.
+\end{definition}
+
+The following general result (\cite{Weibel}, Ex. 2.4.5) will be useful when taking cohomology after applying certain functors:
+
+\begin{proposition}\label{prop:Effaceable}
+    Let $T$ be a $\delta$-functor. If $T$ is effaceable, then it is universal.
+\end{proposition}
+
 
 We use this generalities to define the cohomology of a group $G$ with coefficients in a $G$-module $A$, by considering a very natural sub-$G$-module of $A$:
 
@@ -216,7 +233,7 @@ We thus define the cohomology groups of $G$ with coefficients in $A$ as the deri
         \H{i}{G}{A}:=R^iF(A).
     \]
 \end{definition}
-From the above general properties of derived functors, we get that $\H{0}{G}{A}=A^G$, and that $\H{i}{G}{A}$ can be computed as the homology of the complex obtained by taking invariants of an injective resolution of $A$.
+From the above general properties of derived functors, we deduce $\H{0}{G}{A}=A^G$, and the fact that we can compute $\H{i}{G}{A}$ as the homology of the complex obtained by taking  invariants from an injective resolution of $A$. Moreover, if $G$ is trivial then $A^G=A$ for all $A$ implies that $F$ is exact, and thus $\H{i}{G}{A}=0$ for all $i>0$.
 
 \begin{remark}
     Since $F=\Hom_G{(\Z,-)}$, we get $\H{i}{G}{A}=\Ext^i_G{(\Z,A)}$. By the balancing property of $\Ext$ (Theorem 2.7.6 of \cite{Weibel}), we can interpret $\H{i}{G}{A}$ as the \textit{left} derived functors of the (contravariant) right-exact functor $\Hom_G{(-,A)}$ evaluated at $\Z$, and can be therefore computed using projective resolutions of $\Z$.
@@ -288,7 +305,6 @@ As a consequence, we can also compute $\H{i}{G}{A}$ as the $i$-th homology of th
 \begin{corollary}
     Let $G$ be a finite group. If $A$ is a finite $G$-module, then $\H{i}{G}{A}$ is a finite abelian group for all $i$.
 \end{corollary}
-\newpage
 \begin{example}[using inhomogeneous cochains]
     \noindent
     \begin{itemize}
@@ -298,7 +314,7 @@ As a consequence, we can also compute $\H{i}{G}{A}$ as the $i$-th homology of th
 \end{example}
 
 We now prove an important result about the cohomology of induced modules, which will allow us to prove statements about group cohomology by a technique known as \textit{dimension
-    shifting} (as in Proposition \ref{prop:ConjId} below)
+    shifting} (as in Proposition \ref{prop:ConjId} below), which is the concrete incarnation of the universality of derived functors.
 
 \begin{proposition}\label{prop:IndMod}
     Let $A$ be a $G$-module. Then, the cohomology groups of $G$ with coefficients in the induced module $\Ind{G}{A}$ are all zero except for $\H{0}{G}{\Ind{G}{A}}\simeq A$.
@@ -306,7 +322,7 @@ We now prove an important result about the cohomology of induced modules, which 
 
 \begin{proof}
     The second statement follows immediately from the definition of the action on $\Ind{G}{A}$, as $\H{0}{G}{\Ind{G}{A}}=(\operatorname{CoInd}^G_{\{1\}}{(A)})^G$, and if $f: G\to A$ and $f(x)=f(xg)$ for all $x, g\in G$ then $f$ must be constant.
-    Let $C^k:=C^k(G,\Ind{G}{A})$ be the set of inhomogeneous $k$-cochains with coefficients in $\Ind{G}{A}$. Let $\alpha\in C^{k} $ be a cocycle. Then for any $x\in G$ we have
+    Let $C^k:=C^k(G,\Ind{G}{A})$ be the set of inhomogeneous $k$-cochains with coefficients in $\Ind{G}{A}$. Suppose that $\alpha\in C^{k}$ is a cocycle, then for any $x\in G$ we have
     \begin{align*}
         0 = (d\alpha)(g_1,\dots , g_{k+1})(x) = (g_1\cdot \alpha)(g_2,\dots , g_{k+1})(x) + \\
         \sum_{j=1}^{k} (-1)^j \alpha(g_1,\dots , g_j g_{j+1},\dots , g_{k+1})(x) + (-1)^{k+1} \alpha(g_1,\dots , g_k)(x),
@@ -329,7 +345,7 @@ We now prove an important result about the cohomology of induced modules, which 
     This shows that $d\beta=\alpha$, and thus $[\alpha]=0$ in $\H{k}{G}{\Ind{G}{A}}$.
 \end{proof}
 
-\subsection{Functoriality}
+\section{Functoriality}
 
 Given a $G$-module $A$ and a group homomorphism $ G^{\prime} \overset{\varphi}{\to} G$, we can define a $G^{\prime} $-module structure on $A$ by "restriction of scalars":
 \[
@@ -358,9 +374,9 @@ We also have functoriality with respect to $A$, provided that we only consider m
     \]
     for all $g\in G^{\prime} $ and $a\in A$. This means exactly that $f$ is a morphism of $G^{\prime} $-modules $\varphi^*A\to B$. In particular, for each $i\geq 0$ we get a homomorphism
     \[
-        f^*: \H{i}{G}{\varphi^*A}\to\H{i}{G^{\prime} }{B},
+        f_*: \H{i}{G}{\varphi^*A}\to\H{i}{G^{\prime} }{B},
     \]
-    and by precomposing with $f_i^*$ we get a homomorphism
+    and by precomposing with $\varphi_i^*$ we get a homomorphism
     \[
         \H{i}{G}{A}\to\H{i}{G^{\prime} }{B}.
     \]
@@ -379,14 +395,13 @@ Here are some important examples of the above construction:
                   \Res: \H{i}{G}{A}\to\H{i}{H}{A}
               \]
               for all $i\geq 0$. Using \eqref{eq:Explicit} we see that $\Res$ sends a cocycle $\alpha: G^i\to A$ to the restriction of $\alpha$ to $H^i$, from which the name.
-        \item Let $A$ be a $G$-module, and $N$ a normal subgroup of $G$. Then, the quotient $G/N$ acts naturally on $A^N$, and the inclusion of $A^H$ in $A$ is compatible with the projection $\pi: G\to G/N$. This induces the \textbf{inflation} map
+        \item Let $A$ be a $G$-module, and $N$ a normal subgroup of $G$. Then, the quotient $G/N$ acts naturally on $A^N$, and the inclusion of $A^N$ in $A$ is compatible with the projection $\pi: G\to G/N$. This induces the \textbf{inflation} map
               \[
                   \Inf: \H{i}{G/N}{A^N}\to\H{i}{G}{A},
               \]
               On cochains, this amounts to precomposing a function $(G/N)^i\to A^N$ with the homomorphism $\pi^{(i)}: G^i\to (G/N)^i$.
 
-        \item Functoriality is useful even when there is no "change of group": let $A$ be a $G$-module, and fix an element $t$ of $G$.
-              and consider the automorphism
+        \item Functoriality is useful even when there is no "change of group": if $A$ is $G$-module, given any element $s$ in $G$ consider the associated automorphism of $A$
               \begin{align*}
                   f: A & \to A            \\
                   a    & \mapsto s\cdot a
@@ -422,21 +437,346 @@ Here are some important examples of the above construction:
     By induction, the middle vertical map is the identity, and it follows that the last one is the identity as well.
 \end{proof}
 
-\subsection{The Hochschild-Serre Spectral Sequence}
+\begin{corollary}\label{cor:NormalAction}
+    Let $A$ be a $G$-module, and assume that $N$ is a normal subgroup of $G$. Then, there is an action of $G / N$ on $\H{i}{G}{A}$ for all $i$.
+\end{corollary}
+
+\begin{proof}
+    Since $N$ is normal, $G$ acts by conjugation on $\H{i}{N}{A}$ as described in the above example, and by the previous proposition any $n\in N$ acts trivially, so that the action of $G/N$ is well-defined.
+\end{proof}
+
+We will use the following lemma in the construction of the Hochschild-Serre spectral sequence:
+
+\begin{lemma}\label{lm:GHInj}
+    Let $G$ be a finite group, and $H$ a subgroup. Then, the forgetful functor
+    \[
+        \Gmod\to\Hmod
+    \]
+    preserves injective objects.
+\end{lemma}
+
+\begin{proof}
+    Let $A$ be a $G$-module. As in the proof of the fact that the category of modules over a ring has enough injectives, we can embed $A$ in a huge injective $G$-module
+    \[
+        A \hookrightarrow I:=\prod_{\Hom_G(A,Q)}{Q},
+    \]
+    where $Q$ is the injective $G$-module $\Hom_\Z(\ZG{G},\Q/\Z)$ (recall that direct products preserve injectives).
+
+    Now, suppose that $A$ is an injective $G$-module. Then, $A$ is a direct factor of $I$: to find a retraction, use the injectivity of $A$ applied to the diagram
+    \[
+        \begin{tikzcd}
+            A \arrow[r, hook] \arrow[d, Equal] & I \arrow[dl, dashed, "\exists"] \\
+            A.
+        \end{tikzcd}
+    \]
+    Therefore, it's enough to show that $I$ is injective as an $H$-module. As direct products preserve injectives, it's enough to show that $Q$ is injective as an $H$-module, and since $\ZG{G}$ is a free $\ZG{H}$-module generated by a finite set of right coset representatives of $H$ in $G$, we have
+    \[
+        Q = \Ind{G}{\Q/\Z} \simeq \ZG{G}\otimes \Q/\Z = \left(\bigoplus_{G/H} \ZG{H}\right) \otimes \Q/\Z = \bigoplus_{G/H} \ZG{H}\otimes \Q/\Z = \bigoplus_{G/H} \Ind{H}{\Q/\Z},
+    \]
+    and the result follows from the fact that $\Ind{H}{-}$ preserves injectives (Remark \ref{rm:Adj} (a)).
+\end{proof}
 
 \subsection{Shapiro's Lemma}
+We saw in \ref{prop:IndMod} that $\Ind{G}{A}$ is cohomologically trivial. This is a special case of Shapiro's Lemma, which relates the cohomology of a subgroup to that of the whole group:
+\begin{theorem}\label{thm:Shapiro}
+    Let $H$ be a subgroup of $G$ and $B$ an $H$-module. Then, for every $i\geq0$ there is a canonical isomorphism
+    \[
+        \sh: \H{i}{G}{\operatorname{CoInd}^G_H{(B)}}\simeq \H{i}{H}{B}.
+    \]
+\end{theorem}
+\begin{proof}
+    We claim that the functors
+    \[
+        \H{i}{G}{\operatorname{CoInd}^G_H{(-)}}: \Hmod\to\Ab
+    \]
+    form a universal $\delta$ functor: it's a $\delta$ functor since $\operatorname{CoInd}^G_H{(-)}$ is exact by Remark \ref{rm:Adj} (c), and it's effaceable because we can embed $B$ in an injective $H$-module $I$, and $\operatorname{CoInd}^G_H{(I)}$ is injective by Remark \ref{rm:Adj} (a).
+    Therefore, the claim then follows from Proposition \ref{prop:Effaceable}.
+
+    Moreover, we can construct a homomorphism
+    \[
+        \sh: \H{i}{G}{\operatorname{CoInd}^G_H{(B)}}\to \H{i}{H}{B}
+    \]
+    by functoriality, using the map
+    \begin{align*}
+        \operatorname{CoInd}^G_H{(B)} & \to B        \\
+        f                             & \mapsto f(1)
+    \end{align*}
+    which is compatible with the inclusion $H\hookrightarrow G$.
+
+    By universality, it's enough to show that this is an isomorphism for $i=0$. However, an element $f:G\to B$ of $(\operatorname{CoInd}^G_H{(B)})^G$ must be constant as $$f(x)=(g\cdot f)(x)=f(xg)$$ for all $g,x\in G$. Finally, by definition of coinduced module it must also satisfy $$f(h)=h\cdot f(1)$$ for all $h\in H,$ which means that $f(1)\in B^H$.
+\end{proof}
 
 \subsection{Corestriction}
 
+Let $H$ be a subgroup of $G$, and $A$ a $G$-module. We want to define a \textbf{corestriction} map which goes in the opposite direction of the restriction: in degree $0$, it's given by the "norm" homomorphism
+\begin{align*}
+    \operatorname{N}_{G/H}: A^H & \longrightarrow A^G                   \\
+    a                           & \longmapsto \sum_{g\in G/H} g\cdot a.
+\end{align*}
+\begin{remark}
+    This comes from field theory, as we can reinterpret the norm map relative to a tower of finite field extensions $K\subset F\subset L$: in this case $A=L^\times$, $G=\operatorname{Gal}{(L/K)}$ and $H=\operatorname{Gal}{(L/F)}$, and $$\operatorname{N}_{G/H}=N_{F/K}: F^\times\to K^\times$$ is given by $$x\mapsto\prod_{\sigma\in G/H} \sigma(x).$$
+\end{remark}
+
+\noindent In general, we can extend this to a map
+\[
+    \Cor: \H{i}{H}{f^*(A)}\to\H{i}{G}{A}
+\]
+where $f: H\to G$ is the inclusion homomorphism, because the $\H{i}{H}{f^*(-)}$ form a universal $\delta$-functor: indeed, it's effaceable since we can embed $A$ in an injective $G$-module $I$, and $f^*(I)$ is injective by Lemma \ref{lm:GHInj}.
+
+\begin{remark}\label{rm:Cor}
+    We can also define the corestriction using Shapiro's Lemma: the surjection
+    \begin{align*}
+        \pi: \operatorname{CoInd}_G^H{(A)} & \to A                                      \\
+        f                                  & \mapsto \sum_{g\in G /H}{g\cdot f(g^{-1})}
+    \end{align*}
+    induces a map
+    \[
+        \pi^*:\H{i}{G}{\operatorname{CoInd}_G^H{(A)}}\to\H{i}{G}{A}
+    \],
+    and if we precompose with $\sh^{-1}: \H{i}{H}{A}\to\H{i}{G}{\operatorname{CoInd}_G^H{(A)}}$ the resulting map is the corestriction, as is easily checked in degree $0$ (and the general case follows by universality).
+\end{remark}
+
+The composite $(\Cor\circ\Res)$ is as simple as it gets:
+
+\begin{theorem}\label{thm:CorRes}
+    Let $H$ be a subgroup of $G$, and $A$ a $G$-module. Then,  the composite
+    \[
+        \H{i}{G}{A}\overset{\Res}{\longrightarrow}\H{i}{H}{A}\overset{\Cor}{\longrightarrow}\H{i}{G}{A}
+    \]
+    is multiplication by the index $(G:H)$.
+\end{theorem}
+\begin{proof}
+    In degree $0$, we have
+    \[
+        A^G\hookrightarrow A^H\to A^G,
+    \]
+    which sends $a\in A^G$ to $$\sum_{g\in G/H} g\cdot a = (G:H)\cdot a.$$
+
+    The result then follows from universality, as the homomorphism in question is an endomorphism of the universal $\delta$-functor $\H{i}{G}{-}$.
+\end{proof}
+
+This has a number of useful consequences:
+\begin{corollary}
+    Let $G$ be a finite group of order $m$, and $A$ a $G$-module. Then, the groups $\H{i}{G}{A}$ are $m$-torsion for all $i>0$. In particular, if $m$ is invertible in $A$, then $\H{i}{G}{A}=0$ for all $i>0$.
+\end{corollary}
+\begin{proof}
+    Chossing $H$ to be the trivial subgroup in Theorem \ref{thm:CorRes}, we get that multiplication by $m$ on $\H{i}{G}{A}$ for $i>0$ factors through $\H{i}{\{1\}}{A}=0$. For the second statement, note that the additivity of $\H{i}{G}{-}$ implies that $\H{i}{G}{\cdot n}$ is multiplication by $n$ on $\H{i}{G}{A}$.
+\end{proof}
+
+\begin{corollary}\label{cor:UniqDiv}
+    If $A$ is a uniquely divisible $G$-module, then $\H{i}{G}{A}=0$ for all $i>0$.
+\end{corollary}
+\begin{proof}
+    By the previous corollary all the groups in question are $m$-torsion with $m=\#G$, and by assumption $A\overset{\cdot n}{\to} A$ is an isomorphism for any $n>0$, so in particular multiplication by $m$ is an isomorphism in cohomology.
+\end{proof}
+
+\section{The Hochschild-Serre Spectral Sequence}
+
+Let $G$ be a group, and $N$ a normal subgroup. The \textit{Hochschild-Serre spectral sequence} is a useful gadget which relates the cohomology of $G$ with coefficients in a $G$-module $A$ in terms of the cohomology of $N$ with coefficients in $A$, and of $G / N$ with coefficients in $A^N$.
+
+We will construct this spectral sequence using the following general result by Grothendieck (\cite{Weibel}, Th. 5.8.3):
+\begin{theorem}[Spectral Sequence of Composed Functors]
+    Let $\mathcal{A}, \mathcal{B}$ and $\mathcal{C}$ be abelian categories, and assume that $\mathcal{A}, \mathcal{B}$ have enough injectives. If $F: \mathcal{A}\to \mathcal{B}$ and $G: \mathcal{B}\to \mathcal{C}$ are left-exact additive functors and $F$ takes injectives to $G$-acyclic objects, then for any object $A$ in $\mathcal{A}$ there exists a spectral sequence
+    \[
+        E_2^{p,q} = R^pG(R^qF(A)) \Longrightarrow R^{p+q}(G\circ F)(A).
+    \]
+\end{theorem}
+
+\noindent We want to apply this theorem to the composition
+
+\[
+    \begin{tikzcd}
+        \Gmod \arrow[r, "A\mapsto A^N"] & \mathsf{Mod}_{G/N} \arrow[r, "B\mapsto B^{G/N}"] & \Ab,
+    \end{tikzcd}
+\]
+which is a factorization of the functor
+\[
+    \begin{tikzcd}
+        \Gmod \arrow[r, "A\mapsto A^G"] & \Ab
+    \end{tikzcd}
+\]
+(since $A^G = (A^N)^{G/N}$). If we denote by $F$ the functor $A\mapsto A^N$, and by $G$ the functor $B\mapsto B^{G/N}$, then by Remark \ref{rm:Adj} (a) $F$ preserves injectives, and injective objects are acyclic. This is almost enough to prove the main result:
+
+\begin{theorem}[Hoschild-Serre]\label{thm:HS}
+    Let $G$ be a group, and $N$ a normal subgroup. Then, for any $G$-module $A$ there exists a spectral sequence
+    \[
+        E_2^{p,q} = \H{p}{G/N}{\H{q}{N}{A}} \Longrightarrow \H{p+q}{G}{A}
+        .\]
+\end{theorem}
+
+\begin{proof}
+    We only need to check that $H^q(N,-)$, which by Corollary \ref{cor:NormalAction} we can view as a functor $\Gmod \to \mathsf{Mod}_{G/N}$, is the right derived functor of $F$. This is true because $R^qF(A)$ is computed using an injective resolution of $A$ as a $G$-module, and Lemma \ref{lm:GHInj} shows that this is also an injective resolution of $A$ as an $N$-module.
+\end{proof}
+
+\begin{remark}
+    With some work, one can show that the edge maps of the spectral sequence
+    \[
+        E_2^{n,0}=\H{n}{G /N}{A^N} \longrightarrow \H{n}{G}{A}
+    \]
+    and
+    \[
+        \H{n}{G}{A} \longrightarrow E_2^{0,n} = \H{n}{N}{A}^{G/N}
+    \]
+    are the inflation and restriction maps, respectively.
+\end{remark}
+
+The convergence of above spectral sequence amounts to the existence, for every $n>0$, of a finite filtration
+
+\[
+    \H{n}{G}{A}=F^0\supseteq F^1\supseteq\ldots\supseteq F^n\supseteq F^{n+1}=0
+\]
+such that
+\begin{equation}\label{eq:Convergence}
+    F^p/F^{p+1} \simeq E_\infty^{p,n-p},
+\end{equation}
+where $E_\infty^{p,n-p}$ is a subquotient (i.e. quotient of a subobject) of $E_2^{p,n-p}= \H{p}{G/N}{\H{n-p}{N}{A}}$.
+
+A careful analysis of these filtrations in low degrees yields a 5-term exact sequence relating some of the functorial maps which we have defined:
+
+\begin{corollary}\label{cor:LowDegree}
+    Let $G$ be a group, $N$ a normal subgroup, and $A$ a $G$-module. Then, there is a 5-term exact sequence
+
+    \[
+        0\to \H{1}{G / N}{A^N}\overset{\Inf}{\to} \H{1}{G}{A}\overset{\Res}{\to} \H{1}{N}{A}^{G /N} \to \H{2}{G /N}{A^N}\overset{\Inf}{\to} \H{2}{G}{A}
+    \]
+
+\end{corollary}
+
+Moreover, if the cohomology of $N$ with coefficients in $A$ is trivial up to degree $n-1$ we also get a short exact sequence in degree $n$:
+
+\begin{corollary}\label{cor:InfRes}
+    With the notations of the previous corollary, let $n\geq 2$ and suppose that $\H{i}{N}{A}=0$ for all $0 < i < n$.
+    Then, there is a short exact sequence
+    \[
+        0\to \H{n}{G / N}{A^N}\overset{\Inf}{\to} \H{n}{G}{A}\overset{\Res}{\to} \H{n}{N}{A}^{G /N}.
+    \]
+\end{corollary}
+
+\begin{proof}
+    The triviality assumption implies that $E_2^{p,q}=0$ for $0<q<n$. Thus, for $p+q=n$ the only non-trivial terms are $E_\infty^{0,n}$ and $E_\infty^{n,0}$. In this case, we have $E_\infty^{n,0}=E_2^{n,0}$ and $E_\infty^{0,n}$ is a subobject of $E_2^{0,n}$ (as in figure \ref{fig:SpSeq} for $n=2$) Moreover, there exists a filtration
+    \[
+        0\subset F^n\subset \H{n}{G}{A},
+    \]
+    and by taking cokernels and composing with an inclusion we get the desired short exact sequence: indeed, by \eqref{eq:Convergence} we have the identifications
+    \begin{align*}
+        F^n=E_\infty^{n,0} & =\H{n}{G/N}{A^N},                                    \\
+        \H{n}{G}{A}/F^n    & = E_\infty^{0,n}\subset E_2^{0,n}=\H{n}{N}{A}^{G/N}.
+    \end{align*}
+    \begin{center}
+        \begin{tikzpicture}[scale=0.6]
+            \begin{scope}[xshift=-55ex]
+                \matrix (m) [matrix of math nodes,
+                nodes in empty cells,nodes={minimum width=5ex,
+                        minimum height=5ex,outer sep=-5pt},
+                column sep=1ex,row sep=1ex]{
+                &      &      &      &                                 \\
+                2           & E_2^{0,2} &     & &                                 \\
+                1           & 0 & 0    & 0 &                                 \\
+                0           &  &     &  E_2^{2,0} \\
+                \quad\strut & 0    & 1    & 2    & \strut \\};
+                \draw[->, dashed] (m-2-2) -- (m-3-4);
+                \draw[->, dashed] (m-3-2) -- (m-4-4);
+
+                \draw[thick] (m-1-1.east) -- (m-5-1.east) ;
+                \draw[thick] (m-5-1.north) -- (m-5-5.north) ;
+            \end{scope}
+            \begin{scope}
+                \matrix (m) [matrix of math nodes,
+                nodes in empty cells,nodes={minimum width=5ex,
+                        minimum height=5ex,outer sep=-5pt},
+                column sep=1ex,row sep=1ex]{
+                &      &      &      &   &  \\
+                2           & E_3^{0,2} & & & & \\
+                1           & 0 & 0    & 0 & 0 & \\
+                0           &  &     & E_\infty^{2,0} & E_3^{3,0} \\
+                \quad\strut & 0    & 1    & 2    & 3 & \strut \\};
+                \draw[->, dashed] (m-2-2) -- (m-4-5);
+
+                \draw[thick] (m-1-1.east) -- (m-5-1.east) ;
+                \draw[thick] (m-5-1.north) -- (m-5-5.north) ;
+            \end{scope}
+            \begin{scope}[xshift=50ex,yshift=1pt]
+                \matrix (m) [matrix of math nodes,
+                    nodes in empty cells,nodes={minimum width=5ex,
+                                                 minimum height=5ex,outer sep=-5pt},
+                    column sep=1ex,row sep=1ex]{
+                                &                &   &                &                                 \\
+                    2           & E_\infty^{0,2} &   &                &                                 \\
+                    1           & 0              & 0 & 0              &                                 \\
+                    0           &                &   & E_\infty^{2,0}                                   \\
+                    \quad\strut & 0              & 1 & 2              & \strut \\};
+
+                \draw[thick] (m-1-1.east) -- (m-5-1.east) ;
+                \draw[thick] (m-5-1.north) -- (m-5-5.north) ;
+            \end{scope}
+        \end{tikzpicture}\label{fig:SpSeq}
+    \end{center}
+\end{proof}
+
 \chapter{Cohomology of Profinite Groups}
 
+In this chapter we extend the notion of group cohomology to profinite groups, which are projective limits of finite groups, and as such have a natural topology. We will see that the cohomology of a profinite group can be reduced to the cohomology of its finite quotients, and how this relates to (infinite) Galois theory.
+
 \section{Profinite Groups}
+\begin{remark}\label{rm:CptTotDisc}
+
+\end{remark}
+
+\section{Discrete $G$-Modules}
+\begin{remark}\label{rm:discGmodUnion}
+
+\end{remark}
+
 \section{Passage to the Limit}
+\begin{theorem}\label{thm:IndLim}
+
+\end{theorem}
+
+\begin{example}\label{ex:IntOpenSgr}
+
+\end{example}
+
 \section{Cohomological Dimension}
+\begin{proposition}\label{prop:CdSgr}
+
+\end{proposition}
+
+\begin{example}\label{ex:Zhat}
+
+\end{example}
+
+\begin{equation}\label{eq:CdIneq}
+    \cd
+\end{equation}
+
 \section{Galois Cohomology}
+
 \subsection{Hilbert 90}
+
 \subsection{Kummer Theory}
+
+\begin{equation}\label{eq:Kummer}
+    0
+\end{equation}
+
 \subsection{Brauer Group of a Field}
+\begin{remark}\label{rm:CSA}
+
+\end{remark}
+
+\begin{proposition}\label{prop:BrMuN}
+
+\end{proposition}
+
+\subsection{Cohomological Dimension of a Field}
+\begin{proposition}\label{prop:CdCharP}
+
+\end{proposition}
+
+\begin{proposition}\label{prop:prop:CdBr}
+
+\end{proposition}
+
 
 \chapter{Local Fields}
 In this chapter we are going to recall some notions of algebraic number theory over local fields, that is fields which are complete with respect to a discrete valuation with finite
@@ -696,7 +1036,7 @@ Let's compute each term: using the long exact sequence in cohomology associated 
 \[
     0\to\Z\to\Q\to\Q/\Z\to 0
 \]
-and Remark \ref{rm:UniqDiv}, we have an isomorphism of $\H{2}{G}{\Z}$ with $\H{1}{G}{\Q/\Z}$, which are just the continuous homomorphisms from $G$ to $\Q/\Z$. Recall from Example
+and by Corollary \ref{cor:UniqDiv}, we have an isomorphism of $\H{2}{G}{\Z}$ with $\H{1}{G}{\Q/\Z}$, which are just the continuous homomorphisms from $G$ to $\Q/\Z$. Recall from Example
 \ref{ex:FinFields} of the previous
 section that $G=\operatorname{Gal}{(\ks/\k)}\simeq\hat{\Z}$, and so
 \[
@@ -806,7 +1146,7 @@ We now specialize to the case of a $p$-adic field $K$, by first showing that the
     In particular, $\H{i}{\K}{\mu_n}$ is finite for all $i$ (for $i=0$ it's just the invariants of $\mu_n$).
 \end{theorem}
 \begin{proof}
-    The first isomorphism follows from \textit{Kummer Theory} \eqref{eq:Kummer}. We can show that $\K^\times/\K^{\times n}$ is finite using the structure theorem for local fields \ref{thm:StructureLocalFields}:
+    The first isomorphism follows from Kummer Theory \eqref{eq:Kummer}. We can show that $\K^\times/\K^{\times n}$ is finite using the structure theorem for local fields \ref{thm:StructureLocalFields}:
     \begin{align*}
         \K^\times/\K^{\times n} & \simeq \Zn \times  \times \Zp^{[\K:\Qp]}/n \Zp^{[\K:\Qp]} \times F/F^n \times  \kappa^\times/\kappa^{\times n} \\
                                 & \simeq \Zn \times \kappa^\times/\kappa^{\times n} \times  \Zn \times F/F^n.
@@ -836,7 +1176,7 @@ We now specialize to the case of a $p$-adic field $K$, by first showing that the
     \]
     acts trivially on $M$, and by Galois theory it corresponds to a finite extension $L^{\prime} $. Then, the absolute Galois group of $L\coloneqq L^{\prime}(\mu_n)$ acts trivially on both $M$ and $\mu_n$. By the structure theorem for finite abelian groups, $M$ is isomorphic (as a $\Gamma_L$-module) to the direct sum of finitely many $\mu_k$, with $k\mid n$.
 
-    However, by the previous theorem $\H{i}{L}{\mu_k}$ is finite for all $i$, so $\H{i}{L}{M}$ is finite as well by additivity. Now, using the Hochschild-Serre spectral sequence \eqref{eq:HS}:
+    However, by the previous theorem $\H{i}{L}{\mu_k}$ is finite for all $i$, so $\H{i}{L}{M}$ is finite as well by additivity. Now, using the Hochschild-Serre spectral sequence \eqref{thm:HS}:
     \[
         E_2^{pq}= \H{p}{\mathrm{Gal}{(L / \K)}}{\H{q}{L}{M}} \Rightarrow \H{p+q}{\K}{M}
     \]
@@ -1137,7 +1477,11 @@ which is related to the dual of cohomology by
 \]
 Indeed, the group \(\H{0}{G}{A^{\prime} }\) consists of the \(G\)-invariants of \(A^{\prime} = \Hom_\Z(A,I)\), and so
 \[
-    \H{0}{G}{A^{\prime}} = (\Hom_\Z(A,I))^G = \Hom_G(A,I).
+    \H{0}{G}{A^{\prime}} = (\Hom_\Z(A,I))^G = \Hom_G(A,I),
+\]
+where for the last equality note that on $\Hom_G(A,I)$ the action was defined as
+\[
+    (g\cdot f)(a)=g\cdot(f(g^{-1}\cdot a)).
 \]
 
 We will need the following compatibility of the cup product with the duality pairing:
@@ -1159,7 +1503,7 @@ We will need the following compatibility of the cup product with the duality pai
     \]
     and by composition on the left a homomorphism
     \[
-        f_*:\, \Hom_G(I,I)\to\Hom_G(A,I)
+        f^*:\, \Hom_G(I,I)\to\Hom_G(A,I)
         .\]
     Now, writing out the functorality of the dualizing module gives the following commutative diagram:
     \[
@@ -1173,12 +1517,12 @@ We will need the following compatibility of the cup product with the duality pai
         \begin{tikzcd}
             \Hom_G(A,I) \arrow[r,symbol=\times] &[-2em] \ar[dd, "f^*"] \H{n}{G}{A} \ar[rd, "\langle - {,} - \rangle_A "] &[2em] \\
             && \Q/\Z \\
-            \Hom_G(I,I)  \arrow[r,symbol=\times] \ar[uu, "f_*"] & \H{n}{G}{I}  \ar[swap, ru, "\langle - {,} - \rangle_I "]
+            \Hom_G(I,I)  \arrow[r,symbol=\times] \ar[uu, "f^*"] & \H{n}{G}{I}  \ar[swap, ru, "\langle - {,} - \rangle_I "]
         \end{tikzcd}
     \]
 
     As remarked in \ref{rm:Cup0n}, here the cup product of \(f\in\H{0}{G}{A^{\prime}}\) with some \(\alpha\in\H{n}{G}{A}\) is given by
-    \( f^*(\alpha) \). Since \(f_*\) clearly sends \(\id_I\) to \(f\), the above diagram implies that
+    \( f^*(\alpha) \). Since \(f^*\) clearly sends \(\id_I\) to \(f\), the above diagram implies that
     \[
         \langle f, \alpha \rangle_A = \langle \id_I, f^*(\alpha)\rangle_I=i(f\cup\alpha).
     \]
@@ -1207,11 +1551,12 @@ Before moving on to the computation of the dualizing module of the absolute Galo
                       & \simeq \Hom_U(A,\,I)                     & \text{(by Remark \eqref{rm:Adj} (b))}.
     \end{align*}
     For the second claim, recall from remark \ref{rm:Cor} that the corestriction homomorphism is induced by the surjective morphism of \(G\)-modules
-    \[\mathrm{CoInd}_G^U(A) \overset{\pi}{\longrightarrow} A\]
-    defined as
-    \[ \pi(f)= \sum_{g\in G/U}{g\cdot f(g^{-1})}.\]
+    \begin{align*}
+        \mathrm{CoInd}_G^U(A) & \overset{\pi}{\longrightarrow} A               \\
+        f                     & \longmapsto \sum_{g\in G/U}{g\cdot f(g^{-1})}.
+    \end{align*}
     On the other hand, $\pi$ induces a morphism of modules \(\Hom_G(A,I)\overset{\pi_*}{\longrightarrow}\Hom_G(\mathrm{CoInd}_G^U(A),I)\).
-    Using the functoriality of the dualizing module and the Shapiro isomorphism $\sh$ \eqref{eq:Shapiro},
+    Using the functoriality of the dualizing module and the Shapiro isomorphism $\sh$ \eqref{thm:Shapiro},
     we get the following commutative diagram:
     \[
         \begin{tikzcd}[column sep=small, row sep=large]
@@ -1381,16 +1726,24 @@ finite because of \ref{thm:CohomMuN} and \textcolor{red}{TODO}). Thus, we get th
                        & = \varprojlim_n\nolimits \H{1}{K}{\Zn}^*             & \text{(by \ref{ex:TrivialModH1})}     \\
                        & = \varprojlim_n\nolimits \H{1}{K}{\mu_n}             & \text{(by Tate Duality)}              \\
                        & = \varprojlim_n\nolimits \K^{\times} / \K^{\times n} & \text{(by \ref{thm:CohomMuN})}        \\
-                       & = \hat{\K}^{\times}                                  & \text{(by \ref{cor:KxOpen})}.
+                       & = \widehat{\K^\times}                                & \text{(by \ref{cor:KxOpen})}.
 \end{align*}
 
 In particular, by Galois theory we deduce a correspondence
 \[
-    \{\text{finite abelian extensions of }K\} \iff \{\text{finite index subgroups of }\hat{\K}^{\times} = \hat{\Z} \times U_K\}
+    \{\text{finite abelian extensions of }K\} \longleftrightarrow \{\text{finite index subgroups of }\widehat{\K^\times} = \hat{\Z} \times U_K\}
     .\]
 
 % TODO: expand on this?
-The main result of local class field theory, the existence theorem, makes this correspondence explicit using the \textit{reciprocity map}, which is outside the scope of this thesis.
+The main result of local class field theory, the existence theorem, makes this correspondence explicit using the \textit{reciprocity map}, which we can define using the isomorphism of local duality:
+
+\begin{definition}
+    The reciprocity map
+    \[
+        \omega:\K^\times \to \Gamma^{\text{ab}}
+    \]
+    is the composition of the inclusion $\K^\times \hookrightarrow \widehat{\K^\times}$ with the isomorphism $\widehat{\K^\times} \Iso \Gamma^{\text{ab}}$.
+\end{definition}
 
 \nocite{*}
 \printbibliography
