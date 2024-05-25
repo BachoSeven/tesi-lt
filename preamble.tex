@@ -4,6 +4,7 @@
 \usepackage{textcomp}
 \usepackage[english]{babel}
 \usepackage{amsmath, amsthm, amssymb}
+\usepackage{wasysym}
 % for \lightning
 \usepackage{stmaryrd}
 \usepackage{color}
@@ -22,9 +23,9 @@
 \addbibresource{bibliography.bib}
 
 % remove citations
-\renewcommand{\cite}[1]{#1}
-\renewcommand{\nocite}[1]{}
-\def\printbibliography{}
+% \renewcommand{\cite}[1]{#1}
+% \renewcommand{\nocite}[1]{}
+% \def\printbibliography{}
 
 \hypersetup{
     colorlinks = true, % links instead of boxes
@@ -61,8 +62,8 @@
 \def\Z{\mathbb{Z}}
 \def\K{K}
 \def\k{\kappa}
-\def\Kx{\overline{\K}^\times}
 \def\Ks{\overline{\K}}
+\def\Kx{\Ks^\times}
 \def\ks{\overline{\kappa}}
 \def\Knr{\K_{\text{nr}}}
 \def\Qp{\mathbb{Q}_p}
@@ -75,21 +76,23 @@
 \def\Ab{\mathsf{Ab}}
 
 % Operators
-\newcommand{\Gal}[1]{\mathrm{Gal}\left( #1_{s}/#1 \right)}
-\newcommand{\Aut}[1]{\mathrm{Aut}\left( #1 \right)}
+\newcommand{\Gal}[1]{\operatorname{Gal}\left( \overline{#1}/#1 \right)}
+\newcommand{\Aut}[1]{\operatorname{Aut}\left( #1 \right)}
 \renewcommand{\H}[3]{H^{#1}( #2, \, #3 )}
 \newcommand{\HH}[2]{H^2(#1, \, #2 )}
-\newcommand{\Ind}[2]{\mathrm{I}_{#1}(#2)}
+\newcommand{\Ind}[2]{\operatorname{I}_{#1}(#2)}
 \newcommand{\ZG}[1]{\Z[#1]}
-\newcommand{\Br}[1]{\mathrm{Br}(#1)}
-\DeclareMathOperator{\St}{\mathrm{St}}
+\newcommand{\Br}[1]{\operatorname{Br}{(#1)}}
+\newcommand{\cd}[1]{\operatorname{cd}{(#1)}}
+\newcommand{\cdp}[1]{\operatorname{cd}_p{(#1)}}
+\newcommand{\cdl}[1]{\operatorname{cd}_l{(#1)}}
+\DeclareMathOperator{\St}{St}
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\Ext}{Ext}
 \DeclareMathOperator{\Res}{Res}
 \DeclareMathOperator{\Cor}{Cor}
 \DeclareMathOperator{\Inf}{Inf}
 \DeclareMathOperator{\sh}{Sh}
-\DeclareMathOperator{\cd}{cd}
 \DeclareMathOperator{\coker}{Coker}
 \DeclareMathOperator{\id}{id}
 
@@ -118,6 +121,8 @@
 % Number a specific equation within an unnumbered align
 \newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
 
+% Spectral Sequences
+\usetikzlibrary{matrix}
 % No white line in equal arrows
 \usetikzlibrary{decorations.markings}
 \tikzset{double line with arrow/.style args={#1,#2}{decorate,decoration={markings,%
@@ -142,9 +147,3 @@
 \newtheorem{remark}[theorem]{Remark}
 
 \chapterstyle{madsen}
-
-% Spectral Sequences
-\usepackage{dsfont}
-\usetikzlibrary{matrix}
-\newcommand*\ZZ{\mathds{Z}}
-\newcommand*\ZZZ{|[draw,circle]| \Z_2}

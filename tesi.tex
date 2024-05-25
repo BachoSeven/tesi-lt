@@ -53,7 +53,7 @@ Finally, after introducing an appropriate product in cohomology, we will be able
 absolute Galois group of a $p$-adic field. As an application, we will show that the Galois group of the maximal abelian extension of a $p$-adic field is isomorphic to the profinite
 completion of the multiplicative group of the field.\\
 
-% TODO Introduce notation: things like Ab, sep. closure, uniquely divisible, p-primary p-torsion, etc.
+% TODO Introduce notation: things like Ab, sep. closure, exponent, uniquely divisible, p-primary component, p-torsion, etc.
 
 \addcontentsline{toc}{chapter}{Introduction}
 
@@ -232,7 +232,12 @@ We thus define the cohomology groups of $G$ with coefficients in $A$ as the deri
         \H{i}{G}{A}:=R^iF(A).
     \]
 \end{definition}
-From the above general properties of derived functors, we deduce $\H{0}{G}{A}=A^G$, and the fact that we can compute $\H{i}{G}{A}$ as the homology of the complex obtained by taking  invariants from an injective resolution of $A$. Moreover, if $G$ is trivial then $A^G=A$ for all $A$ implies that $F$ is exact, and thus $\H{i}{G}{A}=0$ for all $i>0$.
+From the above general properties of derived functors, we deduce $\H{0}{G}{A}=A^G$, and the fact that we can compute $\H{i}{G}{A}$ as the cohomology of the complex obtained by taking  invariants from an injective resolution $I^\bullet$ of $A$, that is
+\[
+    \H{i}{G}{A}=\ssfrac{\ker{[(I^i)^G\to (I^{i+1})^G]}}{\Im{[(I^{i-1})^G\to (I^i)^G]}}.
+\]
+
+\noindent Moreover, if $G$ is trivial then $A^G=A$ for all $A$ implies that $F$ is exact, and thus $\H{i}{G}{A}=0$ for all $i>0$.
 
 \begin{remark}
     Since $F=\Hom_G{(\Z,-)}$, we get $\H{i}{G}{A}=\Ext^i_G{(\Z,A)}$. By the balancing property of $\Ext$ (Theorem 2.7.6 of \cite{Weibel}), we can interpret $\H{i}{G}{A}$ as the \textit{left} derived functors of the (contravariant) right-exact functor $\Hom_G{(-,A)}$ evaluated at $\Z$, and can be therefore computed using projective resolutions of $\Z$.
@@ -276,16 +281,19 @@ of $\Z$ as a $\Z[G]$-module.
 
 By applying the functor $\Hom_G{(-,A)}$ to this resolution, we get
 \begin{theorem}
-    The groups $\H{i}{G}{A}$ can be computed as the $i$-th homology of the complex $K^\bullet\coloneqq \Hom_G{(L_\bullet,A)}$ of \textnormal{homogeneous} cochains. These are the same as functions $G^{i+1}\to A$ commuting with the diagonal action of $G$, on which the boundary is given by
+    The groups $\H{i}{G}{A}$ can be computed as the $i$-th cohomology of the complex $K^\bullet\coloneqq \Hom_G{(L_\bullet,A)}$ of \textnormal{homogeneous} cochains. These are the same as functions $G^{i+1}\to A$ commuting with the diagonal action of $G$, on which the boundary is given by
     \[
         (d^i f)(g_0,\dots , g_{i+1})=\sum_{j=0}^{i+1} (-1)^j f(g_0,\dots , \hat{g_j},\dots , g_{i+1}).
     \]
 \end{theorem}
 
 For low-degree computations, it's convenient to use \textit{inhomogeneous} cochains instead. These arise from the fact that a function $G^{i+1}\to A$ commuting with the diagonal action of $G$ is determined by its values on elements of the form \[(1,g_1,\dots , g_i),\] and define the inhomogeneous $i$-th cochains as \textit{all} functions $f: G^i\to A$ with a slightly denser formula for the boundary maps:
-\[
-    (d^i f)(g_1,\dots , g_{i+1})=g_1\cdot f(g_2,\dots , g_{i+1})+\sum_{j=1}^{i} (-1)^j f(g_1,\dots , g_j g_{j+1},\dots , g_{i+1})+(-1)^{i+1} f(g_1,\dots , g_i).
-\]
+\begin{equation}\label{eq:Coboundary}
+    \begin{aligned}
+        (d^i f)(g_1,\dots , g_{i+1}) & =g_1\cdot f(g_2,\dots , g_{i+1})                                                                \\
+        +                            & \sum_{j=1}^{i} (-1)^j f(g_1,\dots , g_j g_{j+1},\dots , g_{i+1})+(-1)^{i+1} f(g_1,\dots , g_i).
+    \end{aligned}
+\end{equation}
 If we denote the resulting complex by $C^\bullet$, there is an isomorphism of complexes
 \[
     K^\bullet\overset{\Phi}{\Iso} C^\bullet
@@ -299,7 +307,7 @@ whose inverse sends $f: G^i\to A$ to the function
 \[
     (g_0,\dots , g_i)\mapsto g_0\cdot f(g_0^{-1}g_1,\dots , g_0^{-1}g_i).
 \]
-As a consequence, we can also compute $\H{i}{G}{A}$ as the $i$-th homology of the complex $(C^\bullet, d)$ of inhomogeneous cochains.
+As a consequence, we can also compute $\H{i}{G}{A}$ as the $i$-th cohomology of the complex $(C^\bullet, d)$ of inhomogeneous cochains.
 
 \begin{corollary}
     Let $G$ be a finite group. If $A$ is a finite $G$-module, then $\H{i}{G}{A}$ is a finite abelian group for all $i$.
@@ -714,66 +722,286 @@ Moreover, if the cohomology of $N$ with coefficients in $A$ is trivial up to deg
 
 \chapter{Cohomology of Profinite Groups}
 
-In this chapter we extend the notion of group cohomology to profinite groups, which are projective limits of finite groups, and as such have a natural topology. We will see that the cohomology of a profinite group can be reduced to the cohomology of its finite quotients, and how this relates to (infinite) Galois theory.
+In this chapter we extend the notion of group cohomology to profinite groups, which are projective limits of finite groups, and as such have a natural topology. We will see that the cohomology of a profinite group can be reduced to the cohomology of its finite quotients, and how this relates to infinite Galois theory.
 
 \section{Profinite Groups}
-\begin{remark}\label{rm:CptTotDisc}
+\begin{definition}
+    A \textbf{profinite group} is a topological group which is isomorphic to the projective limit of an inverse system of finite groups.
+\end{definition}
 
+Here, the topology on the projective limit of a projective system $(G_i)$ is the one induced by the product topology on $\prod{G_i}$, where we endow each finite group with the discrete topology. This makes $\varprojlim{G_i}$ into a compact, Hausdorff, and totally disconnected topological group (it's a closed subspace of the product).
+
+\begin{remark}\label{rm:CptTotDisc}
+    This actually gives an equivalent characterization: a topological group $G$ is profinite if and only if it is compact, Hausdorff, and totally disconnected (\cite{Neukirch}, Th. 1.1.3).
 \end{remark}
+
+In any topological group, open subgroups are also closed, being the complement of the union of the other cosets. In a profinite group, open subgroups are exactly the closed subgroups of finite index: indeed, if $H$ is a open, then the cosets of $H$ form a finite open cover of $G$, and by compactness there is a finite subcover, so there are only finitely many cosets; conversely a closed subgroup of finite index is the complement of a finite union of closed sets, hence open. Moreover, a subgroup is open if and only if it is a neighborhood of $1$.
+
+Finally, the profinite topology is uniquely determined by the fact that the identity $1\in G$ admits a basis $(\Gamma_i)$ of normal open subgroups of finite index, which are neighborhoods of $1$. We can then identify the projective limit of the finite groups $G / \Gamma_i$ with $G$ itself.
+
+% \begin{example}
+%     \item Galois Theory
+%     \item closed subgroups
+% \end{example}
+
+% \begin{definition}[Supernatural Number]
+%     A \textbf{supernatural number} is a formal product of prime powers:
+% \end{definition}
+
+% \begin{definition}
+%     Index and order
+% \end{definition}
+
+% properties of index (si, per )
+
+% pro-p-groups
+% p-sylow
+% Zp
+% profinite completion
 
 \section{Discrete $G$-Modules}
-\begin{remark}\label{rm:discGmodUnion}
 
+We now adapt the definition of a $G$-module to the case of a profinite group:
+
+\begin{definition}[Discrete $G$-module]
+    A discrete $G$-module is an abelian group $A$ equipped with a \textit{continuous} action of $G$. In other words, for any $a\in A$ the map
+    \begin{align*}
+        G & \to A            \\
+        g & \mapsto g\cdot a
+    \end{align*}
+    is continuous, and $a\mapsto g\cdot a$ is a homomorphism for all $g\in G$.
+\end{definition}
+
+\begin{remark}\label{rm:discGmodUnion}
+    This is equivalent to
+    \begin{itemize}
+        \item[(a)] asking that the stabilizer $\St{(x)}$ of any element $x \in A$ is open in $G$.
+        \item[(b)] requiring that $A$ is the union of the $A^U$, where $U$ ranges over the set of all open subgroups of $G$.
+    \end{itemize}
 \end{remark}
 
-\section{Passage to the Limit}
-\begin{theorem}\label{thm:IndLim}
+\noindent The category of discrete $G$-modules $\Gmod^{c}$ is a full abelian subcategory of the category of all $\Z[G]$ modules $\Gmod$, and it has enough injectives (\cite{Weibel}, Prop. 6.11.10).
 
+% \begin{example}
+%     Galois Theory
+% \end{example}
+
+\section{Passage to the Limit}
+
+We now want to define the cohomology of a profinite group $G$ with coefficients in a discrete $G$-module. The category of discrete $G$-modules has enough injectives, so we could be tempted to use the derived functors of $A\mapsto A^G$ again. However, keeping in mind our application to field theory, we want to be able to reduce to the cohomology of a profinite group to its finite quotients, which we will do by using the explit approach of (continuous) cochains.
+
+\begin{remark}
+    Another caveat which arises is that the abelian category  \textit{does not} have enough projectives: the main issue is that $\ZG{G}$ is not a discrete G-module, as its stabilizers are trivial.
+\end{remark}
+
+\begin{definition}
+    Let $A$ be a discrete $G$-module. We define $C^i(G,A)$ to be the set of all \textit{continuous} functions $G^i\to A$. The coboundary maps $d^i: C^i(G,A)\to C^{i+1}(G,A)$ are defined exactly as in \eqref{eq:Coboundary}, and we denote by $\H{i}{G}{A}$ the cohomology of the complex $(C^\bullet(G,A),d^\bullet)$.
+\end{definition}
+
+\begin{theorem}\label{thm:IndLim}
+    Suppose that $(G_i)$ is a projective system of profinite groups and $(A_i)$ is an inductive system of discrete $G_i$-modules such that the transition maps of the two systems are compatible. Then, for any $n\in\N$ the natural map
+    \[
+        \varprojlim{C^n(G_i,A_i)}\to C^n(G,A)
+    \]
+    induces an isomorphism in cohomology:
+    \[
+        \H{n}{G}{A}\simeq \varinjlim{\H{n}{G_i}{A_i}},
+    \]
+    where $G:=\varprojlim{G_i}$ and $A:=\varinjlim{A_i}$.
 \end{theorem}
+The proof is tedious but elementary, and relies on topological arguments using the compactness of each $G_i$ and the fact that continuous functions into a discrete space are locally constant (see \cite{Harari}, Th. 4.1.8).
+
+In view of \ref{rm:discGmodUnion}, this implies
+\begin{corollary}\label{cor:ModLim}
+    Let $A$ be a discrete $G$-module. Then,
+    \[
+        \H{i}{G}{A}=\varinjlim{\H{i}{G/U}{A^U}},
+    \]
+    where $U$ ranges over all open subgroups of $G$.
+\end{corollary}
+
+% Corollaries: open subgroups, finite sub-modules, Torsion
 
 \begin{example}\label{ex:IntOpenSgr}
-
+    If $(G_i)$ is a filtered family of open subgroups of $G$ profinite where we take the transition maps to be inclusions, then
+    \[
+        G:=\varprojlim{G_i}=\bigcap{G_i}
+    \]
+    is closed in $G$ and thus profinite.
+    By Theorem \ref{thm:IndLim} we get
+    \[
+        \H{i}{G}{A}\simeq \varinjlim{\H{i}{G_i}{A}}.
+    \]
+    for any discrete $G$-module $A$.
 \end{example}
+
+% - Properties of cohomology which are obtained by passage to the limit:
+
+% for HS, need Lemma(injective in G => in H, state without proof)
 
 \section{Cohomological Dimension}
-\begin{proposition}\label{prop:CdSgr}
 
-\end{proposition}
+\begin{definition}
+    Let $G$ be a profinite group. For $p$ a prime number, the cohomological $p$-dimension $\cdp{G}$ of $G$ is the smallest $n$ such that
+    \[
+        \H{i}{G}{A}\{p\}=0
+    \] for all $i>n$ and all discrete \textit{torsion} $G$-modules $A$. If there is no such $n$, we set $\cdp{G}=\infty$. Note that the above condition is equivalent to the vanishing of the $p$-torsion of the corresponding cohomology groups.
 
-\begin{example}\label{ex:Zhat}
+    The cohomological dimension of $G$ is thus defined as the supremum of the cohomological $p$-dimensions over all prime numbers:
+    \[
+        \cd{G}:=\sup_{p}\nolimits\cdp{G}.
+    \]
+\end{definition}
 
+\begin{remark}
+    If the order of $G$ is not divisible by some prime $p$, then the cohomological $p$-dimension of $G$ is $0$, as by Corollary \ref{cor:ModLim} the cohomology groups in question are direct limits of torsion groups whose order is not divisible by $p$.
+\end{remark}
+
+\begin{theorem}
+    Let $G$ be a profinte group. For $p$ prime and $n\in\N$, the following are equivalent:
+    \begin{itemize}
+        \item[(a)] $\cdp{G}\leq n$.
+        \item[(b)] $\H{i}{G}{A}=0$ for all $i>n$ and all $p$-primary discrete $G$-modules $A$.
+        \item[(c)] $\H{n+1}{G}{A}=0$ for all discrete $G$-modules which are $p$-torsion and simple as $\ZG{G}$-modules.
+    \end{itemize}
+\end{theorem}
+
+\begin{theorem}
+    Let $G$ be a pro-$p$-group, and $n$ a natural number. Then,
+    \[
+        \cdp{G}\leq n \iff \H{n+1}{G}{\Z/{p\Z}}=0
+        .\]
+\end{theorem}
+
+\begin{example}\label{ex:Zp}
+    If $G$ is the group of $p$-adic integers $\Zp$, we have $\H{2}{G}{\Zp}=0$ (by passing to the limit and using the 2-periodicity of the cohomology of finite cyclic groups, see Example 5.6 of \cite{Harari}). Therefore, the above criterion gives us $\cdp{\Zp}\leq 1$, as well as the other inequality:
+    \[
+        \H{1}{\Zp}{\Z/{p\Z}}=\Hom_{c}(\Zp,\Z/{p\Z})=\Z/p\Z\neq0,
+    \]
+    as any homomorphism $\Zp\to\Z/{p\Z}$ factors through $\Zp/{p\Zp}$. Therefore, $\cdp{\Zp}=1$.
 \end{example}
 
-\begin{equation}\label{eq:CdIneq}
-    \cd
-\end{equation}
+\begin{lemma}
+    Let $G$ be a profinite group, $A$ a discrete $G$-module and $p$ a prime number. If $H$ is a closed subgroup of $G$ of index prime to $p$, then the restriction map is injective on the $p$-primary component:
+    \[
+        \H{i}{G}{A}\{p\}\overset{\Res}{\hookrightarrow}\H{i}{H}{A}
+    \]
+    for all $i>0$.
+    If moreover $H$ is open and $G$ has finite cohomological dimension, then the corestriction map is surjective on the $p$-primary component:
+    \[
+        \H{i}{H}{A}\{p\}\overset{\Cor}{\twoheadrightarrow}\H{i}{G}{A}\{p\}.
+    \]
+\end{lemma}
+
+\begin{proposition}\label{prop:CdSgr}
+    Let $G$ be a profinite group. Then, for any closed subgroup $H$ of $G$ we have
+    \[
+        \cdp{H}\leq \cdp{G}.
+    \]
+    Furthermore, we have equality if $H$ is open or $(G:H)$ is prime to $p$.
+\end{proposition}
+
+\begin{corollary}
+    If $G_p$ is a $p$-Sylow of $G$, then
+    \[
+        \cdp{G}= \cdp{G_p} = \cd{G_p}.
+    \]
+\end{corollary}
+
+\begin{example}\label{ex:Zhat}
+    By the above corollary and Example \ref{ex:Zp}, we get $\cdp{\hat{\Z}}=\cdp{\Zp}=1$ for any prime $p$, which implies $\cd{\hat{\Z}}=1$.
+\end{example}
+
+\begin{proposition}\label{prop:CdIneq}
+    Let $G$ be a profinite group, and $H \lhd G$ a normal and closed subgroup. Then, for any prime number $p$
+    \[
+        \cdp{G} \leq \cdp{H} + \cdp{G/H}.
+    \]
+
+\end{proposition}
 
 \section{Galois Cohomology}
 
+% Artin-Schreier
+
 \subsection{Hilbert 90}
+
+We now consider the multiplicative group $\Kx$ as a discrete $\Gamma_\K$-module with the Galois action:
+
+\begin{theorem}[Hilbert 90]
+    Let $L$ be a finite Galois extension of $\K$ with Galois group $G$. Then, $\H{1}{G}{L^\times}=0$ and $\H{1}{\K}{\Kx} = 0.$
+\end{theorem}
 
 \subsection{Kummer Theory}
 
-\begin{equation}\label{eq:Kummer}
-    0
-\end{equation}
+Let $K$ be a field which contains a primitive $n$-th root of unity. Then, classical Kummer theory classifies the abelian extensions of $K$ whose exponent divides $n$: it states that any such an extension is obtained by adjoining $n$-roots, that is roots of polynomials of the form $X^n-a$ for some $a\in K^\times$. For instance, if $a$ has order $n$ in $K^\times$ modulo $K^{\times n}$, then $K(\sqrt[n]{a})$ is a cyclic extension of degree $n$.
+
+We can reinterpret this result using group cohomology:
+\begin{proposition}
+    Let $K$ be a field and assume that $n$ is invertible in $K$.
+    If $\mu_n$ is the group of all $n$-th roots of unity in a fixed separable closure $\Ks$. Then,
+    \begin{equation}\label{eq:Kummer}
+        \H{1}{\K}{\mu_n}\simeq \ssfrac{\K^\times}{(\K^\times)^n}.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    As the map $x\mapsto x^n$ is surjective on $\Kx$, we have a short exact sequence
+    \[
+        1\to \mu_n\to \Ks^\times\overset{\cdot n}{\to} \Ks^\times\to 1
+    \]
+    which gives rise to a long exact sequence in cohomology:
+    \[
+        0\to \mu_n(\K)\to \K^\times \overset{\cdot n}{\to} \K^\times \to \H{1}{\K}{\mu_n}\to 0
+    \]
+    Here $\mu_n(\K)$ is the group of $n$-th roots of unity contained in $\K$, and the last term vanishes by Hilbert 90. By exactness, we conclude that $\H{1}{\K}{\mu_n}\simeq \sfrac{\K^\times}{(\K^\times)^n}$.
+\end{proof}
+
+% TODO remark on how to get Kummer theory from this explicitly(kernel of map into \mu_n=\Zn WHEN K contains the roots of unity)
 
 \subsection{Brauer Group of a Field}
-\begin{remark}\label{rm:CSA}
 
+\begin{definition}
+    $\Br{K}:=\H{2}{K}{\Kx}$
+\end{definition}
+
+\begin{remark}\label{rm:CSA}
+    The Brauer group of a field $K$ can also be described as the group of equivalence classes of finite-dimensional central simple algebras over $K$. This is a very rich theory which allows one to do very explicit computations, as we will see in the next chapter. However some of the properties of the Brauer group are more easily derived via the cohomological approach (such as the fact that it is a torsion group). For the equivalence between the two definitions, see \cite{SzamuelyGille} \S 4.4.
 \end{remark}
 
 \begin{proposition}\label{prop:BrMuN}
-
+    Let $n$ be a positive integer which is invertible in $K$. Then, the $n$-torsion of the Brauer group is the cohomology of the group $\mu_n$ of $n$-th roots of unity:
+    \[
+        \Br{K}[n]=\H{2}{K}{\mu_n}.
+    \]
+    If moreover $K$ contains $\mu_n$, then the action of $\Gamma_\K$ on $\mu_n$ is trivial, and we deduce
+    \[
+        \Br{K}[n]=\H{2}{K}{\Zn}.
+    \]
 \end{proposition}
 
 \subsection{Cohomological Dimension of a Field}
-\begin{proposition}\label{prop:CdCharP}
 
+\begin{definition}
+    Let $K$ be a field with absolute Galois group $\Gamma_K$ and fix a prime number $p$. If the characteristic of $K$ is different from $p$ or $K$ is perfect of $\operatorname{char}{\K}=p$, then the \textbf{cohomological dimension} of $K$ is
+    \[
+        \cd{K}:=\cd{\Gamma_K}.
+    \]
+\end{definition}
+
+The above restriction on the characteristic of $K$ is justified by the following fact:
+
+\begin{proposition}\label{prop:CdCharP}
+    If $K$ is a field of positive characteristic $p$, then $\cd{K}\leq 1$.
 \end{proposition}
 
-\begin{proposition}\label{prop:prop:CdBr}
-
+\begin{proposition}\label{prop:CdBr}
+    Let $K$ be a field and $p$ a prime different from the characteristic of $K$. Then, the following are equivalent:
+    \begin{itemize}
+        \item $\cd{K}\leq 1$,
+        \item $\Br{L}[p]=0$ for any algebraic separable extension $L/K$.
+        \item $\Br{L}[p]=0$ for any finite separable extension $L/K$.
+    \end{itemize}
 \end{proposition}
 
 
@@ -1091,7 +1319,7 @@ We now use these results to compute the cohomological dimension of $\Gamma_K$:
 \end{proposition}
 
 \begin{proof}
-    If $l = \operatorname{char}{\K}$, then we have seen that $\cd_l{(\Gamma_L)}\leq 1$ automatically (Proposition \ref{prop:CdCharP}).
+    If $l = \operatorname{char}{\K}$, then we have seen that $\cdl{\Gamma_L}\leq 1$ automatically (Proposition \ref{prop:CdCharP}).
     Otherwise, by Proposition \ref{prop:CdBr} it's enough to show that $\Br{L}\{l\}=0$ (we should check it for any algebraic separable extension of $L$, but the degree of any such
     extension is again divisible by $l^\infty$).
     Now, as in Example \ref{ex:IntOpenSgr} we can write the Brauer group of $L$ as the inductive limit of the Brauer groups of its finite subextensions
@@ -1114,19 +1342,19 @@ We now use these results to compute the cohomological dimension of $\Gamma_K$:
 \end{proof}
 
 \begin{theorem}\label{thm:CohomFin}
-    If $l$ is a prime different from the characteristic of $\K$, then the cohomological $l$-dimension of $K$ equals 2. In particular, $\cd{(\K)}=2$.
+    If $l$ is a prime different from the characteristic of $\K$, then the cohomological $l$-dimension of $K$ equals 2. In particular, $\cd{\K}=2$.
 \end{theorem}
 
 \begin{proof}
-    This is a consequence of the inequality \ref{eq:CdIneq}:
+    This is a consequence of the inequality \ref{eq:CdIneq}: we have
 
     \[
-        \cd_l{(\K)}\leq \cd_l(I)+\cd_l{(\Gamma_\K / I)} \leq 2
+        \cdl{\K}\leq \cdl{I}+\cdl{\Gamma_\K / I} \leq 2
     \]
-    as $\cd_l(I)\leq 1$ by the previous corollary, and $\cd_l{(\Gamma_\K / I)} = 1$ by Example \ref{ex:Zhat} because $\Gamma_\K / I$ is the absolute Galois group of the residue
+    as $\cdl{I}\leq 1$ by the previous corollary, and $\cdl{\Gamma_\K / I} = 1$ by Example \ref{ex:Zhat} because $\Gamma_\K / I$ is the absolute Galois group of the residue
     field $\k$.
 
-    Moreover, if $l\neq \operatorname{char}{\K}$, then Proposition \ref{prop:BrMuN} implies $\H{2}{K}{\mu_l}=\Br{K}[l]$, which is not trivial by \eqref{eq:BrK}. Therefore, $\cd_l{(\K)}=2$ by your favorite criterion about cohomological dimension.
+    Moreover, if $l\neq \operatorname{char}{\K}$, then Proposition \ref{prop:BrMuN} implies $\H{2}{K}{\mu_l}=\Br{K}[l]$, which is non trivial by \eqref{eq:BrK}. Therefore, $\cdl{\K}=2$ by the usual criterion for cohomological dimension.
 \end{proof}
 
 \section{Cohomological Finiteness}
@@ -1137,19 +1365,19 @@ We now specialize to the case of a $p$-adic field $K$, by first showing that the
     Let $K$ be a $p$-adic field and $n$ a positive integer.
     Then,
     \begin{itemize}
-        \item $\H{1}{\K}{\mu_n} = \K^\times/\K^{\times n}$ is a finite group,
+        \item $\H{1}{\K}{\mu_n} = \ssfrac{\K^\times}{\K^{\times n}}$ is a finite group,
         \item $\H{2}{\K}{\mu_n} = \Z/n\Z$, and
         \item $\H{i}{\K}{\mu_n} = 0$ for $i\geq 3$.
     \end{itemize}
     In particular, $\H{i}{\K}{\mu_n}$ is finite for all $i$ (for $i=0$ it's just the invariants of $\mu_n$).
 \end{theorem}
 \begin{proof}
-    The first isomorphism follows from Kummer Theory \eqref{eq:Kummer}. We can show that $\K^\times/\K^{\times n}$ is finite using the structure theorem for local fields \ref{thm:StructureLocalFields}:
+    The first isomorphism follows from Kummer Theory \eqref{eq:Kummer}. We can show that $\sfrac{\K^\times}{\K^{\times n}}$ is finite using the structure theorem for local fields \ref{thm:StructureLocalFields}:
     \begin{align*}
-        \K^\times/\K^{\times n} & \simeq \Zn \times  \times \Zp^{[\K:\Qp]}/n \Zp^{[\K:\Qp]} \times F/F^n \times  \kappa^\times/\kappa^{\times n} \\
-                                & \simeq \Zn \times \kappa^\times/\kappa^{\times n} \times  \Zn \times F/F^n.
+        \K^\times/\K^{\times n} & \simeq \Zn \times  \times \Zp^{[\K:\Qp]}/n \Zp^{[\K:\Qp]} \times F/F^n \times  \ssfrac{\k^\times}{\k^{\times n}} \\
+                                & \simeq \Zn \times  \Zn \times F/F^n  \times \ssfrac{\k^\times}{\k^{\times n}}.
     \end{align*}
-    Since both $\kappa^\times$ and $F$ are finite groups, we are done.
+    Since both $\k^\times$ and $F$ are finite groups, we are done.
 
     For second isomorphism, $\H{2}{\K}{\mu_n}$ is equal to the $n$-torsion of $\Br{\K}$ by Proposition \ref{prop:BrMuN}, which is isomorphic to $\Q/\Z$, so that
     \[
@@ -1188,7 +1416,7 @@ In this chapter we are going to define a product on cohomology, the \textit{cup 
 
 Using the cup product and the previous results on the structure of local fields, we'll prove Tate's local duality theorem for finite modules over the absolute Galois group $\Gamma$ of a $p$-adic field, for which we'll need to show the existence of a dualizing module for $G$, which represents the Pontryagin dual of a specific cohomology functor.
 
-We will then apply all of this machinery by computing the abelianisation of the absolute Galois group of a $p$-adic field, which describes the finite abelian extensions of $\K$.
+We will then apply all of this machinery by computing the abelianization of the absolute Galois group of a $p$-adic field, which describes the finite abelian extensions of $\K$.
 
 \section{Cup Product}
 
@@ -1614,7 +1842,7 @@ Finally, we apply the theory of dualizing modules to the absolute Galois group \
             \Zn.
         \end{tikzcd}
     \end{equation}
-    This shows that \(\H{2}{U}{\mu_n}\) doesn't depend on \(U\), and by Remark \ref{rm:discGmodUnion} we get
+    This shows that \(\H{2}{U}{\mu_n}\) doesn't depend on \(U\), and by Remark \ref{rm:discGmodUnion} (b) we get
     \[
         \Hom_\Z(\mu_n,I_n)=\bigcup_{\mathclap{\substack{U\subset\,\Gamma\\U\text{ open}}}}{\Hom_U(\mu_n,I_n)}\simeq\Zn
     \]
@@ -1717,16 +1945,16 @@ Let K be a $p$-adic field with absolute Galois group $\Gamma$. As an immediate a
     \H{1}{K}{\mu_n} \Iso \H{1}{K}{\Zn}^*.
 \end{equation}
 
-Recall that the groups $\K^{\times n}$ are open in $\K^\times$ (Proposition \ref{cor:KxOpen}), and note that they are cofinal in the open subgroups of finite index: an index $n$ subgroup contains $\K^{\times n}$, and the intersection of any two finite index subgroups has finite index. Thus, we get the following description of the abelianisation of the absolute Galois group of a $p$-adic field:
+Recall that the groups $\K^{\times n}$ are open in $\K^\times$ (Proposition \ref{cor:KxOpen}), and note that they are cofinal in the open subgroups of finite index: an index $n$ subgroup contains $\K^{\times n}$, and the intersection of any two finite index subgroups has finite index. Thus, we get the following description of the abelianization of the absolute Galois group of a $p$-adic field:
 
 \begin{align*}
-    \Gamma^{\text{ab}} & = \Hom(\Gamma, \Q/\Z)^*                              & \text{(by Pontryagin duality)}        \\
-                       & = \Hom(\Gamma, \varinjlim_n\nolimits \Zn)^*          & \text{(viewing $\Q/\Z$ as a colimit)} \\
-                       & = \varprojlim_n\nolimits \Hom(\Gamma, \Zn)^*         & \text{(by contravariance)}            \\
-                       & = \varprojlim_n\nolimits \H{1}{K}{\Zn}^*             & \text{(by \ref{ex:TrivialModH1})}     \\
-                       & = \varprojlim_n\nolimits \H{1}{K}{\mu_n}             & \text{(by Tate Duality)}              \\
-                       & = \varprojlim_n\nolimits \K^{\times} / \K^{\times n} & \text{(by \ref{thm:CohomMuN})}        \\
-                       & = \widehat{\K^\times}                                & \text{(by \ref{cor:KxOpen})}.
+    \Gamma^{\text{ab}} & = \Hom(\Gamma, \Q/\Z)^*                                    & \text{(by Pontryagin duality)}        \\
+                       & = \Hom(\Gamma, \varinjlim_n\nolimits \Zn)^*                & \text{(viewing $\Q/\Z$ as a colimit)} \\
+                       & = \varprojlim_n\nolimits \Hom(\Gamma, \Zn)^*               & \text{(by contravariance)}            \\
+                       & = \varprojlim_n\nolimits \H{1}{K}{\Zn}^*                   & \text{(by \ref{ex:TrivialModH1})}     \\
+                       & = \varprojlim_n\nolimits \H{1}{K}{\mu_n}                   & \text{(by Tate Duality)}              \\
+                       & = \varprojlim_n\nolimits \sfrac{K^{\times}}{\K^{\times n}} & \text{(by \ref{thm:CohomMuN})}        \\
+                       & = \widehat{\K^\times}                                      & \text{(by \ref{cor:KxOpen})}.
 \end{align*}
 
 \begin{remark}
@@ -1767,7 +1995,7 @@ The main result of local class field theory, the existence theorem, makes this c
     \[
         \omega_{L/K}:\K^\times \to \operatorname{Gal}(L/K),
     \]
-    which translates to an isomorphism $\K^\times / N_{L/K}(L^\times) \simeq \operatorname{Gal}(L/K)$. This recovers the reciprocity isomorphism associated with the extension $L/K$ from loc. cit., Th. 9.2.
+    which translates to an isomorphism $$\K^\times / N_{L/K}(L^\times) \simeq \operatorname{Gal}(L/K).$$ This recovers the reciprocity isomorphism associated with the extension $L/K$ from loc. cit., Th. 9.2.
 \end{remark}
 
 Therefore, the correspondence \eqref{eq:ClassField} in one direction is given by $L \mapsto N_{L/\K}(L^\times)$. To conclude our exploration of local class field theory, we use the above properties to prove the existence theorem of local class field theory, which gives the correspondence in the other direction:
