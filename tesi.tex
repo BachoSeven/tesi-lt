@@ -53,7 +53,7 @@ Finally, after introducing an appropriate product in cohomology, we will be able
 absolute Galois group of a $p$-adic field. As an application, we will show that the Galois group of the maximal abelian extension of a $p$-adic field is isomorphic to the profinite
 completion of the multiplicative group of the field.\\
 
-% Introduce notation: things like Ab, sep. closure, uniquely divisible, p-primary p-torsion, etc.
+% TODO Introduce notation: things like Ab, sep. closure, uniquely divisible, p-primary p-torsion, etc.
 
 \addcontentsline{toc}{chapter}{Introduction}
 
@@ -91,7 +91,6 @@ As with any category, we need specify the morphisms between objects:
     \]
     for all $g\in G$ and $x\in A$. Again, this is the same as a morphism of $\Z[G]$-modules.
 \end{definition}
-
 \noindent We denote by $\Hom_G{(A,B)}$ the abelian group of morphisms of $G$-modules between $A$ and $B$, which is a subgroup of $\Hom{(A,B)}$.
 
 \medskip Finally, we define the category of $G$-modules $\Gmod$, whose objects are $G$-modules and whose arrows are morphisms of $G$-modules. By the above discussion, $\Gmod$ is equivalent to the category $\Z[G]\text{-}\mathsf{Mod}$ of left $\Z[G]$-modules, and it is thus an \textbf{abelian} category; in particular it has enough projective and injective objects.
@@ -992,7 +991,7 @@ Using this result, we can show that the $n$-th powers in $\K^\times$ are open:
 \end{proof}
 
 \begin{remark}\label{rm:KxOpenCharP}
-    If $\K$ is a local field of characteristic $p>0$, then $\K^{*p}$ cannot be not open in $\K^\times$, otherwise it would contain $U_\K^m$ for $m$ large enough but then $x^p = \pi^m + 1$ would imply $(x-1)^p = \pi^m$, which gives a contradiction whenever $(m,p)=1$.
+    If $\K$ is a local field of characteristic $p>0$, then $\K^{*p}$ cannot be not open in $\K^\times$, otherwise it would contain $U_\K^m$ for $m$ large enough and then $x^p = \pi^m + 1$ would give $(x-1)^p = \pi^m$, which yields a contradiction whenever $(m,p)=1$.
     However, if $n$ is prime to $p$ then $\K^{\times n}$ is still open in $\K^\times$ by Hensel's lemma, as in the previous corollary.
 \end{remark}
 
@@ -1127,8 +1126,7 @@ We now use these results to compute the cohomological dimension of $\Gamma_K$:
     as $\cd_l(I)\leq 1$ by the previous corollary, and $\cd_l{(\Gamma_\K / I)} = 1$ by Example \ref{ex:Zhat} because $\Gamma_\K / I$ is the absolute Galois group of the residue
     field $\k$.
 
-    Moreover, if $l\neq \operatorname{char}{\K}$, then the Kummer sequence implies that $\H{2}{K}{\mu_l}=\Br{K}\{l\}$ (Proposition \ref{prop:BrMuN}), which is not trivial by \eqref{eq:BrK}, and
-    therefore $\cd_l{(\K)}=2$ by your favorite criterion about cohomological dimension.
+    Moreover, if $l\neq \operatorname{char}{\K}$, then Proposition \ref{prop:BrMuN} implies $\H{2}{K}{\mu_l}=\Br{K}[l]$, which is not trivial by \eqref{eq:BrK}. Therefore, $\cd_l{(\K)}=2$ by your favorite criterion about cohomological dimension.
 \end{proof}
 
 \section{Cohomological Finiteness}
@@ -1160,9 +1158,8 @@ We now specialize to the case of a $p$-adic field $K$, by first showing that the
     Finally, we have shown in the previous section that the absolute Galois group of a $p$-adic field has cohomological dimension 2, and since $\mu_n$ is torsion we are done.
 \end{proof}
 
-% TODO remark 8.14 about char p (which implies that duality holds for p-torsion-free modules)
 \begin{remark}\label{rm:H1CharP}
-    If $\K$ is a local field of characteristic $p>0$, then $\H{1}{\K}{\mu_p}$ is
+    If $\K$ is a local field of characteristic $p>0$, then the above theorem is true except for the first statement: we can only conclude that $\H{1}{\K}{\mu_n}$ is finite if $n$ is prime to $p$, as then the $n$-th powers are open in $\K^\times\simeq\Z\times U_\K$ by Remark \ref{rm:KxOpenCharP}, and $U_\K$ is profinite. Analogously, the following corollary also holds in positive characteristic if the order of $M$ is prime to $p$:
 \end{remark}
 
 \begin{corollary}\label{cor:FinCohom}
@@ -1191,7 +1188,7 @@ In this chapter we are going to define a product on cohomology, the \textit{cup 
 
 Using the cup product and the previous results on the structure of local fields, we'll prove Tate's local duality theorem for finite modules over the absolute Galois group $\Gamma$ of a $p$-adic field, for which we'll need to show the existence of a dualizing module for $G$, which represents the Pontryagin dual of a specific cohomology functor.
 
-We will then apply all of this machinery by computing the abelianized absolute Galois group of a $p$-adic field, which describes the finite abelian extensions of $\K$.
+We will then apply all of this machinery by computing the abelianisation of the absolute Galois group of a $p$-adic field, which describes the finite abelian extensions of $\K$.
 
 \section{Cup Product}
 
@@ -1694,7 +1691,9 @@ We now define yet another type of duality for finite groups:
         0=\H{n}{\K}{\Ind{\Gamma}{M}}=\varinjlim_{\substack{B\subset\Ind{\Gamma}{M} \\B\text{ finite}}}{\H{n}{\K}{B}},
     \]
     which implies the existence of a finite submodule \(B\) with \(\H{n}{\K}{B}=0\). As \(M\) is finite, we can find such a \(B\) which contains \(M\). Then, the quotient \(C=B/M\) is finite and we can relate the long exact cohomology sequences associated with the short exact sequence \eqref{eq:InjSeq}
-    and its dual using the cup product, which gets us the following commutative diagram (up to a sign, by \ref{prop:CompatCupDiff}) with exact rows:
+    and its dual using the cup product. Note that the dual sequence is also exact, as Pontryagin duality is exact for finite groups (it's clearly left exact, and right-exactness follows from the injectivity of $\Q/\Z$).
+
+    This gets us the following commutative diagram (up to a sign, by \ref{prop:CompatCupDiff}) with exact rows:
     \[
         \begin{tikzcd}
             \H{0}{\K}{B} \ar[r] \ar[d, "\cup"] & \H{0}{\K}{C} \ar[r] \ar[d, "\cup"] & \H{1}{\K}{M} \ar[d, "\cup"] \ar[r] & 0 \\
@@ -1705,19 +1704,20 @@ We now define yet another type of duality for finite groups:
 
 \end{proof}
 
-% TODO Remark: The theorem also holds local fields of positive characteristic and p-torsion-free modules by <ref>
+\begin{remark}
+    If we only consider $p$-torsion-free modules, then the theorem also true for local fields of positive characteristic by Remark \ref{rm:pTorsion}.
+\end{remark}
 
-\subsection{Local Class Field Theory}
+\section{Local Class Field Theory}
 
 Let K be a $p$-adic field with absolute Galois group $\Gamma$. As an immediate application of the local duality theorem, since for any $n>0$ the Cartier dual of the $\Gamma$-module $\mu_n$ is $\Zn$, the cup product induces an isomorphism
 
 
-\[
+\begin{equation}\label{eq:CupIso}
     \H{1}{K}{\mu_n} \Iso \H{1}{K}{\Zn}^*.
-\]
+\end{equation}
 
-Recall that the groups $\K^{\times n}$ are open in $\K^\times$ (Proposition \ref{cor:KxOpen}), and note that they are cofinal in the open subgroups of finite index (their quotients are
-finite because of \ref{thm:CohomMuN} and \textcolor{red}{TODO}). Thus, we get the following description of the absolute Galois group of a $p$-adic field:
+Recall that the groups $\K^{\times n}$ are open in $\K^\times$ (Proposition \ref{cor:KxOpen}), and note that they are cofinal in the open subgroups of finite index: an index $n$ subgroup contains $\K^{\times n}$, and the intersection of any two finite index subgroups has finite index. Thus, we get the following description of the abelianisation of the absolute Galois group of a $p$-adic field:
 
 \begin{align*}
     \Gamma^{\text{ab}} & = \Hom(\Gamma, \Q/\Z)^*                              & \text{(by Pontryagin duality)}        \\
@@ -1729,13 +1729,17 @@ finite because of \ref{thm:CohomMuN} and \textcolor{red}{TODO}). Thus, we get th
                        & = \widehat{\K^\times}                                & \text{(by \ref{cor:KxOpen})}.
 \end{align*}
 
-In particular, by Galois theory we deduce a correspondence
-\[
+\begin{remark}
+    Here by $G^{\text{ab}}$ we mean the quotient of $G$ by the \textit{closure} of its derived subgroup. If $K^{\text{ab}}$ is the maximal abelian extension of $K$, then we have an isomorphism
+    \[
+        \Gamma^{\text{ab}} \simeq \operatorname{Gal}(K^{\text{ab}}/K).
+    \]
+\end{remark}
+In particular, passing through Galois theory we deduce a correspondence
+\begin{equation}\label{eq:ClassField}
     \{\text{finite abelian extensions of }K\} \longleftrightarrow \{\text{finite index subgroups of }\widehat{\K^\times} = \hat{\Z} \times U_K\}
-    .\]
-
-% TODO: expand on this?
-The main result of local class field theory, the existence theorem, makes this correspondence explicit using the \textit{reciprocity map}, which we can define using the isomorphism of local duality:
+    .\end{equation}
+The main result of local class field theory, the existence theorem, makes this correspondence explicit using the \textit{reciprocity map}, which is usually constructed in an explicit manner (as in \cite{Harari} Ch. 9). However, we can define it using the isomorphism of local duality:
 
 \begin{definition}
     The reciprocity map
@@ -1744,6 +1748,40 @@ The main result of local class field theory, the existence theorem, makes this c
     \]
     is the composition of the inclusion $\K^\times \hookrightarrow \widehat{\K^\times}$ with the isomorphism $\widehat{\K^\times} \Iso \Gamma^{\text{ab}}$.
 \end{definition}
+
+\begin{remark}
+    One can show that this has the same properties as the usual reciprocity map that are developed in loc. cit., Ch. 9, and which we will use in the following. In particular, the reciprocity map is surjective, with dense image (by definition of the profinite completion) and if $n>0$ it induces a map
+    \begin{equation}\label{eq:RecIso}
+        \omega_n:\K^\times / \K^{\times n} \to \Gamma^{\text{ab}}/n = \H{1}{\K}{\Zn}^*,
+    \end{equation}
+    which is given by the isomorphism \eqref{eq:CupIso} of local duality. Above, we used the fact that $$\H{1}{\K}{\Zn}=
+        \Hom(\Gamma^{\text{ab}},\Zn)=(\sfrac{\Gamma^{\text{ab}}}{n})^*.$$
+    Moreover, for any finite abelian Galois extension $L / K$ there is a commutative diagram
+    \[
+        \begin{tikzcd}\label{eq:NormDiag}
+            L^\times \ar[r, "\omega_L"] \ar[d, swap, "N_{L/\K}"] & \Gamma_L^{\text{ab}} \ar[d] \\
+            K^\times \ar[r, "\omega_K"]       & \Gamma_K^{\text{ab}}
+        \end{tikzcd}
+    \]
+    and the reciprocity map $\omega_\K$ induces a surjection
+    \[
+        \omega_{L/K}:\K^\times \to \operatorname{Gal}(L/K),
+    \]
+    which translates to an isomorphism $\K^\times / N_{L/K}(L^\times) \simeq \operatorname{Gal}(L/K)$. This recovers the reciprocity isomorphism associated with the extension $L/K$ from loc. cit., Th. 9.2.
+\end{remark}
+
+Therefore, the correspondence \eqref{eq:ClassField} in one direction is given by $L \mapsto N_{L/\K}(L^\times)$. To conclude our exploration of local class field theory, we use the above properties to prove the existence theorem of local class field theory, which gives the correspondence in the other direction:
+
+\begin{theorem}[Existence Theorem]
+    Let $\K$ be a $p$-adic field and fix an algebraic closure $\overline{\K}$. Then, for any finite index subgroup $U\subset\widehat{\K^\times}$
+    there exists a unique abelian extension $L / \K$ such that $L \subset \overline{\K}$ and $U=N_{L/\K}(L^\times)$.
+\end{theorem}
+
+\begin{proof}
+    By Theorem 9.9 in loc. cit. (which uses the above properties of the reciprocity map), since any finite index subgroup contains a subgroup of the form $\K^{\times n}$ it's enough to prove the claim for $U=\K^{\times n}$. Since $n\Gamma^{\text{ab}}$ is compact in $\Gamma^{\text{ab}}$, the reciprocity isomorphism \eqref{eq:RecIso} implies that $\Gamma^{\text{ab}}/n$ is a finite group, and so $n\Gamma^{\text{ab}}$ is closed of finite index in $\Gamma^{\text{ab}}$.
+
+    By Galois Theory, we can find a finite abelian extension $L/\K$ such that $\operatorname{Gal}{(L/K)}=\Gamma^{\text{ab}}/n$, and thus $\K^{\times n}=N_{L/\K}(L^\times)$ because it is the kernel of the surjection $\omega_{L/K}$. The uniqueness of $L$ follows from the density of $\omega_\K$, as in loc. cit., Th. 9.9 (b).
+\end{proof}
 
 \nocite{*}
 \printbibliography
