@@ -18,7 +18,8 @@
 \usepackage{mathtools}
 % References
 \usepackage{hyperref}
-\usepackage[capitalise]{cleveref}
+% for patching internal commands
+\usepackage{xpatch}
 
 % Bibliography
 \usepackage[backend=biber, style=alphabetic]{biblatex}
@@ -130,6 +131,7 @@
 						}}}}
 \tikzset{Equal/.style={-,double line with arrow={-,-}}}
 
+% Theorems
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
@@ -142,5 +144,10 @@
 
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
+
+% Remove the dot at the end of theorems
+\makeatletter
+\AtBeginDocument{\xpatchcmd{\@thm}{\thm@headpunct{.}}{\thm@headpunct{}}{}{}}
+\makeatother
 
 \chapterstyle{madsen}

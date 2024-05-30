@@ -51,7 +51,7 @@ finiteness of all cohomology groups with finite coefficients in the case of a $p
 
 Finally, after introducing an appropriate product in cohomology, we will be able to state and prove the Local Duality theorem, which gives a Poincaré-like duality for finite modules over the
 absolute Galois group of a $p$-adic field. As an application, we will show that the Galois group of the maximal abelian extension of a $p$-adic field is isomorphic to the profinite
-completion of the multiplicative group of the field.
+completion of the multiplicative group of the field. The exposition will mainly follow the book \cite{Harari}.
 
 \addcontentsline{toc}{chapter}{Introduction}
 
@@ -159,7 +159,7 @@ which simply restricts the action of $G$ to $H$. More precisely:
 			      \operatorname{CoInd}^G_H{(-)}:\Hmod\to\Gmod
 		      \]
 		      preserves injective objects, as in an abelian category an object $I$ is injective if and only if $\Hom{(-,I)}$ is exact).
-		\item[(b)] We will also need the following adjunction: under the isomorphism \eqref{eq:IndIso}, the isomorphism \eqref{eq:IndAdj} becomes
+		\item[(b)] Under the identification \eqref{eq:IndIso}, the isomorphism \eqref{eq:IndAdj} becomes
 		      \begin{align*}
 			      \Hom_H{(B,A)} & \to \Hom_G{(\operatorname{CoInd}^G_H{(B)},A)}                                        \\
 			      \psi          & \mapsto \left(f\mapsto \sum_{\overline{g} \in G / H}{g\cdot \psi(f(g^{-1}))}\right).
@@ -170,7 +170,7 @@ which simply restricts the action of $G$ to $H$. More precisely:
 
 \section{Group Cohomology}
 
-Recall that in an abelian category $\mathcal{A}$ which has enough injectives, an additive left-exact functor $F:\mathcal{A}\to\mathcal{B}$ with $\mathcal{B}$ abelian admits right derived functors $(R^iF)_{i\geq 0}$, which measure the "failure" of $F$ to be right-exact.
+Recall that in an abelian category $\mathcal{A}$ which has enough injectives, an additive left-exact functor $F:\mathcal{A}\to\mathcal{B}$ with $\mathcal{B}$ abelian admits right derived functors $(R^i F)_{i\geq 0}$, which measure the ``failure'' of $F$ to be right-exact.
 
 \medskip \noindent Here are some general properties of derived functors:
 \begin{itemize}
@@ -185,7 +185,7 @@ Recall that in an abelian category $\mathcal{A}$ which has enough injectives, an
 		      \ldots\to R^iF(A)\to R^iF(B)\to R^iF(C)\overset{\delta^i}{\to} R^{i+1}F(A)\to\ldots
 	      \]
 	      which are functorial with respect to morphisms of short exact sequences;
-	\item the $(R^iF)_{i \geq 0}$ form a \textit{universal} $\delta$-functor, in the sense that given another $\delta$-functor $S$ equipped with a natural transformation $\alpha^0:F=R^0F\to S^0$ there exists a unique natural transformation $(\alpha^i)_{i\geq 0}$ of $\delta$-functors extending $\alpha^0$, that is a family of natural transformations commuting with the coboundary morphisms.
+	\item the $(R^i F)_{i \geq 0}$ form a \textit{universal} $\delta$-functor, in the sense that given another $\delta$-functor $S$ equipped with a natural transformation $\alpha^0:F=R^0F\to S^0$ there exists a unique natural transformation $(\alpha^i)_{i\geq 0}$ of $\delta$-functors extending $\alpha^0$, that is a family of natural transformations commuting with the coboundary morphisms.
 \end{itemize}
 
 We will sometimes encounter $\delta$ functors which are not necessarily derived functors:
@@ -312,7 +312,7 @@ As a consequence, we can also compute $\H{i}{G}{A}$ as the $i$-th cohomology of 
 \begin{example}[using inhomogeneous cochains]
 	\noindent
 	\begin{itemize}
-		\item The 1-cocycles $Z^1(G,A)=\ker{d^1}$ are functions $f: G\to A$ satisfying $$f(gh)=g\cdot f(h)+f(g)$$ for all $g,h\in G$, while the 1-coboundaries $B^1(G,A)=\Im{d^0}$ are functions of the form $$g\mapsto g\cdot a-a$$ for some $a\in A$.
+		\item The 1-cocycles $Z^1(G,A)=\ker{d^1}$ are functions $f: G\to A$ satisfying \[f(gh)=g\cdot f(h)+f(g)\] for all $g,h\in G$, while the 1-coboundaries $B^1(G,A)=\Im{d^0}$ are functions of the form \[g\mapsto g\cdot a-a\] for some $a\in A$.
 		\item\label{ex:TrivialModH1} If $A$ is a trivial $G$-module, then $B^1(G,A)$ is trivial, and $Z^1(G,A)$ consists of functions satisfying $f(gh)=f(g)+f(h)$, which are exactly the group homomorphisms $G\to A$. In conclusion, for a trivial $G$-module we have \[\H{1}{G}{A}=\Hom{(G,A)}.\]
 	\end{itemize}
 \end{example}
@@ -350,7 +350,7 @@ We now prove an important result about the cohomology of induced modules, which 
 
 \section{Functoriality}
 
-Given a $G$-module $A$ and a group homomorphism $ G^{\prime} \overset{\varphi}{\to} G$, we can define a $G^{\prime} $-module structure on $A$ by "restriction of scalars":
+Given a $G$-module $A$ and a group homomorphism $ G^{\prime} \overset{\varphi}{\to} G$, we can define a $G^{\prime} $-module structure on $A$ by ``restriction of scalars'':
 \[
 	h\cdot a = \varphi(h)\cdot a.
 \]
@@ -391,7 +391,7 @@ We also have functoriality with respect to $A$, provided that we only consider m
 
 Here are some important examples of the above construction:
 
-\begin{definition}\
+\begin{definition}\label{def:InfRes}\
 	\begin{itemize}
 		\item   Let $A$ be a $G$-module, and $H$ a subgroup of $G$. The inclusion homomorphism $H\hookrightarrow G$ induces a homomorphism known as the \textbf{restriction} map
 		      \[
@@ -404,7 +404,7 @@ Here are some important examples of the above construction:
 		      \]
 		      On cochains, this amounts to precomposing a function $(G/N)^i\to A^N$ with the homomorphism $\pi^{(i)}: G^i\to (G/N)^i$.
 
-		\item Functoriality is useful even when there is no "change of group": if $A$ is $G$-module, given any element $s$ in $G$ consider the associated automorphism of $A$
+		\item Functoriality is useful even when there is no ``change of group'': if $A$ is $G$-module, given any element $s$ in $G$ consider the associated automorphism of $A$
 		      \begin{align*}
 			      f: A & \to A            \\
 			      a    & \mapsto s\cdot a
@@ -506,18 +506,18 @@ We saw in \ref{prop:IndMod} that $\Ind{G}{A}$ is cohomologically trivial. This i
 	\end{align*}
 	which is compatible with the inclusion $H\hookrightarrow G$.
 
-	By universality, it's enough to show that this is an isomorphism for $i=0$. However, an element $f:G\to B$ of $(\operatorname{CoInd}^G_H{(B)})^G$ must be constant as $$f(x)=(g\cdot f)(x)=f(xg)$$ for all $g,x\in G$. Finally, by definition of coinduced module it must also satisfy $$f(h)=h\cdot f(1)$$ for all $h\in H,$ which means that $f(1)\in B^H$.
+	By universality, it's enough to show that this is an isomorphism for $i=0$. However, an element $f:G\to B$ of $(\operatorname{CoInd}^G_H{(B)})^G$ must be constant as \[f(x)=(g\cdot f)(x)=f(xg)\] for all $g,x\in G$. Finally, by definition of coinduced module it must also satisfy \[f(h)=h\cdot f(1)\] for all $h\in H,$ which means that $f(1)\in B^H$.
 \end{proof}
 
 \subsection{Corestriction}
 
-Let $H$ be a subgroup of $G$, and $A$ a $G$-module. We want to define a \textbf{corestriction} map which goes in the opposite direction of the restriction: in degree $0$, it's given by the "norm" homomorphism
+Let $H$ be a subgroup of $G$, and $A$ a $G$-module. We want to define a \textbf{corestriction} map which goes in the opposite direction of the restriction: in degree $0$, it's given by the ``norm'' homomorphism
 \begin{align*}
 	\operatorname{N}_{G/H}: A^H & \longrightarrow A^G                   \\
 	a                           & \longmapsto \sum_{g\in G/H} g\cdot a.
 \end{align*}
 \begin{remark}
-	This comes from field theory, as we can reinterpret the norm map relative to a tower of finite field extensions $K\subset F\subset L$: in this case $A=L^\times$, $G=\operatorname{Gal}{(L/K)}$ and $H=\operatorname{Gal}{(L/F)}$, and $$\operatorname{N}_{G/H}=N_{F/K}: F^\times\to K^\times$$ is given by $$x\mapsto\prod_{\sigma\in G/H} \sigma(x).$$
+	This comes from field theory, as we can reinterpret the norm map relative to a tower of finite field extensions $K\subset F\subset L$: in this case $A=L^\times$, $G=\operatorname{Gal}{(L/K)}$ and $H=\operatorname{Gal}{(L/F)}$, and \[\operatorname{N}_{G/H}=N_{F/K}: F^\times\to K^\times\] is given by \[x\mapsto\prod_{\sigma\in G/H} \sigma(x).\]
 \end{remark}
 
 \noindent In general, we can extend this to a map
@@ -553,7 +553,7 @@ The composite $(\Cor\circ\Res)$ is as simple as it gets:
 	\[
 		A^G\hookrightarrow A^H\to A^G,
 	\]
-	which sends $a\in A^G$ to $$\sum_{g\in G/H} g\cdot a = (G:H)\cdot a.$$
+	which sends $a\in A^G$ to \[\sum_{g\in G/H} g\cdot a = (G:H)\cdot a.\]
 
 	The result then follows from universality, as the homomorphism in question is an endomorphism of the universal $\delta$-functor $\H{i}{G}{-}$.
 \end{proof}
@@ -570,7 +570,7 @@ This has a number of useful consequences:
 	If $A$ is a uniquely divisible $G$-module, then $\H{i}{G}{A}=0$ for all $i>0$.
 \end{corollary}
 \begin{proof}
-	By the previous corollary all the groups in question are $m$-torsion with $m=\#G$, and by assumption $A\overset{\cdot n}{\to} A$ is an isomorphism for any $n>0$, so in particular multiplication by $m$ is an isomorphism in cohomology.
+	By the previous corollary all the groups in question are $m$-torsion with $m=|G|$, and by assumption $A\overset{\cdot n}{\to} A$ is an isomorphism for any $n>0$, so in particular multiplication by $m$ is an isomorphism in cohomology.
 \end{proof}
 
 \section{The Hochschild-Serre Spectral Sequence}
@@ -742,10 +742,13 @@ Finally, the profinite topology is uniquely determined by the fact that the iden
 
 The morphisms under consideration between two profinite groups $G,H$ are the continuous group homomorphisms, which we denote by $\Hom_{c}(G,H)$.
 
-\begin{example}[Profinite Groups]
+\begin{example}[Profinite Groups]\
 	\begin{itemize}
 		\item By the characterization of Remark \ref{rm:CptTotDisc}, any finite group is profinite with the discrete topology.
 		\item Let $K$ be a field, and fix a separable closure $\Ks$ of $\K$. Then, the absolute Galois group $\Gal{K}$ is profinite: indeed, by writing $\Ks$ is the inductive limit of the finite Galois extensions $(K_i)$ of $K$ contained in $\Ks$ and setting $G_i:=\operatorname{Gal}{(K_i/K)}$, we get a surjective projective system of finite groups whose projective limit is $\Gal{K}$.
+
+		      More generally, given a (possibly infinite) Galois extension $L/K$, there is a one-to-one correspondence between the closed subgroups of $\operatorname{Gal}{(L/K)}$ and the intermediate field extensions $K\subset M\subset L$. In this correspondence, \textit{normal} subgroups correspond to Galois extensions, and open subgroups to finite extensions (as they  the closed subgroups of finite index). The idea of introducing a topology on the Galois group in order to restore the correspondence in the infinite case is originally due to Wolfgang Krull.
+
 		\item Any closed subgroup $H$ of a profinite group $G$ is profinite. By using a surjective system $(G_i,\varphi_{ij})$, one shows that the closed subgroups of $G$ are exactly those of the form $\varprojlim H_i$ for subgroups $H_i<G_i$ such that $\varphi_{ij}$ restricts to a surjection $H_j\to H_i$ for all $i\leq j$.
 	\end{itemize}
 \end{example}
@@ -782,7 +785,7 @@ We now introduce a notion of index for closed subgroups of a profinite group:
 	\]
 \end{definition}
 
-For finite groups, this notion of index coincides with the usual one, and it's "multiplicative" in the sense that $[G:H]=[G:K][K:H]$ for closed subgroups $H<K<G$.
+For finite groups, this notion of index coincides with the usual one, and it's ``multiplicative'' in the sense that $[G:H]=[G:K][K:H]$ for closed subgroups $H<K<G$.
 
 \begin{example}\
 	\begin{itemize}
@@ -793,17 +796,29 @@ For finite groups, this notion of index coincides with the usual one, and it's "
 
 One of the properties shared with finite groups is the existence of $p$-Sylow subgroups:
 \begin{definition}
-	A pro-$p$-group is a profinite group $G$ such that $|G|$ is a power of $p$. Given a profinite group $G$, a \textbf{$p$-Sylow subgroup} is a closed subgroup $P<G$ which is pro$p$ and such that $[G:P]$ is not divisible by $p$.
+	A pro-$p$-group is a profinite group $G$ such that $|G|$ is a power of $p$. Given a profinite group $G$, a \textbf{$p$-Sylow subgroup} is a closed subgroup $P<G$ which is a pro-$p$ group with $[G:P]$ not divisible by $p$.
 \end{definition}
 
 \begin{proposition}
 	Let $G$ be a profinite group. Then, for any prime $p$ there exists a $p$-Sylow subgroup of $G$, and any two $p$-Sylows are conjugate. Moreover, any pro-$p$-subgroup is contained in a $p$-Sylow.
 \end{proposition}
+This follows from the analogous statement for finite groups, by a careful passage to the limit.
 
-These follows from the analogous statement for finite groups, by passage to the limit over a family of open normal subgroups.
+\begin{example}
+	For any prime $p$, the ring of $p$-adic integers $\Zp$ is a pro-$p$-group, and it's the unique $p$-Sylow of $\widehat{\Z}$.
+\end{example}
 
-% Zp
-% profinite completion
+\begin{example}
+	The \textit{profinite completion} of a discrete group $G$ is a profinite group $\widehat{G}$ together with a homomorphism $G\to\widehat{G}$ which is universal with respect to homomorphisms into profinite groups: for any $H$ profinite and for any homomorphism $f:G\to H$, there exists a unique continuous homomorphism $\widehat{f}:\widehat{G}\to H$ making the diagram
+
+	\[
+		\begin{tikzcd}
+			G \arrow[r] \arrow[d] & \widehat{G} \arrow[dl, dashed, "\exists!\widehat{f}"] \\
+			H
+		\end{tikzcd}
+	\]
+	commute. The profinite completion can be constructed as the projective limit of the quotients $G/N$ for $N$ normal of finite index.
+\end{example}
 
 \section{\texorpdfstring{Discrete $G$-Modules}{Discrete G-Modules}}
 
@@ -828,17 +843,17 @@ We now adapt the definition of a $G$-module to the case of a profinite group:
 
 \noindent The category of discrete $G$-modules $\Gmod^{c}$ is a full abelian subcategory of the category of all $\Z[G]$ modules $\Gmod$, and it has enough injectives (\cite{Weibel}, Prop. 6.11.10).
 
-% \begin{example}
-%     Galois Theory
-% \end{example}
+\begin{remark}\label{rm:FinType}
+	If $A$ is a discrete $G$-module, then $A$ is finitely generated as a $\ZG{G}$-module if and only if it is finitely generated as a $\Z$-module. This is because the stabilizer $\St{(x)}$ of any element $x\in A$ is open, and thus of finite index in $G$.
+\end{remark}
+
+\begin{example}[Galois Theory]
+	Later, in the case of $G=\Gal{K}$ we will consider as discrete $G$-modules the additive and multiplicative groups $\Ks$ and $\Kx$ respectively, as well as the group of roots of unity $\mu_n\subset\Kx$ and the trivial module $\Zn$.
+\end{example}
 
 \section{Passage to the Limit}
 
-We now want to define the cohomology of a profinite group $G$ with coefficients in a discrete $G$-module. The category of discrete $G$-modules has enough injectives, so we could be tempted to use the derived functors of $A\mapsto A^G$ again. However, keeping in mind our application to field theory, we want to be able to reduce to the cohomology of a profinite group to its finite quotients, which we will do by using the explit approach of (continuous) cochains.
-
-\begin{remark}
-	Another caveat which arises is that the abelian category  \textit{does not} have enough projectives: the main issue is that $\ZG{G}$ is not a discrete G-module, as its stabilizers are trivial.
-\end{remark}
+We now want to define the cohomology of a profinite group $G$ with coefficients in a discrete $G$-module. As category of discrete $G$-modules has enough injectives, we are tempted to use the derived functors of $A\mapsto A^G$ again. However, there's a caveat: the abelian category $\Gmod^{c}$ \textit{does not} have enough projectives: the main issue is that $\ZG{G}$ is not a discrete G-module, as its stabilizers are trivial. Therefore, keeping in mind our application to field theory, we define cohomology through (continuous) cochains  directly to reduce to the cohomology of a profinite group to that of its finite quotients.
 
 \begin{definition}
 	Let $A$ be a discrete $G$-module. We define $C^i(G,A)$ to be the set of all \textit{continuous} functions $G^i\to A$. The coboundary maps $d^i: C^i(G,A)\to C^{i+1}(G,A)$ are defined exactly as in \eqref{eq:Coboundary}, and we denote by $\H{i}{G}{A}$ the cohomology of the complex $(C^\bullet(G,A),d^\bullet)$.
@@ -855,9 +870,9 @@ We now want to define the cohomology of a profinite group $G$ with coefficients 
 	\]
 	where $G:=\varprojlim{G_i}$ and $A:=\varinjlim{A_i}$.
 \end{theorem}
-The proof is tedious but elementary, and relies on topological arguments using the compactness of each $G_i$ and the fact that continuous functions into a discrete space are locally constant (see \cite{Harari}, Th. 4.1.8).
+The proof of the theorem is tricky but elementary, and relies on topological arguments using the compactness of each $G_i$ and the fact that continuous functions into a discrete space are locally constant (see \cite{Harari}, Th. 4.1.8).
 
-In view of \ref{rm:discGmodUnion}, this implies
+In view of Remark \ref{rm:discGmodUnion}, this implies that we can compute the cohomology of a profinite group by passing to the limit over the cohomology of its finite quotients:
 \begin{corollary}\label{cor:ModLim}
 	Let $A$ be a discrete $G$-module. Then,
 	\[
@@ -866,7 +881,20 @@ In view of \ref{rm:discGmodUnion}, this implies
 	where $U$ ranges over all open subgroups of $G$.
 \end{corollary}
 
-% Corollaries: open subgroups, finite sub-modules, Torsion
+As a consequence we find that the cohomology of a profinite group with coefficients in a discrete $G$-module is always a torsion group, as in the above limit each term is $|G/U|$-torsion by the finite case.
+
+\begin{corollary}
+	Let $A$ be a discrete $G$-module. Then, $\H{i}{G}{A}$ is a torsion group for all $i>0$.
+\end{corollary}
+
+In light of Remark \ref{rm:FinType}), writing $A$ as the inductive limit of its finitely generated subgroups yields the following corollary:
+
+\begin{corollary}
+	Let $A$ be a discrete $G$-module, and write $A=\bigcup{B}$ where $B$ ranges over the finite type sub-$G$-modules of $A$. Then,
+	\[
+		\H{i}{G}{A}=\varinjlim{\H{i}{G}{B}}.
+	\]
+\end{corollary}
 
 \begin{example}\label{ex:IntOpenSgr}
 	If $(G_i)$ is a filtered family of open subgroups of $G$ profinite where we take the transition maps to be inclusions, then
@@ -881,9 +909,30 @@ In view of \ref{rm:discGmodUnion}, this implies
 	for any discrete $G$-module $A$.
 \end{example}
 
-% - Properties of cohomology which are obtained by passage to the limit:
+\begin{remark}
+	The functor $\H{i}{G}{-}$ we just defined is a $\delta$-functor, as the functor $C^i{(G,-)}$ is exact. As in degree zero it coincides with $A\mapsto A^G$, if we show that it is universal then it will be the right derived functor of $A\mapsto A^G$.
 
-% for HS, need Lemma(injective in G => in H, state without proof)
+	Indeed, $\H{i}{G}{-}$ is effaceable: if we embed $A\hookrightarrow I$ for an injective object $I$ in $\Gmod^{c}$, we see that $I^U$ is injective as a $\ZG{U}$-module for any open normal subgroup $U$ of $G$, and thus
+	\[
+		\H{i}{G}{I}=\varinjlim{\H{i}{G/U}{I^U}}=0.
+	\]
+\end{remark}
+
+\begin{lemma}\label{lm:GHInjProf}
+	Let $G$ be a profinite group and $H$ a closed subgroup. If $I$ is injective object in $\Gmod^{c}$, then $I$ is an injective object in $\Hmod^{c}$.
+\end{lemma}
+The proof ultimately relies on the analogous result for finite groups \ref{lm:GHInj}, and it passes through Baer's criterion for injectivity (see \cite{Harari}, Prop. 4.25).
+
+We now state the properties of the cohomology of profinite groups which are obtained by passage to the limit from those developed in the first chapter. The main philosophy is that we have to require subgroups to be closed (open when finiteness of cosets is necessary), and maps defined on $G$ to be continuous.
+\begin{remark}[Properties of $\H{i}{G}{-}$]\
+	Let $G$ be a profinite group.
+	\begin{itemize}
+		\item For any closed subgroup $H<G$ and any discrete $G$-module $A$, we can define the coinduced module $\operatorname{CoInd}_{H}^{G}{A}$ as in the finite case, provided we only take continuous functions $G\to A$, and $\Ind{G}{A}$ is still acyclic. However, there is no notion of induced module from because $\ZG{G}$ is not a discrete $G$-module.
+		\item For any closed subgroup $H<G$ the Shapiro lemma holds with the same proof, and the functorial homomorphisms such inflation, restriction and ``conjugation'' are defined as in \ref{def:InfRes}. If $H$ is closed and normal, the Hochschild-Serre spectral sequence and its consequences are still valid (we can use Lemma \ref{lm:GHInjProf} to adapt the previous proof).
+		\item If $U<G$ is open, we can define the corestriction homomorphism $\Cor:\H{i}{U}{A}\to\H{i}{G}{A}$; Theorem \label{thm:CorRes} and its corollaries continue to hold.
+		\item Finally, if $U$ is open and $A,B$ are discrete $G$-modules the isomorphism \ref{rm:Adj} (b) is well-defined.
+	\end{itemize}
+\end{remark}
 
 \section{Cohomological Dimension}
 
@@ -1512,7 +1561,7 @@ This extends to a map on cohomology groups:
 	\end{align*}
 	as is readily checked on cocycles.
 
-	In the case $p=q=0$, we get that the cup product on invariants is just the tensor product $$A^G\otimes B^G\to (A\otimes B)^G.$$
+	In the case $p=q=0$, we get that the cup product on invariants is just the tensor product \[A^G\otimes B^G\to (A\otimes B)^G.\]
 \end{remark}
 
 \begin{definition}
@@ -1541,9 +1590,9 @@ In order to prove the duality theorem, we will need the following compatibility 
 		0\longrightarrow A^{\prime}\longrightarrow B^{\prime}\longrightarrow C^{\prime}\longrightarrow 0
 	\]
 	and a pairing $\varphi: B\times B^{\prime} \to D$ that sends $A\times A^{\prime}$ to $0$, so that it induces pairings
-	$$\varphi^{\prime} : A\times C^{\prime} \to D$$
+	\[\varphi^{\prime} : A\times C^{\prime} \to D\]
 	and
-	$$\varphi^{\prime\prime} : A^{\prime} \times C \to D.$$
+	\[\varphi^{\prime\prime} : A^{\prime} \times C \to D.\]
 	Then, the cup products associated with $\varphi^{\prime}, \varphi^{\prime\prime}$ are compatible (up to sign) with the coboundaries of the long exact sequences in cohomology:
 	\[
 		\delta\gamma\cup\gamma^{\prime} +(-1)^p(\gamma\cup\delta\gamma^{\prime} )=0
@@ -1554,8 +1603,8 @@ In order to prove the duality theorem, we will need the following compatibility 
 \begin{proof}
 	We need explicit the connecting homomorphisms: lift $\gamma$ and $\gamma^{\prime} $ to cocycles $c$ and $c^{\prime}$, and lift those respectively to $b\in K^p(B)$ and $b^{\prime} \in K^{q-1}(B^{\prime} )$. Their images $db$ and $db^{\prime} $ then come from some $a\in K^{p+1}(A)$ and $a^{\prime} \in K^q(A^{\prime} )$ respectively, which are representatives for $\delta \gamma$ and $\delta \gamma^{\prime} $.
 
-	Now, by \eqref{eq:DiffCup} the \textit{coboundary} $d(b\cup b^{\prime} )$ is equal to $$db\cup b^{\prime} +(-1)^p b\cup db^{\prime} = a\cup c^{\prime}  + (-1)^p c \cup
-		a^{\prime},$$ which is thus zero in cohomology.
+	Now, by \eqref{eq:DiffCup} the \textit{coboundary} $d(b\cup b^{\prime} )$ is equal to \[db\cup b^{\prime} +(-1)^p b\cup db^{\prime} = a\cup c^{\prime}  + (-1)^p c \cup
+		a^{\prime},\] which is thus zero in cohomology.
 \end{proof}
 
 \section{Dualizing Modules}
@@ -2029,8 +2078,8 @@ The main result of local class field theory, the existence theorem, makes this c
 	\begin{equation}\label{eq:RecIso}
 		\omega_n:\K^\times / \K^{\times n} \to \Gamma^{\text{ab}}/n = \H{1}{\K}{\Zn}^*,
 	\end{equation}
-	which is given by the isomorphism \eqref{eq:CupIso} of local duality. Above, we used the fact that $$\H{1}{\K}{\Zn}=
-		\Hom(\Gamma^{\text{ab}},\Zn)=(\sfrac{\Gamma^{\text{ab}}}{n})^*.$$
+	which is given by the isomorphism \eqref{eq:CupIso} of local duality. Above, we used the fact that \[\H{1}{\K}{\Zn}=
+		\Hom(\Gamma^{\text{ab}},\Zn)=(\sfrac{\Gamma^{\text{ab}}}{n})^*.\]
 	Moreover, for any finite abelian Galois extension $L / K$ there is a commutative diagram
 	\[
 		\begin{tikzcd}\label{eq:NormDiag}
@@ -2042,7 +2091,7 @@ The main result of local class field theory, the existence theorem, makes this c
 	\[
 		\omega_{L/K}:\K^\times \to \operatorname{Gal}(L/K),
 	\]
-	which translates to an isomorphism $$\K^\times / N_{L/K}(L^\times) \simeq \operatorname{Gal}(L/K).$$ This recovers the reciprocity isomorphism associated with the extension $L/K$ from loc. cit., Th. 9.2.
+	which translates to an isomorphism \[\K^\times / N_{L/K}(L^\times) \simeq \operatorname{Gal}(L/K).\] This recovers the reciprocity isomorphism associated with the extension $L/K$ from loc. cit., Th. 9.2.
 \end{remark}
 
 Therefore, the correspondence \eqref{eq:ClassField} in one direction is given by $L \mapsto N_{L/\K}(L^\times)$. To conclude our exploration of local class field theory, we use the above properties to prove the existence theorem of local class field theory, which gives the correspondence in the other direction:
