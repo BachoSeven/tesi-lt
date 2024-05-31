@@ -120,10 +120,12 @@ is the \textit{coinduced module} of $A$ from $H$ to $G$, with the action $(g \cd
 	\Hom_H{(\Z[G],A)}
 \]
 on which $G$ acts by right multiplication on the first factor, we see that the two constructions coincide for finite groups: an isomorphism is of $G$-modules is given by the map
-\begin{align}
-	\Hom_H{(\Z[G],A)} & \to \Z[G]\otimes_{\ZG{H}}{A}                                \nonumber       \\
-	f                 & \mapsto \sum_{\overline{g} \in G / H}{g\otimes f(g^{-1})}\label{eq:IndIso}.
-\end{align}
+\begin{equation}\label{eq:IndIso}
+	\begin{aligned}
+		\Hom_H{(\Z[G],A)} & \to \Z[G]\otimes_{\ZG{H}}{A}                               \\
+		f                 & \mapsto \sum_{\overline{g} \in G / H}{g\otimes f(g^{-1})}.
+	\end{aligned}
+\end{equation}
 
 We will be particularly interested in the case $H$ where is the trivial subgroup $\{1\}$, in which case we write $\Ind{G}{A}$ for the $G$-module $\operatorname{CoInd}^G_{\{1\}}{(A)}$, called the \textit{induced module} of $A$. This is because of the following result:
 
@@ -203,7 +205,7 @@ The following general result (\cite{Tohoku}, Ex. 2.4.5) will be useful when taki
 	Let $T$ be a $\delta$-functor. If $T$ is effaceable, then it is universal.
 \end{proposition}
 
-We use this generalities to define the cohomology of a group $G$ with coefficients in a $G$-module $A$, by considering a very natural sub-$G$-module of $A$:
+We now use this generalities to define the cohomology of a group $G$ with coefficients in a $G$-module $A$, by considering a very natural sub-$G$-module of $A$:
 
 \begin{definition}
 	The $G$-\textbf{invariants} of $A$ are the elements $a \in A$ fixed by the action of $G$:
@@ -747,7 +749,8 @@ The morphisms under consideration between two profinite groups $G,H$ are the con
 		\item By the characterization of Remark \ref{rm:CptTotDisc}, any finite group is profinite with the discrete topology.
 		\item Let $K$ be a field, and fix a separable closure $\Ks$ of $\K$. Then, the absolute Galois group $\Gal{K}$ is profinite: indeed, by writing $\Ks$ is the inductive limit of the finite Galois extensions $(K_i)$ of $K$ contained in $\Ks$ and setting $G_i:=\operatorname{Gal}{(K_i/K)}$, we get a surjective projective system of finite groups whose projective limit is $\Gal{K}$.
 
-		      More generally, given a (possibly infinite) Galois extension $L/K$, there is a one-to-one correspondence between the closed subgroups of $\operatorname{Gal}{(L/K)}$ and the intermediate field extensions $K\subset M\subset L$. In this correspondence, \textit{normal} subgroups correspond to Galois extensions, and open subgroups to finite extensions (as they  the closed subgroups of finite index). The idea of introducing a topology on the Galois group in order to restore the correspondence in the infinite case is originally due to Wolfgang Krull.
+		      More generally, given a (possibly infinite) Galois extension $L/K$, there is a one-to-one correspondence between the closed subgroups $H<\operatorname{Gal}{(L/K)}$ and the intermediate field extensions $K\subset F\subset L$, which is given by $H\mapsto L^H$ and $F\mapsto \operatorname{Aut(L/F)}$.
+		      In this correspondence, \textit{normal} subgroups correspond to Galois extensions, and open subgroups to finite extensions (as they  the closed subgroups of finite index). The idea of introducing a topology on the Galois group in order to restore the correspondence in the infinite case is originally due to Wolfgang Krull.
 
 		\item Any closed subgroup $H$ of a profinite group $G$ is profinite. By using a surjective system $(G_i,\varphi_{ij})$, one shows that the closed subgroups of $G$ are exactly those of the form $\varprojlim H_i$ for subgroups $H_i<G_i$ such that $\varphi_{ij}$ restricts to a surjection $H_j\to H_i$ for all $i\leq j$.
 	\end{itemize}
@@ -796,11 +799,11 @@ For finite groups, this notion of index coincides with the usual one, and it's `
 
 One of the properties shared with finite groups is the existence of $p$-Sylow subgroups:
 \begin{definition}
-	A pro-$p$-group is a profinite group $G$ such that $|G|$ is a power of $p$. Given a profinite group $G$, a \textbf{$p$-Sylow subgroup} is a closed subgroup $P<G$ which is a pro-$p$ group with $[G:P]$ not divisible by $p$.
+	A pro-$p$-group is a profinite group $G$ such that $|G|$ is a power of $p$. Given a profinite group $G$, a \textbf{$p$-Sylow subgroup} is a closed subgroup $H<G$ which is a pro-$p$ group with $[G:H]$ prime to $p$.
 \end{definition}
 
 \begin{proposition}
-	Let $G$ be a profinite group. Then, for any prime $p$ there exists a $p$-Sylow subgroup of $G$, and any two $p$-Sylows are conjugate. Moreover, any pro-$p$-subgroup is contained in a $p$-Sylow.
+	Let $G$ be a profinite group. Then, for any prime $p$ there exists a $p$-Sylow subgroup of $G$, and any two $p$-Sylows are conjugate. Moreover, any pro-$p$-subgroup of $G$ is contained in a $p$-Sylow.
 \end{proposition}
 This follows from the analogous statement for finite groups, by a careful passage to the limit.
 
@@ -887,7 +890,7 @@ As a consequence we find that the cohomology of a profinite group with coefficie
 	Let $A$ be a discrete $G$-module. Then, $\H{i}{G}{A}$ is a torsion group for all $i>0$.
 \end{corollary}
 
-In light of Remark \ref{rm:FinType}), writing $A$ as the inductive limit of its finitely generated subgroups yields the following corollary:
+In light of Remark \ref{rm:FinType}, writing $A$ as the inductive limit of its finitely generated subgroups yields the following corollary:
 
 \begin{corollary}
 	Let $A$ be a discrete $G$-module, and write $A=\bigcup{B}$ where $B$ ranges over the finite type sub-$G$-modules of $A$. Then,
@@ -923,20 +926,20 @@ In light of Remark \ref{rm:FinType}), writing $A$ as the inductive limit of its 
 \end{lemma}
 The proof ultimately relies on the analogous result for finite groups \ref{lm:GHInj}, and it passes through Baer's criterion for injectivity (see \cite{Harari}, Prop. 4.25).
 
-We now state the properties of the cohomology of profinite groups which are obtained by passage to the limit from those developed in the first chapter. The main philosophy is that we have to require subgroups to be closed (open when finiteness of cosets is necessary), and maps defined on $G$ to be continuous.
-\begin{remark}[Properties of $\H{i}{G}{-}$]\
+We now state the properties of the cohomology of profinite groups which are carried over by passage to the limit from those developed in the first chapter. The general philosophy is that we have to require subgroups to be closed (open when finiteness of cosets is needed), and maps defined on $G$ to be continuous.
+\begin{remark}
 	Let $G$ be a profinite group.
 	\begin{itemize}
 		\item For any closed subgroup $H<G$ and any discrete $G$-module $A$, we can define the coinduced module $\operatorname{CoInd}_{H}^{G}{A}$ as in the finite case, provided we only take continuous functions $G\to A$, and $\Ind{G}{A}$ is still acyclic. However, there is no notion of induced module from because $\ZG{G}$ is not a discrete $G$-module.
-		\item For any closed subgroup $H<G$ the Shapiro lemma holds with the same proof, and the functorial homomorphisms such inflation, restriction and ``conjugation'' are defined as in \ref{def:InfRes}. If $H$ is closed and normal, the Hochschild-Serre spectral sequence and its consequences are still valid (we can use Lemma \ref{lm:GHInjProf} to adapt the previous proof).
-		\item If $U<G$ is open, we can define the corestriction homomorphism $\Cor:\H{i}{U}{A}\to\H{i}{G}{A}$; Theorem \label{thm:CorRes} and its corollaries continue to hold.
+		\item For any closed subgroup $H<G$ Shapiro's Lemma holds with the same proof, and the functorial homomorphisms such inflation, restriction and ``conjugation'' are defined as in \ref{def:InfRes}. If $H$ is closed and normal, the Hochschild-Serre spectral sequence and its consequences are still valid (we can use Lemma \ref{lm:GHInjProf} to adapt the previous proof).
+		\item If $U<G$ is open, we can define the corestriction homomorphism $\Cor:\H{i}{U}{A}\to\H{i}{G}{A}$; Theorem \eqref{thm:CorRes} and its corollaries continue to hold.
 		\item Finally, if $U$ is open and $A,B$ are discrete $G$-modules the isomorphism \ref{rm:Adj} (b) is well-defined.
 	\end{itemize}
 \end{remark}
 
 \section{Cohomological Dimension}
 
-In the following, we denote by $A\{p\}$ the $p$-primary component of an abelian group $A$, that is the subgroup of elements whose order is a power of $p$; we also write $A[n]$ for the $n$-torsion subgroup of $A$, i.e. the subgroup of elements killed by $n$.
+In the following, we denote by $A\{p\}$ the $p$-primary component of an abelian group $A$, that is the subgroup of elements whose order is a power of $p$; we instead write $A[n]$ for the $n$-torsion subgroup of $A$, i.e. the subgroup of elements killed by $n$. Finally, we say a non-zero discrete $G$-module is \textit{simple} if it has no proper non-trivial submodules.
 
 \begin{definition}
 	Let $G$ be a profinite group. For $p$ a prime number, the cohomological $p$-dimension $\cdp{G}$ of $G$ is the smallest $n$ such that
@@ -954,9 +957,9 @@ In the following, we denote by $A\{p\}$ the $p$-primary component of an abelian 
 	If the order of $G$ is not divisible by some prime $p$, then the cohomological $p$-dimension of $G$ is $0$, as by Corollary \ref{cor:ModLim} the cohomology groups in question are direct limits of torsion groups whose order is not divisible by $p$.
 \end{remark}
 
-We now develop a few criterions which will be helpful for computing cohomological dimension:
+We now develop a few helpful criterions for computing cohomological dimension:
 
-\begin{theorem}
+\begin{theorem}\label{thm:CdSimple}
 	Let $G$ be a profinte group. For $p$ prime and $n\in\N$, the following are equivalent:
 	\begin{itemize}
 		\item[(a)] $\cdp{G}\leq n$.
@@ -965,42 +968,115 @@ We now develop a few criterions which will be helpful for computing cohomologica
 	\end{itemize}
 \end{theorem}
 
-\begin{theorem}
+\begin{proof}
+	The implications (a)$\Rightarrow$(b) and (b)$\Rightarrow$(c) are clear. Moreover, (b)$\Rightarrow$(c) as for any $i>0$ we have
+	\[
+		\H{i}{G}{A}\{p\}=\H{i}{G}{A\{p\}}.
+	\]
+
+	\noindent For the implication (c)$\Rightarrow$(a), we first show that $\H{n+1}{G}{A}=0$ for all finite $p$-primary $G$-modules by induction on $n:=|A|$. Without loss of generality, assume $A$ is non-zero. If $A$ is simple, then by assumption $\H{n+1}{G}{A}=0$. Otherwise, it has a proper non-trivial submodule $B$, and there is an exact sequence
+	\[
+		0\to B\to A\to A/B\to 0
+	\]
+	with $|A/B|,|B|<|A|$, and we conclude by induction using the long exact sequence in cohomology. To remove the finiteness assumption, we can write any $p$-primary $A$ as the inductive limit of its finitely generated sub-$G$-modules $B_i$, and since each $B_i$ is a finitely generated torsion group, it must be finite. Therefore, $\H{n+1}{G}{A}=0$ for any $p$-primary discrete $G$-module $A$.
+
+	To get the result for every $i>n$, we argue by dimension shifting using the short exact sequence
+	\[
+		0\to A \to \Ind{G}{A} \to \ssfrac{\Ind{G}{A}}{A} \to 0
+	\]
+	and the fact that $\Ind{G}{A}$ is $p$-primary, since continuous functions $G\to A$ are locally constant and thus have finite image by compactness.
+\end{proof}
+
+\begin{lemma}\label{lm:Inv}
+	Let $G$ be a finite $p$-group, and $A$ a finite $p$-primary $G$-module. Then, $A^G\neq 0$.
+\end{lemma}
+
+\begin{proof}
+	If $A_1,\ldots,A_k$ are the orbits of $A\setminus A^G$, then $p$ divides $|A_i|$ and the formula
+	\[
+		|A|=|A^G|+\sum_i{|A_i|}
+	\]
+	shows that $p$ divides $|A^G|$.
+\end{proof}
+
+This implies a practical characterization for the cohomological dimension of a pro-$p$-group:
+
+\begin{theorem}\label{thm:CdProP}
 	Let $G$ be a pro-$p$-group, and $n$ a natural number. Then,
 	\[
 		\cdp{G}\leq n \iff \H{n+1}{G}{\Z/{p\Z}}=0
 		.\]
 \end{theorem}
 
+\begin{proof}
+	For the non-trivial implication, by Theorem \ref{thm:CdSimple} we need to show that $\H{n+1}{G}{A}=0$ for any simple $p$-torsion $G$-module $A$. We claim that any such module is isomorphic to $\Z/p\Z$: the $G$-module generated by any non-zero $a\in A$ is finitely generated and torsion, and by simplicity it must be all of $A$, so $A$ must be finite. Therefore, the union of its stabilizers $V$ is open in $G$, and its core
+	\[
+		U:= \bigcap_{s\in G/V}{t^{-1}Vt}
+	\]
+	is a normal open subgroup which acts trivially on $A$, so we can view $A$ as a simple $G/U$-module. By Corollary \ref{cor:ModLim} we are down to the case of a finite $p$-group, where $A^G\neq0$ by Lemma \ref{lm:Inv} and as $A$ is simple we find $A=A^G$, so the action is trivial. Finally, any non-zero element $a\in A$ generates $A$ by simplicity and it has order $p$, so $A\simeq\Z/p\Z$ as an abelian group.
+\end{proof}
+
 \begin{example}\label{ex:Zp}
-	If $G$ is the group of $p$-adic integers $\Zp$, we have $\H{2}{G}{\Zp}=0$ (by passing to the limit and using the 2-periodicity of the cohomology of finite cyclic groups, see Example 5.6 of \cite{Harari}). Therefore, the above criterion gives us $\cdp{\Zp}\leq 1$, as well as the other inequality:
+	If $G$ is the group of $p$-adic integers $\Zp$, we have $\H{2}{G}{\Zp}=0$ (by passing to the limit and using the 2-periodicity of the cohomology of finite cyclic groups, see Example 5.6 of \cite{Harari}). Therefore, we get $\cdp{\Zp}\leq 1$ by the above criterion, as well as the other inequality:
 	\[
 		\H{1}{\Zp}{\Z/{p\Z}}=\Hom_{c}(\Zp,\Z/{p\Z})=\Z/p\Z\neq0,
 	\]
 	as any homomorphism $\Zp\to\Z/{p\Z}$ factors through $\Zp/{p\Zp}$. Therefore, $\cdp{\Zp}=1$.
 \end{example}
 
-\begin{lemma}
+\begin{lemma}\label{lm:ResInj}
 	Let $G$ be a profinite group, $A$ a discrete $G$-module and $p$ a prime number. If $H$ is a closed subgroup of $G$ of index prime to $p$, then the restriction map is injective on the $p$-primary component:
 	\[
 		\H{i}{G}{A}\{p\}\overset{\Res}{\hookrightarrow}\H{i}{H}{A}
 	\]
 	for all $i>0$.
-	If moreover $H$ is open and $G$ has finite cohomological dimension, then the corestriction map is surjective on the $p$-primary component:
+\end{lemma}
+
+\begin{proof}
+	By definition of index, can reduce to the case where $(G:H)$ is finite via Corollary \ref{cor:ModLim}. Then, the claim follows from the formula $\Cor\circ \Res =\cdot (G:H)$ of Theorem \ref{thm:CorRes}.
+\end{proof}
+
+\begin{lemma}\label{lm:Hn0}
+	Let $G$ be a pro-$p$ group of finite cohomological dimension $n$. Then, if $A$ is a non-zero finite $p$-primary $G$-module, we have
 	\[
-		\H{i}{H}{A}\{p\}\overset{\Cor}{\twoheadrightarrow}\H{i}{G}{A}\{p\}.
+		\H{n}{G}{A}\neq 0.
 	\]
 \end{lemma}
+
+\begin{proof}
+	Let $A^\prime \subset A$ be a proper maximal sub-$G$-module of $A$. Then, $\sfrac{A}{A^\prime}$ is a non-zero finite $p$-primary module, so by Lemma \ref{lm:Inv} the order of $(\sfrac{A}{A^\prime})^G$ is divisible by $p$, and in particular \(\Z /p\Z\subset \ssfrac{A}{A^\prime},\) which implies \(A^\prime\subsetneq\pi^{-1}{(\Z/p\Z)}\subset A.\) By maximality of $A^\prime$, we obtain $A / A^\prime = \Z / p\Z$, and the exact sequence
+	\[
+		0\to A^\prime \to A \to \Z / p\Z \to 0
+	\]
+	induces a long exact sequence in cohomology which concludes the proof:
+	\[\H{n}{G}{A}\to \H{n}{G}{\Z / p\Z}\to 0=\H{n+1}{G}{A^\prime}.\]
+\end{proof}
 
 \begin{proposition}\label{prop:CdSgr}
 	Let $G$ be a profinite group. Then, for any closed subgroup $H$ of $G$ we have
 	\[
 		\cdp{H}\leq \cdp{G}.
 	\]
-	Furthermore, we have equality if $H$ is open or $(G:H)$ is prime to $p$.
+	Furthermore, we have equality in the following cases:
+	\begin{itemize}
+		\item if $p\nmid (G:H)$;
+		\item if $H$ is open and $\cdp{G}<\infty$.
+	\end{itemize}
 \end{proposition}
 
-\begin{corollary}
+\begin{proof}
+	The inequality follows from Shapiro's Lemma (\ref{thm:Shapiro}), which reduces the cohomology of any $p$-primary $H$-module $A$ to that of the $p$-primary $G$-module $\operatorname{CoInd}_{H}^{G}{A}$.
+
+	If $p$ does not divide $(G:H)$, then we can use Lemma \ref{lm:ResInj} to reduce the cohomology of any $p$-primary $G$-module to its cohomology as an $H$-module, which implies the equality.
+
+	If $H$ is open, we can reduce to the case of a pro-$p$-group: take a $p$-Sylow $H_p$ of $H$ and a $p$-Sylow $G_p$ of $G$ containing $H_p$; then, $H_p$ is open in $G_p$ because $G_p\cap H=H_p$. Now assume $G$ is a pro-$p$-group, and set $n:=\cdp{G}$. Applying Shapiro's Lemma, we get
+	\[
+		\H{n}{H}{\Z/{p\Z}}\simeq \H{n}{G}{\operatorname{CoInd}_{H}^{G}{(\Z/{p\Z})}}\neq0
+	\]
+	by Lemma \ref{lm:Hn0} as $\operatorname{CoInd}_H^G{(\Z/{p\Z})})$ is finite of order $p^{(G:H)}$, so $\cdp{H}\geq n$ by Theorem \ref{thm:CdProP}	and we are done.
+\end{proof}
+
+\begin{corollary}\label{cor:CdSylow}
 	If $G_p$ is a $p$-Sylow of $G$, then
 	\[
 		\cdp{G}= \cdp{G_p} = \cd{G_p}.
@@ -1016,32 +1092,115 @@ We now develop a few criterions which will be helpful for computing cohomologica
 	\[
 		\cdp{G} \leq \cdp{H} + \cdp{G/H}.
 	\]
-
 \end{proposition}
+\begin{proof}
+	Let $m:=\cdp{H}$ and $n:=\cdp{G/H}$, and assume that $m,n<\infty$. The claim then follows from the Hochschild-Serre spectral sequence: if $A$ is a $p$-primary discrete $G$-module, we want to show that the cohomology of $G$ with coefficients in $A$ vanishes in degree greater than $\cdp{H}+\cdp{G/H}$. The spectral sequence reads
+	\[
+		E_2^{i,j}=\H{i}{G/H}{\H{j}{H}{A}}\Rightarrow \H{i+j}{G}{A},
+	\]
+	and $E_2^{i,j}$ vanishes for $i>\cdp{G/H}$ or $j>\cdp{H}$ by assumption. Thus, if $i+j$ is greater than $\cdp{H}+\cdp{G/H}$, we have $\H{i+j}{G}{A}=0$ as it admits a filtration by successive quotients of subquotients of the terms on the left hand side.
+\end{proof}
 
 \section{Galois Cohomology}
+In this chapter, we denote by $\Ks$ the separable closure of a field $K$, and by $\Gamma_\K$ the absolute Galois group $\Gal{K}$. If $M$ is a discrete $\Gamma_\K$-module and $L/K$ is a Galois extension, fixing an inclusion $\Ks\overset{\iota}{\hookrightarrow} \overline{L}$ which extends $\K\hookrightarrow L$ produces a continuous homomorphism
+\[
+	\varphi:\Gamma_L\to\Gamma_\K
+\]
+and by functoriality a homomorphism
+\[
+	\varphi^*:\H{i}{\Gamma_\K}{M}\to\H{i}{\Gamma_L}{M}.
+\]
+If we change the inclusion $\iota$, this changes $\varphi$ by an inner automorphism of $\Gamma_K$, which by Proposition \ref{prop:ConjId} induces the identity in cohomology, and therefore $\varphi^*$ is independent of the choice of $\iota$. This shows that different separable closures of $\K$ yield \textit{canonically} isomorphic cohomology groups. For this reason, we are led to adopt the following notation:
+\[
+	\H{i}{\K}{M}:=\H{i}{\Gamma_\K}{M}.
+\]
 
-% Artin-Schreier
+The additive group is cohomologically trivial:
+\begin{proposition}
+	Let $L/\K$ be a finite Galois extension of fields with group $G=\operatorname{Gal}{(L/\K)}$. Then,
+	\[
+		\H{i}{G}{L}=0
+	\]
+	and
+	\[
+		\H{i}{\K}{\Ks}=0
+	\]
+	for all $i>0$.
+\end{proposition}
+
+\begin{proof}
+	By the Normal Basis Theorem, we know that $L$ is isomorphic to $\K[G]\simeq \K\otimes_\Z \Z[G]$ as a $G$-module, and since $G$ is finite we can use the isomorphism \eqref{eq:IndIso} to conclude that $L$ is the induced module $\Ind{G}{\K}$, which is cohomologically trivial by Proposition \ref{prop:IndMod}.
+
+	The second claim then follows by Corollary \ref{cor:ModLim}:
+	\[
+		\H{i}{\K}{\Ks}= \varinjlim_{\mathclap{\substack{L/\K\\\text{fin. Galois}}}}{\H{i}{\operatorname{Gal}{(L/\K)}}{L}}=0.
+	\]
+\end{proof}
+
+\begin{proposition}[Artin-Schreier]\label{prop:ArtinSchreier}
+	Let $K$ be a field of characteristic $p>0$, and consider the map $\Phi(x):=x^p-x$ from $\Ks$ to itself.
+	Then,
+	\[
+		\H{1}{\K}{\Z/{p\Z}}\simeq \ssfrac{\K}{\Phi(\K)}
+	\]
+	and $\H{i}{\K}{\Z/{p\Z}}=0$ for $i>1$.
+\end{proposition}
+
+\begin{proof}
+	Note that $\Phi$ is additive because we are in characteristic $p$, and it is surjective because $\Ks$ is separably closed and the polynomial $X^p-X-a$ is separable for any $a\in\Ks$. The kernel of $\Phi$ is the prime subfield of $\K$, which is isomorphic to $\Z/{p\Z}$ as a $\Gamma_\K$-module. The result then follows from the short exact sequence of $\Gamma_\K$-modules
+	\[
+		0\to \Z/{p\Z}\to \Ks\overset{\Phi}{\to} \Ks\to 0,
+	\]
+	from which we get a long exact sequence in cohomology
+	\[
+		\begin{aligned}
+			0\to \Z/p\Z \to \K \overset{\Phi}{\longrightarrow}\K\to & \H{1}{\K}{\Z/p\Z}\to 0=\H{1}{\K}{\Ks}                \\
+			                                                        & \longrightarrow 0\to \H{2}{\K}{\Z/p\Z}\to 0\to\ldots
+		\end{aligned}
+	\]
+\end{proof}
 
 \subsection{Hilbert 90}
 
-We now consider the multiplicative group $\Kx$ as a discrete $\Gamma_\K$-module with the Galois action:
+We now consider the multiplicative group of a field as a discrete module with the Galois action:
 
 \begin{theorem}[Hilbert 90]
 	Let $L$ be a finite Galois extension of $\K$ with Galois group $G$. Then, $\H{1}{G}{L^\times}=0$ and $\H{1}{\K}{\Kx} = 0.$
 \end{theorem}
 
+\begin{proof}
+	The second claim follows from the first, as by Corollary \ref{cor:ModLim}
+	\[
+		\H{1}{\K}{\Kx}=\varprojlim{\H{1}{\operatorname{Gal}{(L/\K)}}{L^\times}}
+	\]
+	where the limit is taken over all finite Galois extensions $L/\K$.
+
+	Now let $(s\mapsto a_s)\in Z^1(G,L^\times)$ be a cocycle. The cocycle condition translates to
+	\[
+		a_{st}=a_s\cdot s(a_t) \iff s(a_t)=a_s^{-1} a_{st}.
+	\]
+	By Dedekind's Theorem on independence of characters, there is some $c\in L^\times$ such that
+	\[
+		b:=\sum_{t\in G}{a_t\cdot t(c)}\in L^\times
+	\]
+	is non-zero. Then, for any $s\in G$ the computation
+	\[
+		s(b)=\sum_{t\in G}{s(a_t)\cdot(st)(c)}=\sum_{t\in G}{a_s^{-1}a_{st}\cdot (st)(c)}=a_s^{-1}b
+	\]
+	shows that $(s\mapsto a_s)$ is a coboundary: $a_s=\sfrac{s(b^{-1})}{b^{-1}}$.
+\end{proof}
+
 \subsection{Kummer Theory}
 
-Let $K$ be a field which contains a primitive $n$-th root of unity. Then, classical Kummer theory classifies the abelian extensions of $K$ whose exponent divides $n$: it states that any such an extension is obtained by adjoining $n$-roots, that is roots of polynomials of the form $X^n-a$ for some $a\in K^\times$. For instance, if $a$ has order $n$ in $K^\times$ modulo $K^{\times n}$, then $K(\sqrt[n]{a})$ is a cyclic extension of degree $n$.
+Let $K$ be a field which contains a primitive $n$-th root of unity. Then, Kummer theory classifies the abelian extensions of $K$ whose exponent divides $n$: it states that any such an extension is obtained by adjoining $n$-roots, that is roots of polynomials of the form $X^n-a$ for some $a\in K^\times$. For instance, if $[a]$ has order $m$ in $K^\times$ modulo the $n$-th powers $K^{\times n}$, then $K(\sqrt[n]{a})$ is a cyclic extension of degree $m$.
 
 We can reinterpret this result using group cohomology:
-\begin{proposition}
+\begin{proposition}\label{prop:Kummer}
 	Let $K$ be a field and assume that $n$ is invertible in $K$.
-	If $\mu_n$ is the group of all $n$-th roots of unity in a fixed separable closure $\Ks$ of $K$, then we have an isomorphism
-	\begin{equation}\label{eq:Kummer}
+	If $\mu_n$ is the group of all $n$-th roots of unity in $\Ks$, then we have an isomorphism
+	\[
 		\H{1}{\K}{\mu_n}\simeq \ssfrac{\K^\times}{(\K^\times)^n}.
-	\end{equation}
+	\]
 \end{proposition}
 
 \begin{proof}
@@ -1056,16 +1215,26 @@ We can reinterpret this result using group cohomology:
 	Here $\mu_n(\K)$ is the group of $n$-th roots of unity contained in $\K$, and the last term vanishes by Hilbert 90. By exactness, we conclude that $\H{1}{\K}{\mu_n}\simeq \sfrac{\K^\times}{(\K^\times)^n}$.
 \end{proof}
 
-% TODO remark on how to get Kummer theory from this explicitly(kernel of map into \mu_n=\Zn WHEN K contains the roots of unity)
+\begin{remark}
+	When $\K$ contains a primitive $n$-th root of unity, the action of $\Gamma_\K$ on $\mu_n$ is trivial, so we can identify $\H{1}{\K}{\mu_n}$ with \[\H{1}{\K}{\Zn}=\Hom_{c}(\Gamma_\K,\Zn).\]
+	For any such homomorphism $\Gamma_\K\overset{f}{\to}\Zn$, the kernel of $f$ is a closed normal subgroup, to which we can associate (by Galois theory) an abelian extension $L$ of $\K$:
+	\[
+		\operatorname{Gal}{(L/\K)}\simeq \ssfrac{\Gamma_\K}{\ker{f}}\hookrightarrow \Zn.
+	\]
+	We thus recover the Kummer correspondence for cyclic extensions of degree diving $n$.
+\end{remark}
 
 \subsection{Brauer Group of a Field}
 
 \begin{definition}
-	$\Br{K}:=\H{2}{K}{\Kx}$
+	Let $\K$ be a field. The \textit{Brauer group} of $\K$ is
+	\[\Br{K}:=\H{2}{K}{\Kx}.\]
 \end{definition}
 
+\noindent Given an extension $L/K$, by functoriality we have a map $\Br{K}\to\Br{L}$, which is well-defined by the the discussion at the beginning of the chapter.
+
 \begin{remark}\label{rm:CSA}
-	The Brauer group of a field $K$ can also be described as the group of equivalence classes of finite-dimensional central simple algebras over $K$. This is a very rich theory which allows one to do very explicit computations, as we will see in the next chapter. However some of the properties of the Brauer group are more easily derived via the cohomological approach (such as the fact that it is a torsion group). For the equivalence between the two definitions, see \cite{SzamuelyGille} \S 4.4.
+	The Brauer group of a field $K$ can also be described as the group of equivalence classes of finite-dimensional central simple algebras over $K$. This is a very rich theory which allows one to do explicit computations, as we will see in the next chapter. However some of the properties of the Brauer group are more easily derived via the cohomological approach (such as the fact that it is a torsion group). For the equivalence between the two definitions, see \cite{SzamuelyGille} \S 4.4.
 \end{remark}
 
 \begin{proposition}\label{prop:BrMuN}
@@ -1075,9 +1244,29 @@ We can reinterpret this result using group cohomology:
 	\]
 	If moreover $K$ contains $\mu_n$, then the action of $\Gamma_\K$ on $\mu_n$ is trivial, and we deduce
 	\[
-		\Br{K}[n]=\H{2}{K}{\Zn}.
+		\Br{K}[n]\simeq\H{2}{K}{\Zn}
 	\]
+	by choosing a generator of $\mu_n$.
 \end{proposition}
+
+\begin{proof}
+	This follows from the Kummer exact sequence
+	\[
+		1\to \mu_n\to \Ks^\times\overset{\cdot n}{\to} \Ks^\times\to 1,
+	\]
+	by inspecting the long exact sequence in cohomology and using Hilbert 90:
+	\[
+		\H{1}{K}{\Kx}=0\to\H{2}{K}{\mu_n}\to \Br{K} \overset{\cdot n}{\longrightarrow}\Br{K}\to 0.
+	\]
+\end{proof}
+
+\begin{example}\
+	\begin{itemize}
+		\item Let $\K$ be a separably closed field. Then, $\Gamma_\K=0$ and thus $\Br{K}=0$.
+		\item The Brauer group of a finite field $\mathbb{F}_q$ is trivial, because $\operatorname{Gal}{(\overline{\mathbb{F}_q}/\mathbb{F}_q)}$ has cohomological dimension 1 by Example \ref{ex:Zp}.
+		\item By the characterization of the Brauer group using central simple algebras, a famous result of Frobenius shows that $\Br{\R}=\Z/2\Z$ (the non-trivial element is the class of the quaternion algebra).
+	\end{itemize}
+\end{example}
 
 \subsection{Cohomological Dimension of a Field}
 
@@ -1094,14 +1283,41 @@ The above restriction on the characteristic of $K$ is justified by the following
 	If $K$ is a field of positive characteristic $p$, then $\cd{K}\leq 1$.
 \end{proposition}
 
+\begin{proof}
+	Consider a $p$-Sylow subgroup $G_p$ of $\Gamma_K$. Then, $G_p$ is of the form $\operatorname{Aut}_L{(\Ks)}$ for some intermediate extension $K\subset L\subset \Ks$. By Corollary \ref{cor:CdSylow}, $\cd{K}=\cd{G_p}$, and thanks to the criterion \ref{thm:CdProP} it's enough to show
+	\[
+		\H{2}{L}{\Z/{p\Z}}=0,
+	\]
+	which follows from Artin-Schreier (\ref{prop:ArtinSchreier}) as $L$ is a field of characteristic $p$.
+\end{proof}
+
 \begin{proposition}\label{prop:CdBr}
 	Let $K$ be a field and $p$ a prime different from the characteristic of $K$. Then, the following are equivalent:
 	\begin{itemize}
-		\item $\cd{K}\leq 1$,
-		\item $\Br{L}[p]=0$ for any algebraic separable extension $L/K$.
-		\item $\Br{L}[p]=0$ for any finite separable extension $L/K$.
+		\item[(a)] $\cdp{K}\leq 1$,
+		\item[(b)] $\Br{L}[p]=0$ for any algebraic separable extension $L/K$.
+		\item[(c)] $\Br{L}[p]=0$ for any finite separable extension $L/K$.
 	\end{itemize}
 \end{proposition}
+
+\begin{proof}
+	Suppose (a), and let $L$ be a separable algebraic extension of $K$. By Galois theory, $L$ corresponds to a closed subgroup $H$ of $\Gamma_K$, and by Proposition \ref{prop:CdSgr} we have
+	\[
+		\cdp{L}\leq \cdp{K}\leq 1.
+	\]
+	Therefore, by Proposition \ref{prop:BrMuN} we get \(\Br{L}[p]=\H{2}{L}{\mu_p}=0\).
+	The implication (b)$\Rightarrow$(c) is immediate.
+
+	Finally, if (c) holds, consider a $p$-Sylow $G_p$ of $\Gamma_K$ and set $\K_p:=\Ks^{G_p}$. Then, the $p$-th roots of unity of $\Ks$ are contained in $\K_p$: indeed, the degree $[\K_p(\mu_p):\K_p]$ is a power of $p$ by Galois correspondence, but it must divide $p-1$; therefore, $\H{2}{\K}{\Z/{p\Z}}=\H{2}{\K_p}{\mu_p}$. Now, given a finite separable extension $\K\subset E\subset \K_p$  which contains $\mu_p$, by hypothesis we have $\Br{E}[p]=0$. Since we can write $\K_p$ as the union of such extensions, we deduce
+	\[
+		\bigcap_{\mathclap{\substack{E\text{ fin. sep. over }\K \\ {\mu_p\subset E\subset \K_p}}}} \operatorname{Gal}{(\Ks/E)}=\Gamma_{\K_p},
+	\]
+	and by Example \ref{ex:IntOpenSgr} we can compute
+	\[
+		\H{2}{\K_p}{\Z/p\Z}=\H{2}{\K_p}{\mu_p}=\varinjlim_E{\H{2}{E}{\mu_p}}=\varinjlim_E{\Br{E}[p]}=0.
+	\]
+	Using the criterion \ref{thm:CdProP} and Corollary \ref{cor:CdSylow}, we conclude that $\cdp{K}=\cdp{\K_p}\leq 1$.
+\end{proof}
 
 
 \chapter{Local Fields}
@@ -1442,7 +1658,7 @@ We now use these results to compute the cohomological dimension of $\Gamma_K$:
 \end{theorem}
 
 \begin{proof}
-	This is a consequence of the inequality \ref{eq:CdIneq}: we have
+	This is a consequence of the inequality \ref{prop:CdIneq}: we have
 
 	\[
 		\cdl{\K}\leq \cdl{I}+\cdl{\Gamma_\K / I} \leq 2
@@ -1468,7 +1684,7 @@ We now specialize to the case of a $p$-adic field $K$, by first showing that the
 	In particular, $\H{i}{\K}{\mu_n}$ is finite for all $i$ (for $i=0$ it's just the invariants of $\mu_n$).
 \end{theorem}
 \begin{proof}
-	The first isomorphism follows from Kummer Theory \eqref{eq:Kummer}. We can show that $\sfrac{\K^\times}{\K^{\times n}}$ is finite using the structure theorem for local fields \ref{thm:StructureLocalFields}:
+	The first isomorphism follows from Kummer Theory (Proposition \ref{prop:Kummer}). We can show that $\sfrac{\K^\times}{\K^{\times n}}$ is finite using the structure theorem for local fields \ref{thm:StructureLocalFields}:
 	\begin{align*}
 		\K^\times/\K^{\times n} & \simeq \Zn \times  \times \Zp^{[\K:\Qp]}/n \Zp^{[\K:\Qp]} \times F/F^n \times  \ssfrac{\k^\times}{\k^{\times n}} \\
 		                        & \simeq \Zn \times  \Zn \times F/F^n  \times \ssfrac{\k^\times}{\k^{\times n}}.
@@ -2104,7 +2320,7 @@ Therefore, the correspondence \eqref{eq:ClassField} in one direction is given by
 \begin{proof}
 	By Theorem 9.9 in loc. cit. (which uses the above properties of the reciprocity map), since any finite index subgroup contains a subgroup of the form $\K^{\times n}$ it's enough to prove the claim for $U=\K^{\times n}$. Since $n\Gamma^{\text{ab}}$ is compact in $\Gamma^{\text{ab}}$, the reciprocity isomorphism \eqref{eq:RecIso} implies that $\Gamma^{\text{ab}}/n$ is a finite group, and so $n\Gamma^{\text{ab}}$ is closed of finite index in $\Gamma^{\text{ab}}$.
 
-	By Galois Theory, we can find a finite abelian extension $L/\K$ such that $\operatorname{Gal}{(L/K)}=\Gamma^{\text{ab}}/n$, and thus $\K^{\times n}=N_{L/\K}(L^\times)$ because it is the kernel of the surjection $\omega_{L/K}$. The uniqueness of $L$ follows from the fact that $\omega_\K$ has dense image, see loc. cit. Th. 9.9 (b).
+	By Galois theory, we can find a finite abelian extension $L/\K$ such that $\operatorname{Gal}{(L/K)}=\Gamma^{\text{ab}}/n$, and thus $\K^{\times n}=N_{L/\K}(L^\times)$ because it is the kernel of the surjection $\omega_{L/K}$. The uniqueness of $L$ follows from the fact that $\omega_\K$ has dense image, see loc. cit. Th. 9.9 (b).
 \end{proof}
 
 \nocite{*}
