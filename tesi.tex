@@ -37,13 +37,11 @@
 
 \end{titlingpage}
 
-% make TOC
 \tableofcontents
 
 \chapter*{Introduction}
 The aim of this work is to provide an exposition of the Local Tate Duality theorem. The main motivation comes from class field theory, which aims to describe the abelian
-extensions of a field in terms of the arithmetic of the field itself; we will use the duality theorem to establish such a correspondence for $p$-adic fields. Historically, local class field theory was formulated by John Tate via a purely cohomological approach,
-which was then used to prove global class field theory as a consequence of the local results.\\
+extensions of a field in terms of the arithmetic of the field itself. Historically, this duality theorem was actually proved using class field theory by John Tate, while in this thesis we will go the other way around as is done by J. P. Serre in \cite{SerreCG}, by proving the existence of a dualizing module to prove the duality theorem and then using it to establish local class field theory for $p$-adic fields.\\
 
 First we will need to develop some machinery, such as the cohomology of (pro)finite groups and the notion of cohomological dimension, in order to sistematically study the absolute Galois group of
 a field, which is profinite. Using this machinery and the topological structure of local fields, we will be able to compute the Brauer group and cohomological dimension of a local field, and prove the
@@ -91,12 +89,12 @@ As with any category, we need specify the morphisms between objects:
 \end{definition}
 \noindent We denote by $\Hom_G{(A,B)}$ the abelian group of morphisms of $G$-modules between $A$ and $B$, which is a subgroup of $\Hom{(A,B)}$.
 
-\medskip Finally, we define the category of $G$-modules $\Gmod$, whose objects are $G$-modules and whose arrows are morphisms of $G$-modules. By the above discussion, $\Gmod$ is equivalent to the category $\Z[G]\text{-}\mathsf{Mod}$ of left $\Z[G]$-modules, and it is thus an \textbf{abelian} category; in particular it has enough projective and injective objects.
+\medskip Finally, we define the category of $G$-modules $\Gmod$, whose objects are $G$-modules and whose arrows are morphisms of $G$-modules. By the above discussion, $\Gmod$ is equivalent to the category $\Z[G]\text{-}\mathsf{Mod}$ of left $\Z[G]$-modules, and it is thus an \textbf{abelian} category which has enough projectives and injectives.
 
 \begin{example}[$G$-modules]\
 	\begin{itemize}
 		\item Any abelian group $A$ is a $G$-module with the trivial action $g\cdot x=x$ for all $g\in G$ and $x\in A$.
-		\item If $A$ and $B$ are $G$-modules, then the group homomorphisms $\Hom{(A,G)}$ form a $G$-module with the action
+		\item If $A$ and $B$ are $G$-modules, then the group homomorphisms $\Hom{(A,B)}$ form a $G$-module with the action
 		      \[
 			      (g\cdot f)(x)=g\cdot f(g^{-1}\cdot x)
 		      \]
@@ -154,7 +152,7 @@ which simply restricts the action of $G$ to $H$. More precisely:
 \end{proposition}
 \noindent For a proof, see Prop. 1.12 and 1.15 of \cite{Harari}.
 
-\begin{remark}\label{rm:Adj}
+\begin{remark}\label{rm:Adj}\
 	\begin{itemize}
 		\item[(a)] As the forgetful functor is exact, by the adjunction \eqref{eq:CoIndAdj} we deduce that the functor
 		      \[
@@ -318,37 +316,6 @@ As a consequence, we can also compute $\H{i}{G}{A}$ as the $i$-th cohomology of 
 		\item\label{ex:TrivialModH1} If $A$ is a trivial $G$-module, then $B^1(G,A)$ is trivial, and $Z^1(G,A)$ consists of functions satisfying $f(gh)=f(g)+f(h)$, which are exactly the group homomorphisms $G\to A$. In conclusion, for a trivial $G$-module we have \[\H{1}{G}{A}=\Hom{(G,A)}.\]
 	\end{itemize}
 \end{example}
-We now prove an important result about the cohomology of induced modules, which will allow us to prove statements about group cohomology by a technique known as \textit{dimension
-	shifting} (as in Proposition \ref{prop:ConjId} below), which is the concrete incarnation of the universality of derived functors.
-
-\begin{proposition}\label{prop:IndMod}
-	Let $A$ be a $G$-module. Then, the cohomology groups of $G$ with coefficients in the induced module $\Ind{G}{A}$ are all zero except for $\H{0}{G}{\Ind{G}{A}}\simeq A$.
-\end{proposition}
-
-\begin{proof}
-	The second statement follows immediately from the definition of the action on $\Ind{G}{A}$, as $\H{0}{G}{\Ind{G}{A}}=(\operatorname{CoInd}^G_{\{1\}}{(A)})^G$, and if $f: G\to A$ and $f(x)=f(xg)$ for all $x, g\in G$ then $f$ must be constant.
-	Let $C^k:=C^k(G,\Ind{G}{A})$ be the set of inhomogeneous $k$-cochains with coefficients in $\Ind{G}{A}$. Suppose that $\alpha\in C^{k}$ is a cocycle, then for any $x\in G$ we have
-	\begin{align*}
-		0 = (d\alpha)(g_1,\dots , g_{k+1})(x) = (g_1\cdot \alpha)(g_2,\dots , g_{k+1})(x) + \\
-		\sum_{j=1}^{k} (-1)^j \alpha(g_1,\dots , g_j g_{j+1},\dots , g_{k+1})(x) + (-1)^{k+1} \alpha(g_1,\dots , g_k)(x),
-	\end{align*}
-	and setting $x=e$ we get the identity
-	\begin{equation*}\label{eq:Id}
-		\alpha(g_2, \dots , g_{k+1})(g_1) = \sum_{j=1}^{k} (-1)^{j+1} \alpha(g_1,\dots , g_j g_{j+1},\dots , g_{k+1})(e) + (-1)^k \alpha(g_1,\dots , g_k)(e).
-	\end{equation*}
-	To show that $\alpha$ is a coboundary, we define a $(k-1)$-cochain $\beta$ by
-	\[
-		\beta(g_1,\dots , g_{k-1})(x) = \alpha(x,g_1,\dots , g_{k-1})(e),
-	\]
-	and compute its boundary:
-	\begin{align*}
-		d\beta(g_1,\dots , g_k)(x) & = (g_1\cdot \beta)(g_2,\dots , g_k)(x) + \sum_{j=1}^{k-1} (-1)^j \beta(g_1,\dots , g_j g_{j+1},\dots , g_k)(x) + (-1)^k \beta(g_1,\dots , g_{k-1})(x) \\
-		                           & = \alpha(x g_1,\dots , g_k) + \sum_{j=1}^{k-1} (-1)^j \alpha(x,g_1,\dots , g_j g_{j+1},\dots , g_k) + (-1)^k \alpha(x, g_1,\dots , g_{k-1})(e)        \\
-		                           & = \sum_{j=1}^k (-1)^j \alpha(x,g_1,\dots , g_{j-1} g_j,\dots , g_k)(e) + (-1)^k \alpha(x,g_1,\dots , g_{k-1})(e)                                      \\
-		                           & \overset{\eqref{eq:Id}}{=} \alpha(g_1,\dots , g_k)(x)
-		.\end{align*}
-	This shows that $d\beta=\alpha$, and thus $[\alpha]=0$ in $\H{k}{G}{\Ind{G}{A}}$.
-\end{proof}
 
 \section{Functoriality}
 
@@ -395,18 +362,18 @@ Here are some important examples of the above construction:
 
 \begin{definition}\label{def:InfRes}\
 	\begin{itemize}
-		\item   Let $A$ be a $G$-module, and $H$ a subgroup of $G$. The inclusion homomorphism $H\hookrightarrow G$ induces a homomorphism known as the \textbf{restriction} map
+		\item[(a)]  Let $A$ be a $G$-module, and $H$ a subgroup of $G$. The inclusion homomorphism $H\hookrightarrow G$ induces a homomorphism known as the \textbf{restriction} map
 		      \[
 			      \Res: \H{i}{G}{A}\to\H{i}{H}{A}
 		      \]
 		      for all $i\geq 0$. Using \eqref{eq:Explicit} we see that $\Res$ sends a cocycle $\alpha: G^i\to A$ to the restriction of $\alpha$ to $H^i$, from which the name.
-		\item Let $A$ be a $G$-module, and $N$ a normal subgroup of $G$. Then, the quotient $G/N$ acts naturally on $A^N$, and the inclusion of $A^N$ in $A$ is compatible with the projection $\pi: G\to G/N$. This induces the \textbf{inflation} map
+		\item[(b)] Let $A$ be a $G$-module, and $N$ a normal subgroup of $G$. Then, the quotient $G/N$ acts naturally on $A^N$, and the inclusion of $A^N$ in $A$ is compatible with the projection $\pi: G\to G/N$. This induces the \textbf{inflation} map
 		      \[
 			      \Inf: \H{i}{G/N}{A^N}\to\H{i}{G}{A},
 		      \]
 		      On cochains, this amounts to precomposing a function $(G/N)^i\to A^N$ with the homomorphism $\pi^{(i)}: G^i\to (G/N)^i$.
 
-		\item Functoriality is useful even when there is no ``change of group'': if $A$ is $G$-module, given any element $s$ in $G$ consider the associated automorphism of $A$
+		\item[(c)] Functoriality is useful even when there is no ``change of group'': if $A$ is $G$-module, given any element $s$ in $G$ consider the associated automorphism of $A$
 		      \begin{align*}
 			      f: A & \to A            \\
 			      a    & \mapsto s\cdot a
@@ -419,38 +386,11 @@ Here are some important examples of the above construction:
 		      \[
 			      \sigma_s: \H{i}{G}{A}\to\H{i}{G}{A}
 			      .\]
+		      The above homomorphism is actually the identity, as we will see in Proposition \ref{prop:ConjId}.
 	\end{itemize}
 \end{definition}
 
-\begin{proposition}\label{prop:ConjId}
-	The homomorphism $\sigma_s$ defined above is the identity in each degree.
-\end{proposition}
-\begin{proof}
-	We prove this by dimension shifting: for $i=0$, by construction $\sigma_s$ sends $a\in A^G$ to $s\cdot a=a$.
-
-	For $i>0$, we proceed by induction on $i$: embed $A$ into $\Ind{G}{A}$, and let $B:=\coker(A\hookrightarrow \Ind{G}{A})$. The exact sequence
-	\[
-		0\to A\to \Ind{G}{A}\to B\to 0
-	\]
-	gives rise to a long exact sequence in cohomology, and by the compatibility of $\sigma_s$ with the coboundaries and Proposition \ref{prop:IndMod} we get a commutative diagram with exact rows
-	\[
-		\begin{tikzcd}
-			\H{i}{G}{I} \arrow[r] \arrow[d, "\sigma_s"] & \H{i}{G}{B} \arrow[r] \arrow[d, "\sigma_s"] & \H{i+1}{G}{A} \arrow[d, "\sigma_s"] \to 0 \\
-			\H{i}{G}{I} \arrow[r]                        & \H{i}{G}{B} \arrow[r]                        & \H{i+1}{G}{A} \to 0.
-		\end{tikzcd}
-	\]
-	By induction, the middle vertical map is the identity, and it follows that the last one is the identity as well.
-\end{proof}
-
-\begin{corollary}\label{cor:NormalAction}
-	Let $A$ be a $G$-module, and assume that $N$ is a normal subgroup of $G$. Then, there is an action of $G / N$ on $\H{i}{G}{A}$ for all $i$.
-\end{corollary}
-
-\begin{proof}
-	Since $N$ is normal, $G$ acts by conjugation on $\H{i}{N}{A}$ as described in the above example, and by the previous proposition any $n\in N$ acts trivially, so that the action of $G/N$ is well-defined.
-\end{proof}
-
-We will use the following lemma in the construction of the Hochschild-Serre spectral sequence:
+\medskip We will use the following lemma in the construction of the Hochschild-Serre spectral sequence:
 
 \begin{lemma}\label{lm:GHInj}
 	Let $G$ be a finite group, and $H$ a subgroup. Then, the forgetful functor
@@ -482,7 +422,7 @@ We will use the following lemma in the construction of the Hochschild-Serre spec
 \end{proof}
 
 \subsection{Shapiro's Lemma}
-We saw in \ref{prop:IndMod} that $\Ind{G}{A}$ is cohomologically trivial. This is a special case of Shapiro's Lemma, which relates the cohomology of a subgroup to that of the whole group:
+We now prove an important result which relates the cohomology of a subgroup to that of the whole group:
 \begin{theorem}\label{thm:Shapiro}
 	Let $H$ be a subgroup of $G$ and $B$ an $H$-module. Then, for every $i\geq0$ there is a canonical isomorphism
 	\[
@@ -511,6 +451,65 @@ We saw in \ref{prop:IndMod} that $\Ind{G}{A}$ is cohomologically trivial. This i
 	By universality, it's enough to show that this is an isomorphism for $i=0$. However, an element $f:G\to B$ of $(\operatorname{CoInd}^G_H{(B)})^G$ must be constant as \[f(x)=(g\cdot f)(x)=f(xg)\] for all $g,x\in G$. Finally, by definition of coinduced module it must also satisfy \[f(h)=h\cdot f(1)\] for all $h\in H,$ which means that $f(1)\in B^H$.
 \end{proof}
 
+As a special case of Shapiro's Lemma, we deduce that $\Ind{G}{A}$ is cohomologically trivial: this allows us to prove statements about group cohomology by a technique know as \textit{dimension
+	shifting} (as in Proposition \ref{prop:ConjId} below), which is a concrete incarnation of the universality of derived functors.
+\begin{corollary}\label{cor:IndMod}
+	Let $A$ be a $G$-module. Then, the cohomology groups of $G$ with coefficients in the induced module $\Ind{G}{A}$ are all zero except for $\H{0}{G}{\Ind{G}{A}}\simeq A$.
+\end{corollary}
+
+% \begin{proof}
+% 	The second statement follows immediately from the definition of the action on $\Ind{G}{A}$, as $\H{0}{G}{\Ind{G}{A}}=(\operatorname{CoInd}^G_{\{1\}}{(A)})^G$, and if $f: G\to A$ and $f(x)=f(xg)$ for all $x, g\in G$ then $f$ must be constant.
+% 	Let $C^k:=C^k(G,\Ind{G}{A})$ be the set of inhomogeneous $k$-cochains with coefficients in $\Ind{G}{A}$. Suppose that $\alpha\in C^{k}$ is a cocycle, then for any $x\in G$ we have
+% 	\begin{align*}
+% 		0 = (d\alpha)(g_1,\dots , g_{k+1})(x) = (g_1\cdot \alpha)(g_2,\dots , g_{k+1})(x) + \\
+% 		\sum_{j=1}^{k} (-1)^j \alpha(g_1,\dots , g_j g_{j+1},\dots , g_{k+1})(x) + (-1)^{k+1} \alpha(g_1,\dots , g_k)(x),
+% 	\end{align*}
+% 	and setting $x=e$ we get the identity
+% 	\begin{equation*}\label{eq:Id}
+% 		\alpha(g_2, \dots , g_{k+1})(g_1) = \sum_{j=1}^{k} (-1)^{j+1} \alpha(g_1,\dots , g_j g_{j+1},\dots , g_{k+1})(e) + (-1)^k \alpha(g_1,\dots , g_k)(e).
+% 	\end{equation*}
+% 	To show that $\alpha$ is a coboundary, we define a $(k-1)$-cochain $\beta$ by
+% 	\[
+% 		\beta(g_1,\dots , g_{k-1})(x) = \alpha(x,g_1,\dots , g_{k-1})(e),
+% 	\]
+% 	and compute its boundary:
+% 	\begin{align*}
+% 		d\beta(g_1,\dots , g_k)(x) & = (g_1\cdot \beta)(g_2,\dots , g_k)(x) + \sum_{j=1}^{k-1} (-1)^j \beta(g_1,\dots , g_j g_{j+1},\dots , g_k)(x) + (-1)^k \beta(g_1,\dots , g_{k-1})(x) \\
+% 		                           & = \alpha(x g_1,\dots , g_k) + \sum_{j=1}^{k-1} (-1)^j \alpha(x,g_1,\dots , g_j g_{j+1},\dots , g_k) + (-1)^k \alpha(x, g_1,\dots , g_{k-1})(e)        \\
+% 		                           & = \sum_{j=1}^k (-1)^j \alpha(x,g_1,\dots , g_{j-1} g_j,\dots , g_k)(e) + (-1)^k \alpha(x,g_1,\dots , g_{k-1})(e)                                      \\
+% 		                           & \overset{\eqref{eq:Id}}{=} \alpha(g_1,\dots , g_k)(x)
+% 		.\end{align*}
+% 	This shows that $d\beta=\alpha$, and thus $[\alpha]=0$ in $\H{k}{G}{\Ind{G}{A}}$.
+% \end{proof}
+
+\begin{proposition}\label{prop:ConjId}
+	The homomorphism $\sigma_s$ defined in \ref{def:InfRes} (c)	is the identity in each degree.
+\end{proposition}
+\begin{proof}
+	We prove this by dimension shifting: for $i=0$, by construction $\sigma_s$ sends $a\in A^G$ to $s\cdot a=a$.
+
+	For $i>0$, we proceed by induction on $i$: embed $A$ into $\Ind{G}{A}$, and let $B:=\coker(A\hookrightarrow \Ind{G}{A})$. The exact sequence
+	\[
+		0\to A\to \Ind{G}{A}\to B\to 0
+	\]
+	gives rise to a long exact sequence in cohomology, and by the compatibility of $\sigma_s$ with the coboundaries and Corollary \ref{cor:IndMod} we get a commutative diagram with exact rows
+	\[
+		\begin{tikzcd}
+			\H{i}{G}{I} \arrow[r] \arrow[d, "\sigma_s"] & \H{i}{G}{B} \arrow[r] \arrow[d, "\sigma_s"] & \H{i+1}{G}{A} \arrow[d, "\sigma_s"] \to 0 \\
+			\H{i}{G}{I} \arrow[r]                        & \H{i}{G}{B} \arrow[r]                        & \H{i+1}{G}{A} \to 0.
+		\end{tikzcd}
+	\]
+	By induction, the middle vertical map is the identity, and it follows that the last one is the identity as well.
+\end{proof}
+
+\begin{corollary}\label{cor:NormalAction}
+	Let $A$ be a $G$-module, and assume that $N$ is a normal subgroup of $G$. Then, there is an action of $G / N$ on $\H{i}{G}{A}$ for all $i$.
+\end{corollary}
+
+\begin{proof}
+	Since $N$ is normal, $G$ acts by conjugation on $\H{i}{N}{A}$ as described in the above example, and by the previous proposition any $n\in N$ acts trivially, so that the action of $G/N$ is well-defined.
+\end{proof}
+
 \subsection{Corestriction}
 
 Let $H$ be a subgroup of $G$, and $A$ a $G$-module. We want to define a \textbf{corestriction} map which goes in the opposite direction of the restriction: in degree $0$, it's given by the ``norm'' homomorphism
@@ -536,8 +535,8 @@ where $f: H\to G$ is the inclusion homomorphism, because the $\H{i}{H}{f^*(-)}$ 
 	\end{align*}
 	induces a map
 	\[
-		\pi^*:\H{i}{G}{\operatorname{CoInd}_G^H{(A)}}\to\H{i}{G}{A}
-	\],
+		\pi^*:\H{i}{G}{\operatorname{CoInd}_G^H{(A)}}\to\H{i}{G}{A},
+	\]
 	and if we precompose with $\sh^{-1}: \H{i}{H}{A}\to\H{i}{G}{\operatorname{CoInd}_G^H{(A)}}$ the resulting map is the corestriction, as is easily checked in degree $0$ (and the general case follows by universality).
 \end{remark}
 
@@ -565,7 +564,7 @@ This has a number of useful consequences:
 	Let $G$ be a finite group of order $m$, and $A$ a $G$-module. Then, the groups $\H{i}{G}{A}$ are $m$-torsion for all $i>0$. In particular, if $m$ is invertible in $A$, then $\H{i}{G}{A}=0$ for all $i>0$.
 \end{corollary}
 \begin{proof}
-	Chossing $H$ to be the trivial subgroup in Theorem \ref{thm:CorRes}, we get that multiplication by $m$ on $\H{i}{G}{A}$ for $i>0$ factors through $\H{i}{\{1\}}{A}=0$. For the second statement, note that the additivity of $\H{i}{G}{-}$ implies that $\H{i}{G}{\cdot n}$ is multiplication by $n$ on $\H{i}{G}{A}$.
+	Chossing $H$ to be the trivial subgroup in Theorem \ref{thm:CorRes}, we get that multiplication by $m$ on $\H{i}{G}{A}$ for $i>0$ factors through $\H{i}{\{1\}}{A}=0$. For the second statement, the additivity of the functor $\H{i}{G}{-}$ implies that $\H{i}{G}{\cdot n}$ is multiplication by $n$ on $\H{i}{G}{A}$.
 \end{proof}
 
 \begin{corollary}\label{cor:UniqDiv}
@@ -718,6 +717,49 @@ Moreover, if the cohomology of $N$ with coefficients in $A$ is trivial up to deg
 	\end{center}
 \end{proof}
 
+\section{Cohomology of Finite Cyclic Groups}
+Let $G=\{1,s,\ldots,s^{n-1}\}$ be a finite cyclic group of order $n$ generated by an element $s$, and let $A$ be a $G$-module. To compute the cohomology groups $\H{i}{G}{A}$, we consider the following free resolution of $\Z$ as a $G$-module:
+\begin{equation}\label{eq:CycRes}
+	\begin{tikzcd}
+		\dots \arrow[r, "N"] & \ZG{G} \arrow[r, "s-\id"] & \ZG{G} \arrow[r, "N"] & \ZG{G} \arrow[r, "s-\id"] & \ZG{G} \arrow[r, "\varepsilon"] & \Z \arrow[r] & 0.
+	\end{tikzcd}
+\end{equation}
+Here, $N$ denotes the norm map
+\[
+	N(x)=\sum_{i=0}^{n-1} s^i\cdot x,
+\]
+$\varepsilon$ is the augmentation map
+\[
+	\sum_{i=0}^{n-1} a_i s^i \mapsto \sum_{i=0}^{n-1} a_i,
+\]
+and $(s-\id)$ is the map \[x\mapsto s\cdot x-x.\]
+
+As $\Hom_G(\ZG{G},A)$ is isomorphic to $A$ through the map $f\mapsto f(1)$, applying the functor $\Hom_G(-,A)$ to the above resolution gives a complex
+\[
+	\begin{tikzcd}
+		\underset{0}{A} \arrow[r, "s-\id"] & \underset{1}{A} \arrow[r, "N"] & \underset{2}{A} \arrow[r, "s-\id"] & \underset{3}{A} \arrow[r] & \dots
+	\end{tikzcd}
+\]
+where the maps on $A$ are defined by the same formulas as above. This computes the cohomology of $G$ with coefficients in $A$:
+
+\[
+	\begin{cases}
+		\H{0}{G}{A}= A^G,                          \\
+		\H{2i}{G}{A} = A^G/N(A) ~\text{ for } i>0, \\
+		\H{2i+1}{G}{A} = \ker(N)/(s-\id)A.
+	\end{cases}
+\]
+
+In particular, if $A$ is a trivial $G$-module, we get
+
+\begin{equation}\label{eq:CycCohomTriv}
+	\begin{cases}
+		\H{0}{G}{A} = A,                       \\
+		\H{2i}{G}{A} = A/nA ~\text{ for } i>0, \\
+		\H{2i+1}{G}{A} = \ker(A\overset{\cdot n}{\to} A).
+	\end{cases}
+\end{equation}
+
 \chapter{Cohomology of Profinite Groups}
 
 In this chapter we extend the notion of group cohomology to profinite groups, which are projective limits of finite groups, and as such have a natural topology. We will see that the cohomology of a profinite group can be reduced to the cohomology of its finite quotients, and how this relates to infinite Galois theory.
@@ -727,7 +769,7 @@ In this chapter we extend the notion of group cohomology to profinite groups, wh
 	A \textbf{profinite group} is a topological group which is isomorphic to the projective limit of a projective system of finite groups.
 \end{definition}
 
-Here, the topology on the projective limit of a projective system $(G_i,\varphi_{ij})$ is the one induced by the product topology on $\prod{G_i}$, where we endow each finite group with the discrete topology. This makes $\varprojlim{G_i}$ into a compact, Hausdorff, and totally disconnected topological group (it's a closed subspace of the product). Recall that an explicit description of the limit is given by
+Here, the topology on the projective limit of a projective system $(G_i,\varphi_{ij})$ is the one induced by the product topology on $\prod{G_i}$, where we endow each finite group with the discrete topology. This makes $\varprojlim{G_i}$ into a compact, Hausdorff, and totally disconnected topological group (it's a closed subspace of the product). Recall that an explicit description of the projective limit is given by
 \[
 	\varprojlim{G_i} = \left\{ (g_i) \in \prod{G_i} \mid \varphi_{ji}(g_j)=g_i \text{ for all } i\leq j \right\}.
 \]
@@ -738,9 +780,9 @@ Here, the topology on the projective limit of a projective system $(G_i,\varphi_
 
 In any topological group, the open subgroups are also closed, being the complement of the union of the other cosets. In a profinite group, open subgroups are exactly the closed subgroups of finite index: indeed, if $H$ is a open, then the cosets of $H$ form a finite open cover of $G$, and by compactness there is a finite subcover which shows the finiteness of $G/H$; conversely a closed subgroup of finite index is the complement of a finite union of closed sets, hence open.
 
-Note that we can always assume the transition maps $\varphi_{ij}$ are surjective by restricting them to the image of the natural projections $G \to G_i$ (Cor. 1.1.8 (a) of \cite{RibesZalesskii}), and the limit of the corresponding system is isomorphic to $G$. By compactness, the resulting projections $G\twoheadrightarrow G_i$ are surjective as well (loc. cit. Prop. 1.1.10).
+Note that we can always assume the transition maps $\varphi_{ij}$ are surjective by restricting them to the image of the natural projections $G \to G_i$ (Cor. 1.1.8 (a) of \cite{RibesZalesskii}), and the limit of the corresponding system is isomorphic to $G$. By compactness, the resulting projections $G\twoheadrightarrow G_i$ are surjective as well (loc. cit. Prop. 1.1.10). An example of such a surjective projective system is given by the finite quotients of the open normal subgroups of $G$.
 
-Finally, the profinite topology is uniquely determined by the fact that the identity $1\in G$ admits a basis $(\Gamma_i)$ of normal open subgroups of finite index, which are neighborhoods of $1$; we can then identify the projective limit of the finite groups $G / \Gamma_i$ with $G$ itself. We can take the $(\Gamma_i)$ to be the kernel of the natural projection $G\to G_i$.
+Finally, the profinite topology is uniquely determined by the fact that the identity $1\in G$ admits a basis of open neighborhoods $(\Gamma_i)$ which are normal in $G$, and \[\varprojlim_i{G /\Gamma_i}\simeq G\] (we can take the $(\Gamma_i)$ to be the kernel of $G\to G_i$).
 
 The morphisms under consideration between two profinite groups $G,H$ are the continuous group homomorphisms, which we denote by $\Hom_{c}(G,H)$.
 
@@ -865,7 +907,7 @@ We now want to define the cohomology of a profinite group $G$ with coefficients 
 \begin{theorem}\label{thm:IndLim}
 	Suppose that $(G_i)$ is a projective system of profinite groups and $(A_i)$ is an inductive system of discrete $G_i$-modules such that the transition maps of the two systems are compatible. Then, for any $n\in\N$ the natural map
 	\[
-		\varprojlim{C^n(G_i,A_i)}\to C^n(G,A)
+		\varinjlim{C^n(G_i,A_i)}\to C^n(G,A)
 	\]
 	induces an isomorphism in cohomology:
 	\[
@@ -881,7 +923,7 @@ In view of Remark \ref{rm:discGmodUnion}, this implies that we can compute the c
 	\[
 		\H{i}{G}{A}=\varinjlim{\H{i}{G/U}{A^U}},
 	\]
-	where $U$ ranges over all open subgroups of $G$.
+	where $U$ ranges over all open normal subgroups of $G$.
 \end{corollary}
 
 As a consequence we find that the cohomology of a profinite group with coefficients in a discrete $G$-module is always a torsion group, as in the above limit each term is $|G/U|$-torsion by the finite case.
@@ -930,9 +972,19 @@ We now state the properties of the cohomology of profinite groups which are carr
 \begin{remark}
 	Let $G$ be a profinite group.
 	\begin{itemize}
-		\item For any closed subgroup $H<G$ and any discrete $G$-module $A$, we can define the coinduced module $\operatorname{CoInd}_{H}^{G}{A}$ as in the finite case, provided we only take continuous functions $G\to A$, and $\Ind{G}{A}$ is still acyclic. However, there is no notion of induced module from because $\ZG{G}$ is not a discrete $G$-module.
-		\item For any closed subgroup $H<G$ Shapiro's Lemma holds with the same proof, and the functorial homomorphisms such inflation, restriction and ``conjugation'' are defined as in \ref{def:InfRes}. If $H$ is closed and normal, the Hochschild-Serre spectral sequence and its consequences are still valid (we can use Lemma \ref{lm:GHInjProf} to adapt the previous proof).
-		\item If $U<G$ is open, we can define the corestriction homomorphism $\Cor:\H{i}{U}{A}\to\H{i}{G}{A}$; Theorem \eqref{thm:CorRes} and its corollaries continue to hold.
+		\item For any closed subgroup $H<G$ and any discrete $G$-module $A$, we can define the coinduced module $\operatorname{CoInd}_{H}^{G}{A}$ as in the finite case, provided we only take continuous functions $G\to A$, and $\Ind{G}{A}$ is still acyclic. However, there is no notion of induced module from $H$ to $G$, because $\ZG{G}$ is not a discrete $G$-module.
+		\item For any closed subgroup $H<G$, Shapiro's Lemma holds with the same proof: although by the above observation we don't have the isomorphism \eqref{eq:IndIso}, $\operatorname{CoInd}_{H}^{G}$ is still right exact. Indeed, we can reduce to the case of finite groups because continuous functions $G\to A$ have finite image and thus factor through a finite quotient $G/U$ for some open normal subgroup $U$ of $G$, as these
+		      form a basis of neighborhoods of the identity; more precisely, we have an isomorphism
+		      \[
+			      \operatorname{CoInd}_{H}^{G}{A}\simeq \varinjlim{\operatorname{CoInd}_{HU/U}^{G/U}{(A^{U\cap H})}}.
+		      \]
+		      Moreover, the functorial homomorphisms inflation, restriction and ``conjugation'' are defined as for finite groups.
+		\item If $H$ is closed and normal, the Hochschild-Serre spectral sequence and its consequences are still valid (we can use Lemma \ref{lm:GHInjProf} to adapt the previous proof).
+		\item If $U<G$ is open, we can define the corestriction homomorphism
+		      \[
+			      \Cor:\H{i}{U}{A}\to\H{i}{G}{A},
+		      \]
+		      and Theorem \eqref{thm:CorRes} continues to hold together with its corollaries.
 		\item Finally, if $U$ is open and $A,B$ are discrete $G$-modules the isomorphism \ref{rm:Adj} (b) is well-defined.
 	\end{itemize}
 \end{remark}
@@ -954,13 +1006,13 @@ In the following, we denote by $A\{p\}$ the $p$-primary component of an abelian 
 \end{definition}
 
 \begin{remark}
-	If the order of $G$ is not divisible by some prime $p$, then the cohomological $p$-dimension of $G$ is $0$, as by Corollary \ref{cor:ModLim} the cohomology groups in question are direct limits of torsion groups whose order is not divisible by $p$.
+	If the order of $G$ is not divisible by some prime $p$, then the cohomological $p$-dimension of $G$ is $0$, as by Corollary \ref{cor:ModLim} the cohomology groups in question are inductive limits of torsion groups whose order is not divisible by $p$.
 \end{remark}
 
 We now develop a few helpful criterions for computing cohomological dimension:
 
 \begin{theorem}\label{thm:CdSimple}
-	Let $G$ be a profinte group. For $p$ prime and $n\in\N$, the following are equivalent:
+	Let $G$ be a profinite group. For $p$ prime and $n\in\N$, the following are equivalent:
 	\begin{itemize}
 		\item[(a)] $\cdp{G}\leq n$.
 		\item[(b)] $\H{i}{G}{A}=0$ for all $i>n$ and all $p$-primary discrete $G$-modules $A$.
@@ -969,12 +1021,13 @@ We now develop a few helpful criterions for computing cohomological dimension:
 \end{theorem}
 
 \begin{proof}
-	The implications (a)$\Rightarrow$(b) and (b)$\Rightarrow$(c) are clear. Moreover, (b)$\Rightarrow$(c) as for any $i>0$ we have
+	The implications (a)$\Rightarrow$(b) and (b)$\Rightarrow$(c) are clear. Moreover, (b)$\Rightarrow$(a) as for any $i>0$ we have
 	\[
-		\H{i}{G}{A}\{p\}=\H{i}{G}{A\{p\}}.
+		\H{i}{G}{A}\{p\}=\H{i}{G}{A\{p\}}
 	\]
+	and cohomology commutes with direct sums (this follows from Theorem \ref{thm:IndLim}).
 
-	\noindent For the implication (c)$\Rightarrow$(a), we first show that $\H{n+1}{G}{A}=0$ for all finite $p$-primary $G$-modules by induction on $n:=|A|$. Without loss of generality, assume $A$ is non-zero. If $A$ is simple, then by assumption $\H{n+1}{G}{A}=0$. Otherwise, it has a proper non-trivial submodule $B$, and there is an exact sequence
+	\noindent For the implication (c)$\Rightarrow$(b), we first show that $\H{n+1}{G}{A}=0$ for all finite $p$-primary $G$-modules by induction on $n:=|A|$. Without loss of generality, assume $A$ is non-zero. If $A$ is simple, then by assumption $\H{n+1}{G}{A}=0$. Otherwise, it has a proper non-trivial submodule $B$, and there is an exact sequence
 	\[
 		0\to B\to A\to A/B\to 0
 	\]
@@ -1011,13 +1064,30 @@ This implies a practical characterization for the cohomological dimension of a p
 \begin{proof}
 	For the non-trivial implication, by Theorem \ref{thm:CdSimple} we need to show that $\H{n+1}{G}{A}=0$ for any simple $p$-torsion $G$-module $A$. We claim that any such module is isomorphic to $\Z/p\Z$: the $G$-module generated by any non-zero $a\in A$ is finitely generated and torsion, and by simplicity it must be all of $A$, so $A$ must be finite. Therefore, the union of its stabilizers $V$ is open in $G$, and its core
 	\[
-		U:= \bigcap_{s\in G/V}{t^{-1}Vt}
+		U:= \bigcap_{s\in G/V}{s^{-1}V s}
 	\]
 	is a normal open subgroup which acts trivially on $A$, so we can view $A$ as a simple $G/U$-module. By Corollary \ref{cor:ModLim} we are down to the case of a finite $p$-group, where $A^G\neq0$ by Lemma \ref{lm:Inv} and as $A$ is simple we find $A=A^G$, so the action is trivial. Finally, any non-zero element $a\in A$ generates $A$ by simplicity and it has order $p$, so $A\simeq\Z/p\Z$ as an abelian group.
 \end{proof}
 
 \begin{example}\label{ex:Zp}
-	If $G$ is the group of $p$-adic integers $\Zp$, we have $\H{2}{G}{\Zp}=0$ (by passing to the limit and using the 2-periodicity of the cohomology of finite cyclic groups, see Example 5.6 of \cite{Harari}). Therefore, we get $\cdp{\Zp}\leq 1$ by the above criterion, as well as the other inequality:
+	If $G$ is the group of $p$-adic integers $\Zp$, by Theorem \ref{thm:IndLim} we can compute
+	\[
+		\H{2}{G}{\Z/p\Z}=\varinjlim_n{\H{2}{\Z/p^n\Z}{\Z/p\Z}}
+	\]
+	where each term is isomorphic to $\Z/p\Z$ by \ref{eq:CycCohomTriv}, and the transition maps are given by inflation:
+	\begin{equation}\label{eq:Infl}
+		\H{2}{\Z/p^{n}\Z}{\Z/p\Z}\overset{\Inf}{\to}\H{2}{\Z/p^{n+1}\Z}{\Z/p\Z}.
+	\end{equation}
+	Since the inflation has an explicit expression in terms of the resolution of $\Z$ by inhomogeneous cochains, we can compute it by extending $\id_\Z$ to a map between the resolutions of $\Z$ as a $\Z/p^{n+1}\Z$-module and a $\Z/p^n\Z$-module respectively constructed in \ref{eq:CycRes} by Theorem 2.2.6 of \cite{Weibel} (which says that such a lifting is unique up to chain homotopy), as $\ZG{\Z/p^n\Z}$ is also a $\Z/p^{n+1}\Z$-module and they are thus both projective resolutions in the category of $\Z/p^{n+1}\Z$-modules.
+	Carrying out this computation up to degree $2$ of the aforementioned resolutions and denoting by $s^p$ and $s$ the generators of $\Z/p^n\Z$ and $\Z/p^{n+1}\Z$, we get the following diagram:
+	\[
+		\begin{tikzcd}
+			\ZG{\Z/p^{n+1}\Z} \arrow[d, "s\mapsto p s^p"] \arrow[r, "N"] & \ZG{\Z/p^{n+1}\Z} \arrow[d, "s\mapsto s^p"] \arrow[r, "s-\id"] & \ZG{\Z/p^{n+1}\Z} \arrow[d, "s\mapsto s^p"] \arrow[r, "\varepsilon"] & \Z \arrow[d, Equal]\\
+			\ZG{\Z/p^n\Z} \arrow[r, "N"] & \ZG{\Z/p^n\Z} \arrow[r, "s^p-\id"] & \ZG{\Z/p^n\Z} \arrow[r, "\varepsilon"] & \Z
+		\end{tikzcd}
+	\]
+	Applying $\Hom(-,\Z/p\Z)$ to the above diagram, we deduce that the transition maps \eqref{eq:Infl} are induced by multiplication by $p$ on $\Z/p\Z$, and are thus all zero.
+	As a consequence, $\H{2}{G}{\Z/p\Z}=0$ and thus $\cdp{\Zp}\leq 1$ by Theorem \ref{thm:CdProP}. For the other inequality, note that
 	\[
 		\H{1}{\Zp}{\Z/{p\Z}}=\Hom_{c}(\Zp,\Z/{p\Z})=\Z/p\Z\neq0,
 	\]
@@ -1129,7 +1199,7 @@ The additive group is cohomologically trivial:
 \end{proposition}
 
 \begin{proof}
-	By the Normal Basis Theorem, we know that $L$ is isomorphic to $\K[G]\simeq \K\otimes_\Z \Z[G]$ as a $G$-module, and since $G$ is finite we can use the isomorphism \eqref{eq:IndIso} to conclude that $L$ is the induced module $\Ind{G}{\K}$, which is cohomologically trivial by Proposition \ref{prop:IndMod}.
+	By the Normal Basis Theorem, we know that $L$ is isomorphic to $\K[G]\simeq \K\otimes_\Z \Z[G]$ as a $G$-module, and since $G$ is finite we can use the isomorphism \eqref{eq:IndIso} to conclude that $L$ is the induced module $\Ind{G}{\K}$, which is cohomologically trivial by Corollary \ref{cor:IndMod}.
 
 	The second claim then follows by Corollary \ref{cor:ModLim}:
 	\[
@@ -1234,7 +1304,7 @@ We can reinterpret this result using group cohomology:
 \noindent Given an extension $L/K$, by functoriality we have a map $\Br{K}\to\Br{L}$, which is well-defined by the the discussion at the beginning of the chapter.
 
 \begin{remark}\label{rm:CSA}
-	The Brauer group of a field $K$ can also be described as the group of equivalence classes of finite-dimensional central simple algebras over $K$. This is a very rich theory which allows one to do explicit computations, as we will see in the next chapter. However some of the properties of the Brauer group are more easily derived via the cohomological approach (such as the fact that it is a torsion group). For the equivalence between the two definitions, see \cite{SzamuelyGille} \S 4.4.
+	The Brauer group of a field $K$ can also be described as the group of equivalence classes of finite-dimensional central simple algebras over $K$. This is a very rich theory which allows one to do explicit computations, as we will see in the next chapter. However some of the properties of the Brauer group are more easily derived via the cohomological approach (such as the fact that it is a torsion group). For the equivalence between the two definitions, see \cite{GilleSzamuely} \S 4.4.
 \end{remark}
 
 \begin{proposition}\label{prop:BrMuN}
@@ -1260,11 +1330,11 @@ We can reinterpret this result using group cohomology:
 	\]
 \end{proof}
 
-\begin{example}\
+\begin{example}\label{ex:Brauer}\
 	\begin{itemize}
-		\item Let $\K$ be a separably closed field. Then, $\Gamma_\K=0$ and thus $\Br{K}=0$.
-		\item The Brauer group of a finite field $\mathbb{F}_q$ is trivial, because $\operatorname{Gal}{(\overline{\mathbb{F}_q}/\mathbb{F}_q)}$ has cohomological dimension 1 by Example \ref{ex:Zp}.
-		\item By the characterization of the Brauer group using central simple algebras, a famous result of Frobenius shows that $\Br{\R}=\Z/2\Z$ (the non-trivial element is the class of the quaternion algebra).
+		\item[(a)] Let $\K$ be a separably closed field. Then, $\Gamma_\K=0$ and thus $\Br{K}=0$.
+		\item[(b)] The Brauer group of a finite field $\mathbb{F}_q$ is trivial, because $\operatorname{Gal}{(\overline{\mathbb{F}_q}/\mathbb{F}_q)}=\widehat{\Z}$ has cohomological dimension 1 by Example \ref{ex:Zhat}.
+		\item[(c)] By the characterization of the Brauer group using central simple algebras, a famous result of Frobenius shows that $\Br{\R}=\Z/2\Z$ (the non-trivial element is the class of the quaternion algebra).
 	\end{itemize}
 \end{example}
 
@@ -1280,7 +1350,7 @@ We can reinterpret this result using group cohomology:
 The above restriction on the characteristic of $K$ is justified by the following fact:
 
 \begin{proposition}\label{prop:CdCharP}
-	If $K$ is a field of positive characteristic $p$, then $\cd{K}\leq 1$.
+	If $K$ is a field of positive characteristic $p$, then $\cdp{K}\leq 1$.
 \end{proposition}
 
 \begin{proof}
@@ -1384,7 +1454,7 @@ The following proposition (Prop. 1 of \cite{SerreCL}, Ch. II)
 motivates this definition:
 \begin{proposition}
 	A discretely valued field $\K$ is locally compact with respect to the topology induced by the above distance if and only if it is complete and its residue field is finite. In
-	this case, its ring of integers $A$ is compact, so that by \ref{rm:CptTotDisc} it is also a profinite group.
+	this case, its ring of integers $A$ is compact, and therefore $(A,+)$ is a profinite abelian group by \ref{rm:CptTotDisc}.
 \end{proposition}
 
 \begin{example}\
@@ -1413,22 +1483,19 @@ is the \textit{residual degree} of the extension, and we have the following rela
 
 \begin{example}\
 	\begin{itemize}
-		\item Let $\k$ be a field. Then, the finite separable extensions of $\k((t))$ are exactly $\k^{\prime}((t))$ for $\k^{\prime} $ a finite separable extension of $\k$.
-		\item The extension $\Q_p(\sqrt{p})/\Q_p$ is totally ramified of degree 2. More generally, given a complete DVR $(R,\mathfrak{m})$ with field of fractions $F$ and an \textit{Eisenstein polynomial}
-		      \[
-			      f=x^n+a_{n-1}x^{n-1}+\ldots+a_0
-		      \]
-		      with $a_i\in\mathfrak{m}$ for $i<n$ and $a_0\not\in\mathfrak{m}^2$, the extension $F[x]/(f)$ is totally ramified of degree $n$.
+		\item Let $\k$ be a field. Then, the finite unramified extensions of $\k((t))$ are of the form $\k^{\prime}((t))$ for $\k^{\prime} $ a finite separable extension of $\k$.
+		\item The fields $\k((t^{1/n}))$ for some $n>0$ give examples of totally ramified extensions of $\k((t))$
+		      % The extension $\Q_p(\sqrt{p})/\Q_p$ is totally ramified of degree 2.
+		      % More generally, given a complete DVR $(R,\mathfrak{m})$ with field of fractions $F$ and an \textit{Eisenstein polynomial}\[f=x^n+a_{n-1}x^{n-1}+\ldots+a_0\]with a_i\in\mathfrak{m}$ for $i<n$ and $a_0\not\in\mathfrak{m}^2$, the extension $F[x]/(f)$ is totally ramified of degree $n$.
 	\end{itemize}
 \end{example}
 \subsubsection{Galois Theory}
 After discussing extensions, we present the Galois theory of a complete discretely valued field, under the additional assumption that its residue field is perfect. The main result is summarized by the following Theorem (Thm. 2 of \cite{SerreCL}, Ch. III):
 
-\begin{theorem}Let $\K$ be a field complete for a discrete valuation with \textbf{perfect} residue field $\k$. Then:
+\begin{theorem}Let $\K$ be a field complete for a discrete valuation with perfect residue field $\k$, and fix a separable closure $\Ks$ of $\K$. Then,
 	\begin{itemize}
-		\item for any finite extension $\k^{\prime} $ of \(\k\), there exists a unique (up to isomorphism) finite unramified extension $L / \K$ with residue field $\k^{\prime} $, which is Galois if and only if $k/k^{\prime}$ is.
-		\item Let \(\ks\) be an algebraic closure of \(\k\). If $\Knr$ is the inductive limit of the unramified extensions of $\K$ which correspond to finite extensions
-		      contained in $\ks$, then $\Knr$ is a Galois extension of $\K$ with Galois group $\operatorname{Gal}{(\Knr/\K)}\simeq \operatorname{Gal}{(\ks/\k)}$.
+		\item for any finite extension $\k^{\prime} $ of \(\k\), there exists a unique (up to isomorphism) finite unramified extension $L \subset \Ks$ of $\K$ with residue field $\k^{\prime} $, which is Galois if and only if $k/k^{\prime}$ is.
+		\item Let \(\ks\) be an algebraic closure of \(\k\), and define $\Knr\subset \Ks$ to be the inductive limit of the unramified extensions of $\K$ which correspond to finite subextensions of $\ks$. Then, $\Knr$ is a Galois extension of $\K$ with Galois group $\operatorname{Gal}{(\Knr/\K)}\simeq \operatorname{Gal}{(\ks/\k)}$.
 	\end{itemize}
 \end{theorem}
 
@@ -1448,48 +1515,33 @@ is called the \textit{inertia group} $I$ of $\K$.
 
 \section{Structure of Local Fields}
 
-The following theorem implies a classification of local fields based on their characteristic (Thm. 2 and 4 of \cite{SerreCL}, Ch. II):
+The following theorem gives a classification of local fields based on their characteristic (see Thm. 2 and 4 of \cite{SerreCL}, Ch. II):
 
 \begin{theorem}
-	Let $\K$ be a field complete with respect to a discrete valuation whose residue field $\k$ has characteristic $p>0$. Then:
+	Let $\K$ be a field complete with respect to a discrete valuation with finite residue field $\k$ of characteristic $p>0$. Then,
 	\begin{itemize}
-		\item if $\K$ has characteristic $p$, it is isomorphic to a finite extension of $\Q_p$,
-		\item if $\K$ has characteristic $0$, it is isomorphic to the field of Laurent series $\k((t))$.
+		\item if $\K$ has characteristic $0$, it is isomorphic to a finite extension of $\Q_p$ (which we call a \textbf{$p$-adic field}),
+		\item if $\K$ has characteristic $p$, it is isomorphic to the field of Laurent series $\k((t))$.
 	\end{itemize}
 \end{theorem}
 
-Let $\K$ be a local field with ring of integers $\mathcal{O}_\K$ and residue field $\k$. We are interested in the multiplicative group $\K^\times$, however it's enough to determine the structure of the group of units $U_\K:=\mathcal{O}_\K^\times$, since after fixing an uniformizer \eqref{eq:DVR} yields an isomorphism $\K^\times\simeq \Z\times U_\K$, or equivalently the following exact sequence splits:
+Now, let $\K$ be a complete discretely valued field with ring of integers $\mathcal{O}_\K$ and residue field $\k$; we are interested in the structure of multiplicative group $\K^\times$. However, it's enough to determine the structure of the group of units $U_\K:=\mathcal{O}_\K^\times$, since after fixing an uniformizer \eqref{eq:DVR} yields an isomorphism $\K^\times\simeq \Z\times U_\K$, or equivalently a splitting for the the following exact sequence:
 
 \begin{equation}\label{eq:SplitSeq}
 	1\to U_\K \to \K^\times\overset{v}{\to}\Z\to 0.
 \end{equation}
-
-We first note that $\mathcal{O}_\K$ has a basis of open neighborhoods of $0$ given by the subgroups $\mathfrak{m}^n$ for $n\in\N$, where $\mathfrak{m}$ is the maximal ideal of $\mathcal{O}_\K$. Analogously, the multiplicative group $U_K:=\mathcal{O}_\K^\times$ has a basis of open neighborhoods of $1$ given by the subgroups
+Note that $\mathcal{O}_\K$ has a basis of closed neighborhoods of $0$ given by the subgroups $\mathfrak{m}^n$ for $n\in\N$, where $\mathfrak{m}$ is the maximal ideal of $\mathcal{O}_\K$. Analogously, the group of units $U_K:=\mathcal{O}_\K^\times$ has a basis of closed neighborhoods of $1$ given by the subgroups
 \[
 	U_\K^j:=1+\mathfrak{m}^j,
 \]
-
-which define a filtration $U_\K = U_\K^0\supset U_\K^1\supset U_\K^2\supset\ldots$ of $U_\K$ by open subgroups with $\bigcap_j{U_\K^j}=\{1\}$. Furthermore, $U_\K$ is profinite (as it is closed in $\mathcal{O}_\K$) and so is $U_\K^1=\varprojlim_{j\geq 1}{U_\K^1 / U_\K^j}$, the group of \textit{principal units} of $\K$.
+as they define a filtration $U_\K = U_\K^0\supset U_\K^1\supset U_\K^2\supset\ldots$ of $U_\K$ with $\bigcap_j{U_\K^j}=\{1\}$. Furthermore, since $U_\K$ is closed in $\K^\times$ and thus complete, we have $U_\K=\varprojlim_j{U_\K / U_\K^j}$.
 
 Now, the reduction map $U_\K\to \k^\times$ induces a short exact sequence
 
-\[
+\begin{equation}\label{eq:UKs}
 	1\to U_\K^1\to U_K\to \k^\times \to 1,
-\]
-
-which splits thanks to (a version of) \textbf{Hensel's lemma}:
-
-\begin{proposition}
-	Let $\K$ be a field complete for a discrete valuation, with $A$ its ring of integers and residue $\k$.
-	Given a polynomial $f\in A[x]$, any simple root of its reduction $f\in \k[x]$ lifts uniquely to a root of $f$.
-\end{proposition}
-
-Indeed, as $\k^\times$ is cyclic of order $m$ prime to $p$, by Hensel's lemma the polynomial $x^m=1$ has $m$ distinct roots in $U_\K$, which gives the desired section. In particular we get an isomorphism
-\begin{equation}\label{eq:UK}
-	U_\K\simeq U_\K^1\times\k^\times.
 \end{equation}
-
-Analogously, the surjective map
+so that $U_\K/U_\K^1$ is isomorphic to the multiplicative group $\simeq \k^\times$. Analogously, the surjective map
 \begin{align*}
 	U_\K^n       & \to \k               \\
 	1 + u \pi ^n & \mapsto \overline{u}
@@ -1498,10 +1550,21 @@ induces a short exact sequence
 \[
 	1\to U_\K^{n+1} \to U_\K^n\to \k\to 0,
 \]
+which shows that the successive quotients $U_\K^n/U_\K^{n+1}$ are isomorphic to the additive group $\k$.
 
-and thus the successive quotients $U_\K^n/U_\K^{n+1}$ are isomorphic to $\k$, which means that $U_\K^1$ is a \textit{pro-$p$ group}.
+Suppose now that $\K$ is a local field with residue field $\k$ of characteristic $p>0$. Then, the subgroups $(\mathfrak{m}^n)$ and $(U_\K^j)$ are open in $\mathcal{O}_\K$ and $U_\K$ respectively; in particular, $U_\K$ is a profinite group, and the group of \textit{principal units} $U_\K^1=\varprojlim_{j\geq 1}{U_\K^1 / U_\K^j}$ is thus a pro-$p$ group. Moreover, the exact sequence \ref{eq:UKs} splits thanks to (a version of) \textbf{Hensel's lemma}:
 
-Finally, in the case of a $p$-adic field we can explicit the structure of $\K^\times$:
+\begin{proposition}
+	Let $\K$ be a field complete for a discrete valuation, with $A$ its ring of integers and residue field $\k$.
+	Given a polynomial $f\in A[x]$, any simple root of its reduction $f\in \k[x]$ lifts uniquely to a root of $f$.
+\end{proposition}
+
+Indeed, as $\k^\times$ is cyclic of order $m$ prime to $p$, by Hensel's lemma the polynomial $x^m=1$ has $m$ distinct roots in $U_\K$, which gives the desired section; we get an isomorphism
+\begin{equation}\label{eq:UK}
+	U_\K\simeq U_\K^1\times\k^\times.
+\end{equation}
+
+In the case of a $p$-adic field, we can finally explicit the structure of $\K^\times$:
 
 \begin{theorem}\label{thm:StructureLocalFields}
 	If $\K$ is a $p$-adic field with $[\K:\Qp]=n$ and ramification index $e$ over $\Qp$, then
@@ -1519,8 +1582,7 @@ Finally, in the case of a $p$-adic field we can explicit the structure of $\K^\t
 		          & \simeq \Z \times \Zp^n \times F \times \k^\times.
 	\end{align*}
 \end{theorem}
-
-We omit the proof, which is a direct consequence of \cite{SerreCL}, Ch. XIV, Prop. 9 and 10.
+\noindent We omit the proof, which is a direct consequence of \cite{SerreCL}, Ch. XIV, Prop. 9 and 10.
 
 Using this result, we can show that the $n$-th powers in $\K^\times$ are open:
 \begin{corollary}\label{cor:KxOpen}
@@ -1540,12 +1602,10 @@ Using this result, we can show that the $n$-th powers in $\K^\times$ are open:
 
 \section{The Brauer Group of a Local Field}
 
-Let $K$ be a local field with residue field $\k$. We now explain how to compute the Brauer group of a local field following \S 6.3 of \cite{SzamuelyGille}:
-
-Recall from Remark \ref{rm:CSA} the interpretation of the Brauer group as equivalence classes of central simple algebras, which is crucial in the following. Given a local field $K$, we first reduce to the relative Brauer group of the maximal unramified extension $\Knr$ of $K$:
+We now explain how to compute the Brauer group of a local field, following \S 6.3 of \cite{GilleSzamuely}. Recall from Remark \ref{rm:CSA} the interpretation of the Brauer group as equivalence classes of central simple algebras, which is crucial in the following. We first reduce to the relative Brauer group of the maximal unramified extension $\Knr$ of $K$, for which we only need $\k$ to be perfect:
 
 \begin{proposition}
-	Let $K$ be a local field and $\Knr$ the maximal unramified extension of $K$, with Galois group $G=\operatorname{Gal}{(\Knr/K)}$. Then, the inflation map
+	Let $K$ be a complete discretely valued field with perfect residue field $\k$, and $\Knr$ its maximal unramified extension with Galois group $G=\operatorname{Gal}{(\Knr/K)}$. Then, the inflation map
 	\[
 		\H{2}{G}{\Knr^\times}\to\H{2}{K}{\Ks^\times}= \Br{K}
 	\]
@@ -1558,7 +1618,7 @@ Recall from Remark \ref{rm:CSA} the interpretation of the Brauer group as equiva
 		0\to\H{2}{G}{\Knr^\times}\to\H{2}{K}{\Ks^\times}\to\H{2}{\Knr}{\Ks^\times}.
 	\]
 
-	It's enough to show that the last term is trivial, but $\H{2}{\Knr}{\Ks^\times}=\Br{\Knr}$ is zero by Corollary 2.9.4 of \cite{SzamuelyGille}, which shows the existence of an unramified splitting field for any central simple algebra over $K$ by extending the valuation of $K$ to a central division algebra $D$ equivalent to $A$ through the reduced norm, and using it to show that $D$ has a maximal (and thus splitting) unramified subfield.
+	It's enough to show that the last term is trivial, but $\H{2}{\Knr}{\Ks^\times}=\Br{\Knr}$ is zero by Corollary 2.9.4 of \cite{GilleSzamuely}, which shows the existence of an unramified splitting field for any central simple algebra over $K$, using the reduced norm to extend the valuation of $K$ to a central division algebra $D$ equivalent to $A$, and showing that $D$ has a maximal (and thus splitting) unramified subfield.
 \end{proof}
 As the valuation of $K$ extends uniquely to a valuation on $\Knr$, we have a exact sequence of $G$-modules which splits as in \eqref{eq:SplitSeq}:
 \[
@@ -1582,7 +1642,7 @@ section that $G=\operatorname{Gal}{(\ks/\k)}\simeq\widehat{\Z}$, and so
 	\H{2}{G}{\Z}=\Hom{(\widehat{\Z},\Q/\Z)}\simeq\Q/\Z.
 \]
 
-Morever, using the profinite structure of the group of principal units $U_K^1$ one shows (as in Proposition 6.3.1 of \cite{SzamuelyGille}) that $\H{2}{G}{U_{\text{nr}}}$ is isomorphic to
+Morever, using the profinite structure of the group of principal units $U_K^1$ one shows (as in Proposition 6.3.1 of \cite{GilleSzamuely}) that $\H{2}{G}{U_{\text{nr}}}$ is isomorphic to
 the Brauer group of the residue field $\Br{\k}=\H{2}{\k}{\ks^\times}$.
 
 Finally, the content of the previous proposition is that the middle term is isomorphic to $\Br{K}$, so that \eqref{eq:BrSeq} becomes
@@ -1590,7 +1650,7 @@ Finally, the content of the previous proposition is that the middle term is isom
 	1\to\Br{\k}\to\Br{K}\to\Q/\Z\to 1.
 \]
 
-Since $\widehat{\Z}$ has cohomological dimension 1 (Example \ref{ex:Zhat}), the first term is trivial, and we get a canonical isomorphism
+The first term is trivial by Example \ref{ex:Brauer} (b), and we get a canonical isomorphism
 \begin{equation}\label{eq:BrK}
 	\Br{K}\simeq\Q/\Z.
 \end{equation}
@@ -1615,7 +1675,7 @@ We also need the following result:
 	The second statament follows from the first, thanks the formula $\Cor \circ \Res = [L:K]$ (Theorem \ref{thm:CorRes}).
 
 	The first statement can be shown by considering an unramified extension of $K$ contained in $L$, as the procyclic structure absolute Galois group of its residue field makes the computation of the corestriction
-	straightforward (see Proposition 6.3.7 of \cite{SzamuelyGille}).
+	straightforward (see Proposition 6.3.7 of \cite{GilleSzamuely}).
 \end{proof}
 
 \begin{corollary}\label{cor:BrRes}
@@ -1627,7 +1687,7 @@ We also need the following result:
 We now use these results to compute the cohomological dimension of $\Gamma_K$:
 
 \begin{proposition}
-	Let $\K$ be a local field, and $L$ is an algebraic separable extension of $\K$. If $l^\infty \mid [L:\K]$ for some prime $l$, then $\cd{\Gamma_L}\leq 1$ and $\Br{L}\{l\}=0$.
+	Let $\K$ be a local field, and $L$ an algebraic separable extension of $\K$. If $l^\infty \mid [L:\K]$ for some prime $l$, then $\cdl{\Gamma_L}\leq 1$ and $\Br{L}\{l\}=0$.
 \end{proposition}
 
 \begin{proof}
@@ -1666,7 +1726,7 @@ We now use these results to compute the cohomological dimension of $\Gamma_K$:
 	as $\cdl{I}\leq 1$ by the previous corollary, and $\cdl{\Gamma_\K / I} = 1$ by Example \ref{ex:Zhat} because $\Gamma_\K / I$ is the absolute Galois group of the residue
 	field $\k$.
 
-	Moreover, if $l\neq \operatorname{char}{\K}$, then Proposition \ref{prop:BrMuN} implies $\H{2}{K}{\mu_l}=\Br{K}[l]$, which is non trivial by \eqref{eq:BrK}. Therefore, $\cdl{\K}=2$ by the usual criterion for cohomological dimension.
+	Moreover, if $l\neq \operatorname{char}{\K}$, then Proposition \ref{prop:BrMuN} implies $\H{2}{K}{\mu_l}=\Br{K}[l]$, which is non-trivial by \eqref{eq:BrK}. Therefore, $\cdl{\K}=2$ by the usual criterion for cohomological dimension.
 \end{proof}
 
 \section{Cohomological Finiteness}
@@ -1677,9 +1737,9 @@ We now specialize to the case of a $p$-adic field $K$, by first showing that the
 	Let $K$ be a $p$-adic field and $n$ a positive integer.
 	Then,
 	\begin{itemize}
-		\item $\H{1}{\K}{\mu_n} = \ssfrac{\K^\times}{\K^{\times n}}$ is a finite group,
-		\item $\H{2}{\K}{\mu_n} = \Z/n\Z$, and
-		\item $\H{i}{\K}{\mu_n} = 0$ for $i\geq 3$.
+		\item $\H{1}{\K}{\mu_n} \simeq \ssfrac{\K^\times}{\K^{\times n}}$ is a finite group,
+		\item $\H{2}{\K}{\mu_n} \simeq \Z/n\Z$, and
+		\item $\H{i}{\K}{\mu_n} \simeq 0$ for $i\geq 3$.
 	\end{itemize}
 	In particular, $\H{i}{\K}{\mu_n}$ is finite for all $i$ (for $i=0$ it's just the invariants of $\mu_n$).
 \end{theorem}
@@ -1699,7 +1759,7 @@ We now specialize to the case of a $p$-adic field $K$, by first showing that the
 \end{proof}
 
 \begin{remark}\label{rm:H1CharP}
-	If $\K$ is a local field of characteristic $p>0$, then the above theorem is true except for the first statement: we can only conclude that $\H{1}{\K}{\mu_n}$ is finite if $n$ is prime to $p$, as then the $n$-th powers are open in $\K^\times\simeq\Z\times U_\K$ by Remark \ref{rm:KxOpenCharP}, and $U_\K$ is profinite. Analogously, the following corollary also holds in positive characteristic if the order of $M$ is prime to $p$:
+	If $\K$ is a local field of characteristic $p>0$, the groups $\H{1}{\K}{\Z/p\Z}=K/\Phi(K)$ and $\K^\times/\K^{\times p}$ are both infinite. However, for all $n$ prime to $p$ the group $\H{1}{\K}{\mu_n}$ is finite, asthe $n$-th powers are open in $\K^\times\simeq\Z\times U_\K$ by Remark \ref{rm:KxOpenCharP} and $U_\K$ is profinite. For such $n$, we can apply proposition \ref{prop:BrMuN} and thus Theorem \ref{thm:CohomMuN} continues to hold; analogously, the following corollary also holds in positive characteristic if the order of $M$ is prime to $p$:
 \end{remark}
 
 \begin{corollary}\label{cor:FinCohom}
@@ -1707,11 +1767,7 @@ We now specialize to the case of a $p$-adic field $K$, by first showing that the
 	\(\H{i}{\K}{M}\) is finite for all $i$.
 \end{corollary}
 \begin{proof}
-	Let $M=\{m_1,\ldots,m_n\}$. Then, the open subgroup
-	\[
-		U\coloneqq \bigcap_{i=1}^n{\St(m_i)}
-	\]
-	acts trivially on $M$, and by Galois theory it corresponds to a finite extension $L^{\prime} $. Then, the absolute Galois group of $L\coloneqq L^{\prime}(\mu_n)$ acts trivially on both $M$ and $\mu_n$. By the structure theorem for finite abelian groups, $M$ is isomorphic (as a $\Gamma_L$-module) to the direct sum of finitely many $\mu_k$, with $k\mid n$.
+	Let $M=\{m_1,\ldots,m_n\}$. Then, the union of the stabilizers of the $m_i$ is an open subgroup $U$ of $\Gamma_K$ which acts trivially on $M$, as does its core $V=\bigcap_{s\in \Gamma_K / U}{s^{-1}U s}$. By Galois theory, $V$ corresponds to a finite extension $L^{\prime}$, so that the absolute Galois group of $L\coloneqq L^{\prime}(\mu_n)$ acts trivially on both $M$ and $\mu_n$. By the structure theorem for finite abelian groups, $M$ is isomorphic (as a $\Gamma_L$-module) to the direct sum of finitely many $\mu_k$, with $k\mid n$.
 
 	However, by the previous theorem $\H{i}{L}{\mu_k}$ is finite for all $i$, so $\H{i}{L}{M}$ is finite as well by additivity. Now, using the Hochschild-Serre spectral sequence \eqref{thm:HS}:
 	\[
@@ -1882,7 +1938,7 @@ The dualizing module is defined through the following theorem, which gives suffi
 \begin{theorem}\label{thm:DualMod}
 	Let \(G\) be a profinite group of finite cohomological dimension \(\cd{G}=n\) such that \(\H{n}{G}{A}\) is finite for all \(A\in\Gfmod\).
 
-	Then, the functor \eqref{eq:CohomDual} is representable in the category \(\Gfmod\): there exists a torsion discrete \(G\)-module \(I\) together with a natural isomorphism
+	Then, the functor \eqref{eq:CohomDual} on \(\Gfmod\) is representable by an object of the category \(\varinjlim\Gfmod\) of torsion modules: there exists a discrete torsion \(G\)-module \(I\) together with a natural isomorphism
 	\begin{equation}\label{eq:FuncIso}
 		\Hom_G\left( -,I \right) \simeq \H{n}{G}{-}^*
 	\end{equation}
@@ -1976,17 +2032,18 @@ due to Grothendieck (in the case of an Artinian category, see \cite{Grothendieck
 	\[
 		F(f_j), F(0):\; F(I_j) \to F(A)
 	\]
-	both send \(x_j\) to \(0.\) Since \((I_j,x_j)\) is a minimal a pair which dominates \((A,0)\), we deduce that \(f_j\) must be the zero morphism, and by arbitrariety of \(j\) we get injectivity.
+	both send \(x_j\) to \(0.\) Since \((I_j,x_j)\) is a minimal a pair which dominates \((A,0)\), we deduce that \(f_j\) must be the zero morphism, and by arbitrariness of \(j\) we get injectivity.
 
 	For surjectivity, given any \(y\in F(A)\) we know that \((A,y)\) is dominated by a minimal pair \((I_j,x_j),\) so there is a unique \(f_j:\, A\to I_j\) satisfying \(F(f_j)(x_j)=y.\) Then, the limit of the \(f_j\) is sent by \(\phi\) to \(y,\) and we are done.
 \end{proof}
 
 
 \begin{remark}
-	We can view the functorial isomorphism \eqref{eq:FuncIso} as a \textbf{perfect pairing} of \textit{torsion} groups (in light of Remark \ref{rm:Torsion}, which in particular applies to $A=I$):
+	We can view the functorial isomorphism \eqref{eq:FuncIso} as a \textbf{perfect pairing} of \textit{torsion} groups (in light of Remark \ref{rm:Torsion}):
 	\[
 		\langle-,-\rangle_A:\,\Hom_G(A,I)\times\H{n}{G}{A}\longrightarrow\Q /\Z.
 	\]
+	This in particular applies to $A=I$ itself.
 \end{remark}
 
 For any \(G\)-module \(A\), consider the abelian group
@@ -2125,7 +2182,7 @@ Before moving on to the computation of the dualizing module of the absolute Galo
 
 \subsection{Computation for p-adic Fields}
 
-Finally, we apply the theory of dualizing modules to the absolute Galois group \(\Gamma\) of a \(p\)-adic field \(\K\): by \ref{thm:CohomFin} we know that \(\cd{\Gamma}=2\), and by \ref{cor:FinCohom} the groups \(\H{2}{\K}{A}\) are finite for any finite \(\Gamma_K\)-module $A$. Thus, by Theorem \ref{thm:DualMod} \(\Gamma\) has a dualizing module \(I\), which we now compute explicitly.
+Finally, we apply the theory of dualizing modules to the absolute Galois group \(\Gamma\) of a \(p\)-adic field \(\K\): by \ref{thm:CohomFin} we know that \(\cd{\Gamma}=2\), and by \ref{cor:FinCohom} the groups \(\H{2}{\K}{A}\) are finite for any finite \(\Gamma_K\)-module $A$. Thus, \(\Gamma\) has a dualizing module \(I\) by Theorem \ref{thm:DualMod}, which we now compute explicitly.
 
 \begin{proposition}
 	The dualizing module of \(\Gamma\) is canonically isomorphic to the \(\Gamma\)-module of roots of unity \(\mu\subset\Kx\).
@@ -2137,7 +2194,7 @@ Finally, we apply the theory of dualizing modules to the absolute Galois group \
 	The computation of the cohomology of $\mu_n$ (Theorem \ref{thm:CohomMuN}) shows that \(\H{2}{U}{\mu_n}\simeq\Zn\), and by Proposition \ref{prop:BrCorRes} the corestriction $\Br{K^U}\to\Br{K}$ is the identity of $\Q/\Z$.
 
 	Thus, if $U\subset V$ are open subgroups of $\Gamma$, the second part of Lemma \ref{lm:DualOpenSgr} yields the following commutative diagram:
-	\begin{equation}\label{eq:FuncDual}
+	\begin{equation*}
 		\begin{tikzcd}
 			\Hom_V(\mu_n,I_n)
 			\ar[d]
@@ -2146,14 +2203,14 @@ Finally, we apply the theory of dualizing modules to the absolute Galois group \
 			\ar[d, "\Cor^*=\,\id"]
 			\rar["\sim"] &
 			\Zn
-			\ar[equal, d] \\
+			\ar[Equal, d] \\
 			\Hom_U(\mu_n,I_n)
 			\ar[r] &
 			\H{2}{U}{\mu_n}^*
 			\rar["\sim"] &
 			\Zn.
 		\end{tikzcd}
-	\end{equation}
+	\end{equation*}
 	This shows that \(\H{2}{U}{\mu_n}\) doesn't depend on \(U\), and by Remark \ref{rm:discGmodUnion} (b) we get
 	\[
 		\Hom_\Z(\mu_n,I_n)=\bigcup_{\mathclap{\substack{U\subset\,\Gamma\\U\text{ open}}}}{\Hom_U(\mu_n,I_n)}\simeq\Zn
@@ -2163,7 +2220,7 @@ Finally, we apply the theory of dualizing modules to the absolute Galois group \
 	Let $f_n$ be the canonical generator of $\Hom_\Z(\mu_n,I_n)$ associated with $1\in\Zn$. Then $f_n$ is injective because it has order $n$, and surjective because otherwise any
 	element outside its image wouldn't be reached by any element of $\langle f_n\rangle=\Hom_\Z(\mu_n,I_n)$, but since $I_n$ has exponent $n$ there exist homomorphisms $\mu_n\to I_n$ sending a generator of $\mu_n$ to any element of $I_n$.
 
-	By writing $\mu = \bigcup_n{\mu_n}$ and $I = \bigcup_n{I[n]}$, we get an isomorphism of $\Gamma$-module
+	By writing $\mu = \bigcup_n{\mu_n}$ and $I = \bigcup_n{I[n]}$, we get an isomorphism of $\Gamma$-modules
 	\[
 		f\coloneqq \varinjlim_n f_n:\, \mu\Iso I,
 	\]
@@ -2172,7 +2229,7 @@ Finally, we apply the theory of dualizing modules to the absolute Galois group \
 \end{proof}
 
 \section{Tate Duality}
-We now define yet another type of duality for finite groups:
+We now define yet another kind of duality, this time for modules:
 \begin{definition}
 	Given a field \(\K\), let  $\Gamma$ be its absolute Galois group and $\mu$ the group of all the roots of unity in $\Kx$.
 	For any finite \(\Gamma\) -module \(M\) whose torsion is prime to the characteristic of \(\K\), we define the \textbf{Cartier dual} of $M$ as
@@ -2222,15 +2279,15 @@ We now define yet another type of duality for finite groups:
 	\end{equation}
 	such that the induced map
 	\[
-		\H{1}{\K}{B}\to\H{1}{\K}{B}
+		\H{1}{\K}{M}\to\H{1}{\K}{B}
 	\]
 	is zero:
 	as usual, we start by injecting $M$ in the induced module $\Ind{\Gamma}{M}$ which is torsion, and by the fundamental property \ref{thm:IndLim} we have
 
 	\[
-		0=\H{n}{\K}{\Ind{\Gamma}{M}}=\varinjlim_{\substack{B\subset\Ind{\Gamma}{M} \\B\text{ finite}}}{\H{n}{\K}{B}},
+		0=\H{n}{\K}{\Ind{\Gamma}{M}}=\varinjlim_{\mathclap{\substack{B\subset\Ind{\Gamma}{M} \\B\text{ finite}}}}{\H{n}{\K}{B}},
 	\]
-	which implies the existence of a finite submodule \(B\) with \(\H{n}{\K}{B}=0\). As \(M\) is finite, we can find such a \(B\) which contains \(M\). Then, the quotient \(C=B/M\) is finite and we can relate the long exact cohomology sequences associated with the short exact sequence \eqref{eq:InjSeq}
+	which implies the existence of a finite submodule \(B\) on which \(\H{n}{\K}{M}\to \H{1}{\K}{B}\) is \(0\). As \(M\) is finite, we can find such a \(B\) which also contains \(M\). Then, the quotient \(C=B/M\) is finite and we can relate the long exact cohomology sequences associated with the short exact sequence \eqref{eq:InjSeq}
 	and its dual using the cup product. Note that the dual sequence is also exact, as Pontryagin duality is exact for finite groups (it's clearly left exact, and right-exactness follows from the injectivity of $\Q/\Z$).
 
 	This gets us the following commutative diagram (up to a sign, by \ref{prop:CompatCupDiff}) with exact rows:
@@ -2262,6 +2319,7 @@ Recall that the groups $\K^{\times n}$ are open in $\K^\times$ (Proposition \ref
 \begin{align*}
 	\Gamma^{\text{ab}} & = \Hom(\Gamma, \Q/\Z)^*                                    & \text{(by Pontryagin duality)}        \\
 	                   & = \Hom(\Gamma, \varinjlim_n\nolimits \Zn)^*                & \text{(viewing $\Q/\Z$ as a colimit)} \\
+	% TODO   
 	                   & = \varprojlim_n\nolimits \Hom(\Gamma, \Zn)^*               & \text{(by contravariance)}            \\
 	                   & = \varprojlim_n\nolimits \H{1}{K}{\Zn}^*                   & \text{(by \ref{ex:TrivialModH1})}     \\
 	                   & = \varprojlim_n\nolimits \H{1}{K}{\mu_n}                   & \text{(by Tate Duality)}              \\
@@ -2275,7 +2333,7 @@ Recall that the groups $\K^{\times n}$ are open in $\K^\times$ (Proposition \ref
 		\Gamma^{\text{ab}} \simeq \operatorname{Gal}(K^{\text{ab}}/K).
 	\]
 \end{remark}
-In particular, passing through Galois theory we deduce a correspondence
+\noindent In particular, passing through Galois theory we deduce a correspondence
 \begin{equation}\label{eq:ClassField}
 	\{\text{finite abelian extensions of }K\} \longleftrightarrow \{\text{finite index subgroups of }\widehat{\K^\times} = \widehat{\Z} \times U_K\}
 	.\end{equation}
@@ -2310,7 +2368,7 @@ The main result of local class field theory, the existence theorem, makes this c
 	which translates to an isomorphism \[\K^\times / N_{L/K}(L^\times) \simeq \operatorname{Gal}(L/K).\] This recovers the reciprocity isomorphism associated with the extension $L/K$ from loc. cit., Th. 9.2.
 \end{remark}
 
-Therefore, the correspondence \eqref{eq:ClassField} in one direction is given by $L \mapsto N_{L/\K}(L^\times)$. To conclude our exploration of local class field theory, we use the above properties to prove the existence theorem of local class field theory, which gives the correspondence in the other direction:
+Therefore, the correspondence \eqref{eq:ClassField} in one direction is given by $L \mapsto N_{L/\K}(L^\times)$. To conclude our exploration of local class field theory, we use the above properties to prove the existence theorem, which gives the correspondence in the other direction:
 
 \begin{theorem}[Existence Theorem]
 	Let $\K$ be a $p$-adic field and fix an algebraic closure $\overline{\K}$. Then, for any finite index subgroup $U\subset\widehat{\K^\times}$
@@ -2318,7 +2376,7 @@ Therefore, the correspondence \eqref{eq:ClassField} in one direction is given by
 \end{theorem}
 
 \begin{proof}
-	By Theorem 9.9 in loc. cit. (which uses the above properties of the reciprocity map), since any finite index subgroup contains a subgroup of the form $\K^{\times n}$ it's enough to prove the claim for $U=\K^{\times n}$. Since $n\Gamma^{\text{ab}}$ is compact in $\Gamma^{\text{ab}}$, the reciprocity isomorphism \eqref{eq:RecIso} implies that $\Gamma^{\text{ab}}/n$ is a finite group, and so $n\Gamma^{\text{ab}}$ is closed of finite index in $\Gamma^{\text{ab}}$.
+	By Theorem 9.9 (a) in loc. cit. (which uses the above properties of the reciprocity map), since any finite index subgroup contains a subgroup of the form $\K^{\times n}$ it's enough to prove the claim for $U=\K^{\times n}$. Since $n\Gamma^{\text{ab}}$ is compact in $\Gamma^{\text{ab}}$, the reciprocity isomorphism \eqref{eq:RecIso} implies that $\Gamma^{\text{ab}}/n$ is a finite group, and so $n\Gamma^{\text{ab}}$ is closed of finite index in $\Gamma^{\text{ab}}$.
 
 	By Galois theory, we can find a finite abelian extension $L/\K$ such that $\operatorname{Gal}{(L/K)}=\Gamma^{\text{ab}}/n$, and thus $\K^{\times n}=N_{L/\K}(L^\times)$ because it is the kernel of the surjection $\omega_{L/K}$. The uniqueness of $L$ follows from the fact that $\omega_\K$ has dense image, see loc. cit. Th. 9.9 (b).
 \end{proof}
