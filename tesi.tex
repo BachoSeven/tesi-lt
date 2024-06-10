@@ -742,13 +742,13 @@ As $\Hom_G(\ZG{G},A)$ is isomorphic to $A$ through the map $f\mapsto f(1)$, appl
 \]
 where the maps on $A$ are defined by the same formulas as above. This computes the cohomology of $G$ with coefficients in $A$:
 
-\[
+\begin{equation}\label{eq:CycCohom}
 	\begin{cases}
 		\H{0}{G}{A}= A^G,                          \\
 		\H{2i}{G}{A} = A^G/N(A) ~\text{ for } i>0, \\
 		\H{2i+1}{G}{A} = \ker(N)/(s-\id)A.
 	\end{cases}
-\]
+\end{equation}
 
 In particular, if $A$ is a trivial $G$-module, we get
 
@@ -1334,7 +1334,11 @@ We can reinterpret this result using group cohomology:
 	\begin{itemize}
 		\item[(a)] Let $\K$ be a separably closed field. Then, $\Gamma_\K=0$ and thus $\Br{K}=0$.
 		\item[(b)] The Brauer group of a finite field $\mathbb{F}_q$ is trivial, because $\operatorname{Gal}{(\overline{\mathbb{F}_q}/\mathbb{F}_q)}=\widehat{\Z}$ has cohomological dimension 1 by Example \ref{ex:Zhat}.
-		\item[(c)] By the characterization of the Brauer group using central simple algebras, a famous result of Frobenius shows that $\Br{\R}=\Z/2\Z$ (the non-trivial element is the class of the quaternion algebra).
+        \item[(c)] Using the cohomology of cyclic groups, we can compute the Brauer group of $\R$:
+            \[
+                \Br{\R}=\H{2}{\operatorname{Gal}{(\C/\R)}}{\C^\times}\overset{\ref{eq:CycCohom}}{=}\ssfrac{\R^\times}{\R_{>0}}\simeq\Z/2\Z
+            ,\]
+            where we used the fact that the norm map $N(x)=x\overline{x}$ has image $\R_{>0}$.
 	\end{itemize}
 \end{example}
 
@@ -2319,7 +2323,6 @@ Recall that the groups $\K^{\times n}$ are open in $\K^\times$ (Proposition \ref
 \begin{align*}
 	\Gamma^{\text{ab}} & = \Hom(\Gamma, \Q/\Z)^*                                    & \text{(by Pontryagin duality)}        \\
 	                   & = \Hom(\Gamma, \varinjlim_n\nolimits \Zn)^*                & \text{(viewing $\Q/\Z$ as a colimit)} \\
-	% TODO   
 	                   & = \varprojlim_n\nolimits \Hom(\Gamma, \Zn)^*               & \text{(by contravariance)}            \\
 	                   & = \varprojlim_n\nolimits \H{1}{K}{\Zn}^*                   & \text{(by \ref{ex:TrivialModH1})}     \\
 	                   & = \varprojlim_n\nolimits \H{1}{K}{\mu_n}                   & \text{(by Tate Duality)}              \\
@@ -2376,7 +2379,7 @@ Therefore, the correspondence \eqref{eq:ClassField} in one direction is given by
 \end{theorem}
 
 \begin{proof}
-	By Theorem 9.9 (a) in loc. cit. (which uses the above properties of the reciprocity map), since any finite index subgroup contains a subgroup of the form $\K^{\times n}$ it's enough to prove the claim for $U=\K^{\times n}$. Since $n\Gamma^{\text{ab}}$ is compact in $\Gamma^{\text{ab}}$, the reciprocity isomorphism \eqref{eq:RecIso} implies that $\Gamma^{\text{ab}}/n$ is a finite group, and so $n\Gamma^{\text{ab}}$ is closed of finite index in $\Gamma^{\text{ab}}$.
+	Since any finite index subgroup contains a subgroup of the form $\K^{\times n}$, by Theorem 9.9 (a) in loc. cit. (which uses the properties of the reciprocity map) it's enough to prove the claim for $U=\K^{\times n}$. Since $n\Gamma^{\text{ab}}$ is compact in $\Gamma^{\text{ab}}$, the reciprocity isomorphism \eqref{eq:RecIso} implies that $\Gamma^{\text{ab}}/n$ is a finite group, and so $n\Gamma^{\text{ab}}$ is closed of finite index in $\Gamma^{\text{ab}}$.
 
 	By Galois theory, we can find a finite abelian extension $L/\K$ such that $\operatorname{Gal}{(L/K)}=\Gamma^{\text{ab}}/n$, and thus $\K^{\times n}=N_{L/\K}(L^\times)$ because it is the kernel of the surjection $\omega_{L/K}$. The uniqueness of $L$ follows from the fact that $\omega_\K$ has dense image, see loc. cit. Th. 9.9 (b).
 \end{proof}
