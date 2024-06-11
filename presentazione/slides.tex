@@ -1,0 +1,52 @@
+\documentclass[pdf]{beamer}
+\mode<presentation>{}
+
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[italian]{babel}
+\usepackage{hyperref}
+\usepackage{amsmath, amssymb, amsthm}
+% for \lightning
+\usepackage{stmaryrd}
+\usepackage{geometry}
+\usepackage{empheq}
+\usepackage{tikz-cd}
+
+\hypersetup{
+    colorlinks = true, % links instead of boxes
+    urlcolor   = blue, % external hyperlinks
+    linkcolor  = white, % internal links
+    citecolor  = red   % citations
+}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\renewcommand{\Im}{\operatorname{Im}}
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+% usage: \boxedeq{description}{equation}
+\newcommand{\boxedeq}[2]{\begin{empheq}[box={\fboxsep=6pt\fbox}]{align}\label{#1}#2\end{empheq}}
+
+\usetheme{Frankfurt}
+\useinnertheme{rectangles}
+\useoutertheme{split}
+
+\title{Dualità Locale di Tate}
+\date{14 giugno 2024}
+\author{Francesco Minnocci}
+
+\begin{document}
+    \begin{frame}
+\titlepage
+    \end{frame}
+    \begin{frame}
+Prova
+    \end{frame}
+\end{document}

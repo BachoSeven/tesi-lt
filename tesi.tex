@@ -41,7 +41,7 @@
 
 \chapter*{Introduction}
 The aim of this work is to provide an exposition of the Local Tate Duality theorem. The main motivation comes from class field theory, which aims to describe the abelian
-extensions of a field in terms of the arithmetic of the field itself. Historically, this duality theorem was actually proved using class field theory by John Tate, while in this thesis we will go the other way around as is done by J. P. Serre in \cite{SerreCG}, by proving the existence of a dualizing module to prove the duality theorem and then using it to establish local class field theory for $p$-adic fields.\\
+extensions of a field in terms of the arithmetic of the field itself. Historically, this duality theorem was actually proved using class field theory by John Tate, while in this thesis we will go the other way around as is done by J. P. Serre in \cite{SerreCG}, by proving the existence of a dualizing module to prove the duality theorem and using it to establish local class field theory for $p$-adic fields.\\
 
 First we will need to develop some machinery, such as the cohomology of (pro)finite groups and the notion of cohomological dimension, in order to sistematically study the absolute Galois group of
 a field, which is profinite. Using this machinery and the topological structure of local fields, we will be able to compute the Brauer group and cohomological dimension of a local field, and prove the
@@ -175,8 +175,7 @@ Recall that in an abelian category $\mathcal{A}$ which has enough injectives, an
 \medskip \noindent Here are some general properties of derived functors:
 \begin{itemize}
 	\item in degree $0$ we have $R^0F(A)=F(A)$ for all objects $A$, as follows from the definition via injective resolutions;
-	\item as derived functors are in particular $\delta$-functors (\cite{Weibel} Ch. 2)
-	      for any short exact sequence
+	\item as derived functors are in particular $\delta$-functors (\cite{Weibel} Ch. 2), for any short exact sequence
 	      \[
 		      0\to A\to B\to C\to 0
 	      \]
@@ -435,7 +434,7 @@ We now prove an important result which relates the cohomology of a subgroup to t
 		\H{i}{G}{\operatorname{CoInd}^G_H{(-)}}: \Hmod\to\Ab
 	\]
 	form a universal $\delta$ functor: it's a $\delta$ functor since $\operatorname{CoInd}^G_H{(-)}$ is exact by Remark \ref{rm:Adj} (c), and it's effaceable because we can embed $B$ in an injective $H$-module $I$, and $\operatorname{CoInd}^G_H{(I)}$ is injective by Remark \ref{rm:Adj} (a).
-	Therefore, the claim then follows from Proposition \ref{prop:Effaceable}.
+	The claim then follows from Proposition \ref{prop:Effaceable}.
 
 	Moreover, we can construct a homomorphism
 	\[
@@ -932,7 +931,7 @@ As a consequence we find that the cohomology of a profinite group with coefficie
 	Let $A$ be a discrete $G$-module. Then, $\H{i}{G}{A}$ is a torsion group for all $i>0$.
 \end{corollary}
 
-In light of Remark \ref{rm:FinType}, writing $A$ as the inductive limit of its finitely generated subgroups yields the following corollary:
+Keeping in mind Remark \ref{rm:FinType}, writing $A$ as the inductive limit of its finitely generated sub-$G$-module yields the following corollary:
 
 \begin{corollary}
 	Let $A$ be a discrete $G$-module, and write $A=\bigcup{B}$ where $B$ ranges over the finite type sub-$G$-modules of $A$. Then,
@@ -1262,14 +1261,15 @@ We now consider the multiplicative group of a field as a discrete module with th
 
 \subsection{Kummer Theory}
 
-Let $K$ be a field which contains a primitive $n$-th root of unity. Then, Kummer theory classifies the abelian extensions of $K$ whose exponent divides $n$: it states that any such an extension is obtained by adjoining $n$-roots, that is roots of polynomials of the form $X^n-a$ for some $a\in K^\times$. For instance, if $[a]$ has order $m$ in $K^\times$ modulo the $n$-th powers $K^{\times n}$, then $K(\sqrt[n]{a})$ is a cyclic extension of degree $m$.
+Let $K$ be a field which contains a primitive $n$-th root of unity. Then, Kummer theory classifies the abelian extensions of $K$ whose exponent divides $n$: it states that any such
+an extension is obtained by adjoining $n$-roots, that is roots of polynomials of the form $X^n-a$ for some $a\in K^\times$. For instance, if $\overline{a}$ has order $m$ in $K^\times$ modulo the $n$-th powers $K^{\times n}$, then $K(\sqrt[n]{a})$ is a cyclic extension of degree $m$.
 
 We can reinterpret this result using group cohomology:
 \begin{proposition}\label{prop:Kummer}
 	Let $K$ be a field and assume that $n$ is invertible in $K$.
 	If $\mu_n$ is the group of all $n$-th roots of unity in $\Ks$, then we have an isomorphism
 	\[
-		\H{1}{\K}{\mu_n}\simeq \ssfrac{\K^\times}{(\K^\times)^n}.
+		\H{1}{\K}{\mu_n}\simeq \ssfrac{\K^\times}{\K^{\times n}}.
 	\]
 \end{proposition}
 
@@ -1282,7 +1282,7 @@ We can reinterpret this result using group cohomology:
 	\[
 		0\to \mu_n(\K)\to \K^\times \overset{\cdot n}{\to} \K^\times \to \H{1}{\K}{\mu_n}\to 0
 	\]
-	Here $\mu_n(\K)$ is the group of $n$-th roots of unity contained in $\K$, and the last term vanishes by Hilbert 90. By exactness, we conclude that $\H{1}{\K}{\mu_n}\simeq \sfrac{\K^\times}{(\K^\times)^n}$.
+	Here $\mu_n(\K)$ is the group of $n$-th roots of unity contained in $\K$, and the last term vanishes by Hilbert 90. By exactness, we conclude that $\H{1}{\K}{\mu_n}\simeq \sfrac{\K^\times}{\K^{\times n}}$.
 \end{proof}
 
 \begin{remark}
@@ -1334,11 +1334,11 @@ We can reinterpret this result using group cohomology:
 	\begin{itemize}
 		\item[(a)] Let $\K$ be a separably closed field. Then, $\Gamma_\K=0$ and thus $\Br{K}=0$.
 		\item[(b)] The Brauer group of a finite field $\mathbb{F}_q$ is trivial, because $\operatorname{Gal}{(\overline{\mathbb{F}_q}/\mathbb{F}_q)}=\widehat{\Z}$ has cohomological dimension 1 by Example \ref{ex:Zhat}.
-        \item[(c)] Using the cohomology of cyclic groups, we can compute the Brauer group of $\R$:
-            \[
-                \Br{\R}=\H{2}{\operatorname{Gal}{(\C/\R)}}{\C^\times}\overset{\ref{eq:CycCohom}}{=}\ssfrac{\R^\times}{\R_{>0}}\simeq\Z/2\Z
-            ,\]
-            where we used the fact that the norm map $N(x)=x\overline{x}$ has image $\R_{>0}$.
+		\item[(c)] Using the cohomology of cyclic groups, we can compute the Brauer group of $\R$:
+		      \[
+			      \Br{\R}=\H{2}{\operatorname{Gal}{(\C/\R)}}{\C^\times}\overset{\ref{eq:CycCohom}}{=}\ssfrac{\R^\times}{\R_{>0}}\simeq\Z/2\Z
+			      ,\]
+		      where we used the fact that the norm map $N(x)=x\overline{x}$ has image $\R_{>0}$.
 	\end{itemize}
 \end{example}
 
@@ -1658,8 +1658,7 @@ The first term is trivial by Example \ref{ex:Brauer} (b), and we get a canonical
 \begin{equation}\label{eq:BrK}
 	\Br{K}\simeq\Q/\Z.
 \end{equation}
-
-We also need the following result:
+We also need the following compatibility of the Brauer group isomorphism:
 
 \begin{proposition}\label{prop:BrCorRes}
 	Let $K$ be a local field and $L/K$ a finite separable extension. Then, the restriction map
@@ -2043,11 +2042,11 @@ due to Grothendieck (in the case of an Artinian category, see \cite{Grothendieck
 
 
 \begin{remark}
-	We can view the functorial isomorphism \eqref{eq:FuncIso} as a \textbf{perfect pairing} of \textit{torsion} groups (in light of Remark \ref{rm:Torsion}):
+	In light of Remark \ref{rm:Torsion}, for any discrete torsion $G$-module $A$ we can view the functorial isomorphism \eqref{eq:FuncIso} as a \textbf{perfect pairing}
 	\[
-		\langle-,-\rangle_A:\,\Hom_G(A,I)\times\H{n}{G}{A}\longrightarrow\Q /\Z.
+		\langle-,-\rangle_A:\,\Hom_G(A,I)\times\H{n}{G}{A}\longrightarrow\Q /\Z
 	\]
-	This in particular applies to $A=I$ itself.
+	between the discrete torsion group \(\H{n}{G}{A}\) and the profinite group \(\Hom_G(A,I)\) endowed with the compact-open topology. This in particular applies to $A=I$ itself.
 \end{remark}
 
 For any \(G\)-module \(A\), consider the abelian group
@@ -2165,7 +2164,7 @@ Before moving on to the computation of the dualizing module of the absolute Galo
 			\H{n}{G}{\mathrm{CoInd}_G^U(A)}^*
 			\rar["(-)^*"]&\H{n}{G}{\mathrm{CoInd}_G^U(A)}
 			\rar["\sh\ "]
-			\ar[d, "\Cor"]&\H{n}{U}{A}\ar[dl] \\
+			\ar[d, "\pi^*"]&\H{n}{U}{A}\ar[dl, "\Cor"] \\
 			&
 			\Hom_G(A,I) \ar[swap, lu, "i"]
 			\ar[u, "\pi_*"]
@@ -2188,7 +2187,7 @@ Before moving on to the computation of the dualizing module of the absolute Galo
 
 Finally, we apply the theory of dualizing modules to the absolute Galois group \(\Gamma\) of a \(p\)-adic field \(\K\): by \ref{thm:CohomFin} we know that \(\cd{\Gamma}=2\), and by \ref{cor:FinCohom} the groups \(\H{2}{\K}{A}\) are finite for any finite \(\Gamma_K\)-module $A$. Thus, \(\Gamma\) has a dualizing module \(I\) by Theorem \ref{thm:DualMod}, which we now compute explicitly.
 
-\begin{proposition}
+\begin{proposition}\label{prop:DualModMu}
 	The dualizing module of \(\Gamma\) is canonically isomorphic to the \(\Gamma\)-module of roots of unity \(\mu\subset\Kx\).
 \end{proposition}
 
@@ -2215,7 +2214,7 @@ Finally, we apply the theory of dualizing modules to the absolute Galois group \
 			\Zn.
 		\end{tikzcd}
 	\end{equation*}
-	This shows that \(\H{2}{U}{\mu_n}\) doesn't depend on \(U\), and by Remark \ref{rm:discGmodUnion} (b) we get
+	This shows that \(\Hom_U(\mu_n,I_n)\) doesn't depend on \(U\), and by Remark \ref{rm:discGmodUnion} (b) we get
 	\[
 		\Hom_\Z(\mu_n,I_n)=\bigcup_{\mathclap{\substack{U\subset\,\Gamma\\U\text{ open}}}}{\Hom_U(\mu_n,I_n)}\simeq\Zn
 	\]
@@ -2244,15 +2243,20 @@ We now define yet another kind of duality, this time for modules:
 	\begin{equation*}
 		(\sigma \cdot f)(m) = \sigma(f(\sigma^{-1}\cdot m)),
 	\end{equation*}
-	just as we did in \eqref{eq:TateTwist}.
-	Notice that with this action, if $M=\mu_n$, then its dual $M^{\prime} = \Hom_{\Z}(\mu_n, \mu_n)$ is isomorphic to $\Zn$ as a $\Gamma$-module.
+	just as we did in \eqref{eq:TateTwist}. This yields an obvious pairing
+	\begin{align*}
+		M^{\prime}\times M & \to \mu       \\
+		(f,m)              & \mapsto f(m),
+	\end{align*}
+	and thus a cup product.
+	Notice that, with the above action, the dual of $M^{\prime} = \Hom_{\Z}(\mu_n, \mu_n)$ of $M=\mu_n$ is isomorphic to $\Zn$ as a $\Gamma$-module.
 \end{definition}
 
 \begin{theorem}
 	Let $\K$ be a p-adic field, and $M$ a finite $\Gamma$-module.
 	Then, for $i=0,1,2$ the cup product induces a perfect pairing of finite groups
 	\begin{equation*}
-		H^i(\K, M) \times H^{2-i}(\K, M^{\prime}) \to H^2(\K, \mu) \cong \Q/\Z.
+		H^i(\K, M) \times H^{2-i}(\K, M^{\prime}) \to H^2(\K, \mu)\simeq \Q/\Z.
 	\end{equation*}
 \end{theorem}
 \begin{proof}
@@ -2267,8 +2271,9 @@ We now define yet another kind of duality, this time for modules:
 	\end{equation*}
 	where
 	\[
-		i = \langle \id_{\mu}, - \rangle_\mu : \H{2}{\K}{\mu} \Iso \Q/\Z.
+		i = \langle \id_{\mu}, - \rangle_\mu : \H{2}{\K}{\mu} \Iso \Q/\Z
 	\]
+	is the Brauer group isomorphism by the computation \ref{prop:DualModMu} of the dualizing module together with the uniqueness of the pair $(I,i)$.
 	Since \(\langle -{,}- \rangle_M\) is a perfect pairing, we are done.
 
 	The case $i=0$ then follows by symmetry, as any finite $M$ can be identified with its double dual $M''$.
@@ -2289,9 +2294,9 @@ We now define yet another kind of duality, this time for modules:
 	as usual, we start by injecting $M$ in the induced module $\Ind{\Gamma}{M}$ which is torsion, and by the fundamental property \ref{thm:IndLim} we have
 
 	\[
-		0=\H{n}{\K}{\Ind{\Gamma}{M}}=\varinjlim_{\mathclap{\substack{B\subset\Ind{\Gamma}{M} \\B\text{ finite}}}}{\H{n}{\K}{B}},
+		0=\H{1}{\K}{\Ind{\Gamma}{M}}=\varinjlim_{\mathclap{\substack{B\subset\Ind{\Gamma}{M} \\B\text{ finite}}}}{\H{1}{\K}{B}},
 	\]
-	which implies the existence of a finite submodule \(B\) on which \(\H{n}{\K}{M}\to \H{1}{\K}{B}\) is \(0\). As \(M\) is finite, we can find such a \(B\) which also contains \(M\). Then, the quotient \(C=B/M\) is finite and we can relate the long exact cohomology sequences associated with the short exact sequence \eqref{eq:InjSeq}
+	which implies the existence of a finite submodule \(B\) on which \(\H{1}{\K}{M}\to \H{1}{\K}{B}\) is \(0\). As \(M\) is finite, we can find such a \(B\) which also contains \(M\). Then, the quotient \(C=B/M\) is finite and we can relate the long exact cohomology sequences associated with the short exact sequence \eqref{eq:InjSeq}
 	and its dual using the cup product. Note that the dual sequence is also exact, as Pontryagin duality is exact for finite groups (it's clearly left exact, and right-exactness follows from the injectivity of $\Q/\Z$).
 
 	This gets us the following commutative diagram (up to a sign, by \ref{prop:CompatCupDiff}) with exact rows:
@@ -2340,7 +2345,7 @@ Recall that the groups $\K^{\times n}$ are open in $\K^\times$ (Proposition \ref
 \begin{equation}\label{eq:ClassField}
 	\{\text{finite abelian extensions of }K\} \longleftrightarrow \{\text{finite index subgroups of }\widehat{\K^\times} = \widehat{\Z} \times U_K\}
 	.\end{equation}
-The main result of local class field theory, the existence theorem, makes this correspondence explicit using the \textit{reciprocity map}, which is usually constructed in an explicit manner (as in \cite{Harari} Ch. 9). However, we can define it using the isomorphism of local duality:
+The main result of local class field theory, the existence theorem, makes this correspondence explicit using the \textit{reciprocity map}, which is usually constructed in an explicit manner (as in \cite{Harari} Ch. 9). However, we can define it using the above isomorphism:
 
 \begin{definition}
 	The reciprocity map
@@ -2353,35 +2358,74 @@ The main result of local class field theory, the existence theorem, makes this c
 \begin{remark}
 	One can show that this has the same properties as the usual reciprocity map that are developed in loc. cit., Ch. 9, and which we will use in the following. In particular, the reciprocity map is surjective, with dense image (by definition of the profinite completion) and if $n>0$ it induces a map
 	\begin{equation}\label{eq:RecIso}
-		\omega_n:\K^\times / \K^{\times n} \to \Gamma^{\text{ab}}/n = \H{1}{\K}{\Zn}^*,
+		\omega_n:\K^\times / \K^{\times n} \to \Gamma^{\text{ab}}/n \simeq \H{1}{\K}{\Zn}^*,
 	\end{equation}
 	which is given by the isomorphism \eqref{eq:CupIso} of local duality. Above, we used the fact that \[\H{1}{\K}{\Zn}=
-		\Hom(\Gamma^{\text{ab}},\Zn)=(\sfrac{\Gamma^{\text{ab}}}{n})^*.\]
-	Moreover, for any finite abelian Galois extension $L / K$ there is a commutative diagram
-	\[
-		\begin{tikzcd}\label{eq:NormDiag}
+		\Hom(\Gamma^{\text{ab}},\Zn)\simeq(\sfrac{\Gamma^{\text{ab}}}{n})^*.\]
+	Moreover, for any finite abelian Galois extension $L / K$ there is a diagram
+	\begin{equation}\label{eq:NormDiag}
+		\begin{tikzcd}
 			L^\times \ar[r, "\omega_L"] \ar[d, swap, "N_{L/\K}"] & \Gamma_L^{\text{ab}} \ar[d] \\
 			K^\times \ar[r, "\omega_K"]       & \Gamma_K^{\text{ab}}
 		\end{tikzcd}
+	\end{equation}
+	whose commutativity we can prove at the level of finite quotients:
+	\[
+		\begin{tikzcd}
+			\sfrac{L^\times}{L^{\times n}}\ar[r,"\delta"]\ar[d, swap, "N_{L/\K}"] & \H{1}{L}{\mu_n} \ar[r, "\sim"] \ar[d, "\Cor"] & \H{1}{L}{\Zn}^* \ar[r, "\sim"] \ar[d, "\Res^*"] & \Gamma_L^{\text{ab}}/n \ar[d] \\
+			\sfrac{K^\times}{K^{\times n}}\ar[r,"\delta"] & \H{1}{K}{\mu_n} \ar[r, "\sim"] & \H{1}{\K}{\Zn}^* \ar[r, "\sim"] & \Gamma_K^{\text{ab}}/n
+		\end{tikzcd}
 	\]
-	and the reciprocity map $\omega_\K$ induces a surjection
+	Indeed, the left square commutes by compability of the corestriction with the coboundary map (which induces the Kummer isomorphism from Proposition \ref{prop:Kummer}); the right one commutes because by definition the restriction is compatible with the inclusion $\Gamma_K\hookrightarrow\Gamma_L$. As for the middle square, the horizontal maps are given by local duality, which factors through the cup product:
+	\[
+		\tikzset{
+			symbol/.style={
+					draw=none,
+					every to/.append style={
+							edge node={node [sloped, allow upside down, auto=false]{$#1$}}}
+				}
+		}
+		\begin{tikzcd}
+			\H{1}{L}{\mu_n}\ar[dd, "\Cor"]\arrow[r,symbol=\times] &[-2em] \H{1}{L}{\mu_n} \ar[r, "\cup"]&[2em] \H{2}{L}{\mu_n} \ar[dd, "\Cor"]\ar[rd, sloped, "\sim"]&\\
+			&&& \Zn \\
+			\H{1}{\K}{\Zn} \arrow[r,symbol=\times] & \H{1}{\K}{\Zn}  \ar[swap, uu, "\Res"] \ar[r, "\cup"]& \H{2}{\K}{\mu_n} \ar[ru, sloped, "\sim"]&
+		\end{tikzcd}
+	\]
+	As the corestriction induces the identity on $\Q/\Z$ (Proposition \ref{prop:BrCorRes}), the above diagram commutes by the projection formula (which is proven e.g. in \cite{GilleSzamuely} Prop. 3.4.10):
+	\[
+		\Cor(a\cup\Res(b))=\Cor(a)\cup b
+	\]
+	for any $a\in\H{1}{L}{\mu_n}$ and $b\in\H{1}{\K}{\Zn}$.
+
+	Finally, the reciprocity map $\omega_\K$ induces a surjection
 	\[
 		\omega_{L/K}:\K^\times \to \operatorname{Gal}(L/K),
 	\]
-	which translates to an isomorphism \[\K^\times / N_{L/K}(L^\times) \simeq \operatorname{Gal}(L/K).\] This recovers the reciprocity isomorphism associated with the extension $L/K$ from loc. cit., Th. 9.2.
+	which translates to an isomorphism \[\K^\times / N_{L/K}(L^\times) \simeq \operatorname{Gal}(L/K)\]
+	by density of the image of $\omega_\K$ and diagram chasing through \eqref{eq:NormDiag}.
+	This recovers the reciprocity isomorphism associated with the extension $L/K$ from loc. cit., Th. 9.2.
 \end{remark}
 
 Therefore, the correspondence \eqref{eq:ClassField} in one direction is given by $L \mapsto N_{L/\K}(L^\times)$. To conclude our exploration of local class field theory, we use the above properties to prove the existence theorem, which gives the correspondence in the other direction:
 
 \begin{theorem}[Existence Theorem]
 	Let $\K$ be a $p$-adic field and fix an algebraic closure $\overline{\K}$. Then, for any finite index subgroup $U\subset\widehat{\K^\times}$
-	there exists a unique abelian extension $L / \K$ such that $L \subset \overline{\K}$ and $U=N_{L/\K}(L^\times)$.
+	there exists a unique finite abelian extension $L / \K$ such that $L \subset \overline{\K}$ and $U=N_{L/\K}(L^\times)$.
 \end{theorem}
 
 \begin{proof}
-	Since any finite index subgroup contains a subgroup of the form $\K^{\times n}$, by Theorem 9.9 (a) in loc. cit. (which uses the properties of the reciprocity map) it's enough to prove the claim for $U=\K^{\times n}$. Since $n\Gamma^{\text{ab}}$ is compact in $\Gamma^{\text{ab}}$, the reciprocity isomorphism \eqref{eq:RecIso} implies that $\Gamma^{\text{ab}}/n$ is a finite group, and so $n\Gamma^{\text{ab}}$ is closed of finite index in $\Gamma^{\text{ab}}$.
+	Recall that any finite index subgroup $U$ contains a subgroup of the form $\K^{\times n}$. Then, it's enough to prove the claim for $U=\K^{\times n}$ because then we can complete the diagram
+	\[
+		\begin{tikzcd}
+			\ssfrac{\K^\times}{N_{L/\K}(L^\times)} \ar[r, "\omega_{L/\K}"] \ar[d, twoheadrightarrow] & \operatorname{Gal}{(L/K)} \ar[d, dashed, twoheadrightarrow] &\\
+			\ssfrac{\K^\times}{U} \ar[r, "\omega_K"] & \operatorname{Gal}{(M/K)}\ar[r, phantom, "\simeq"] &\ssfrac{\K^\times}{N_{M/\K}(M^\times)}
+		\end{tikzcd}
+	\]
+	for some finite abelian extension $M/K$ by Galois theory, and this implies that $U=N_{L/\K}(L^\times)$.
 
-	By Galois theory, we can find a finite abelian extension $L/\K$ such that $\operatorname{Gal}{(L/K)}=\Gamma^{\text{ab}}/n$, and thus $\K^{\times n}=N_{L/\K}(L^\times)$ because it is the kernel of the surjection $\omega_{L/K}$. The uniqueness of $L$ follows from the fact that $\omega_\K$ has dense image, see loc. cit. Th. 9.9 (b).
+	Now, since $n\Gamma^{\text{ab}}$ is compact in $\Gamma^{\text{ab}}$, the reciprocity isomorphism \eqref{eq:RecIso} implies that $\Gamma^{\text{ab}}/n$ is a finite group, and so $n\Gamma^{\text{ab}}$ is closed of finite index in $\Gamma^{\text{ab}}$. By Galois theory, we can find a finite abelian extension $L/\K$ such that $\operatorname{Gal}{(L/K)}=\Gamma^{\text{ab}}/n$, and thus $\K^{\times n}=N_{L/\K}(L^\times)$ because it is the kernel of the surjection $\omega_{L/K}$. 
+	
+	For uniqueness, given $L,M$ with $N_{L/\K}(L^\times)=N_{M/\K}(M^\times)$, we have a commutative diagram
 \end{proof}
 
 \nocite{*}
