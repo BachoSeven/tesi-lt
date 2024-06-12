@@ -4,9 +4,7 @@
 \usepackage{textcomp}
 \usepackage[italian]{babel}
 \usepackage{hyperref}
-\usepackage{amsmath, amssymb, amsthm}
-% for \lightning
-\usepackage{stmaryrd}
+\usepackage{amsmath, amssymb, amsthm, amsfonts}
 \usepackage{geometry}
 \usepackage{empheq}
 \usepackage{tikz-cd}
@@ -18,17 +16,56 @@
     citecolor  = red   % citations
 }
 
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\C}{\mathbb{C}}
-\newcommand{\Q}{\mathbb{Q}}
-\newcommand{\K}{\mathbb{K}}
-\newcommand{\N}{\mathbb{N}}
-\newcommand{\A}{\mathbb{A}}
-\newcommand{\Z}{\mathbb{Z}}
+% Definitions
+\def\R{\mathbb{R}}
+\def\C{\mathbb{C}}
+\def\Q{\mathbb{Q}}
+\def\N{\mathbb{N}}
+\def\Z{\mathbb{Z}}
+\def\K{K}
+\def\k{\kappa}
+\def\Ks{\overline{\K}}
+\def\Kx{\Ks^\times}
+\def\ks{\overline{\kappa}}
+\def\Knr{\K_{\text{nr}}}
+\def\Qp{\mathbb{Q}_p}
+\def\Zp{\Z_p}
+\def\Zn{\Z/n\Z}
+\def\Gmod{\mathsf{Mod}_\mathsf{G}}
+\def\Hmod{\mathsf{Mod}_\mathsf{H}}
+\def\GHmod{\mathsf{Mod}_{\mathsf{G}/\mathsf{H}}}
+\def\Gfmod{\mathsf{Mod}_{\mathsf{G}}^f}
+\def\Ab{\mathsf{Ab}}
+
+% Operators
+\newcommand{\Gal}[1]{\operatorname{Gal}\left( \overline{#1}/#1 \right)}
+\newcommand{\Aut}[1]{\operatorname{Aut}\left( #1 \right)}
+\renewcommand{\H}[3]{H^{#1}( #2, \, #3 )}
+\newcommand{\HH}[2]{H^2(#1, \, #2 )}
+\newcommand{\Ind}[2]{\operatorname{I}_{#1}(#2)}
+\newcommand{\ZG}[1]{\Z[#1]}
+\newcommand{\Br}[1]{\operatorname{Br}{(#1)}}
+\newcommand{\cd}[1]{\operatorname{cd}{(#1)}}
+\newcommand{\cdp}[1]{\operatorname{cd}_p{(#1)}}
+\newcommand{\cdl}[1]{\operatorname{cd}_l{(#1)}}
+\DeclareMathOperator{\St}{St}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Res}{Res}
+\DeclareMathOperator{\Cor}{Cor}
+\DeclareMathOperator{\Inf}{Inf}
+\DeclareMathOperator{\sh}{Sh}
+\DeclareMathOperator{\coker}{Coker}
+\DeclareMathOperator{\id}{id}
 
 \renewcommand{\Im}{\operatorname{Im}}
 
 \newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+% Translation of environments
+\deftranslation[to=italian]{Example}{Esempio}
+\deftranslation[to=italian]{Definition}{Definizione}
+\deftranslation[to=italian]{Theorem}{Teorema}
 
 % usage: \boxedeq{description}{equation}
 \newcommand{\boxedeq}[2]{\begin{empheq}[box={\fboxsep=6pt\fbox}]{align}\label{#1}#2\end{empheq}}
@@ -42,14 +79,106 @@
 \author{Francesco Minnocci}
 
 \begin{document}
-    \begin{frame}
-\titlepage
-    \end{frame}
+\begin{frame}
+	\titlepage
+\end{frame}
 
-    \begin{frame}{Motivazione}
-        \begin{itemize}
-            \item<1-> Class field theory: descrivere le estensioni abeliane di un campo $K$.
-            % in termini delle proprietà aritmetiche di $K$. Ad esempio possiamo pensare a $K = \Q$ (campi di numeri) o $K = \Qp
-        \end{itemize}
-    \end{frame}
+% Cosa vogliamo fare?
+\begin{frame}[fragile]{Prologo}
+	\begin{itemize}
+		\item<1-> \textit{Class field theory}: descrivere le estensioni abeliane di un campo $K$.
+		      % ovvero le estensioni di Galois con gruppo abeliano, termini delle proprietà aritmetiche di K.
+
+		\item<2-> $K/\Q \rightsquigarrow K/\Q_p$\only<3->{, oppure $K/\mathbb{F}_q(t) \rightsquigarrow K/\mathbb{F}_q((t))$.}
+		      %  Ad esempio possiamo prendere K estensione finita di \Q (campo globale) o ad un suo completamento metrico rispetto ad un valore assoluto non archimedeo (campo locale).
+
+		\item<4-> Sia $\Ks$ una chiusura separabile di $K$, e $K^\text{ab}$ la massima estensione abeliana di $K$.
+		      % cioè il composto delle estensioni abeliane finite contenute in \Ks
+		      % Per corrispondenza di Galois, vogliamo quindi studiare il gruppo di Galois di K^ab su K
+		      \only<5->{\begin{align*}
+				      \operatorname{Gal}(K^\text{ab}/K) & \only<6->{=\operatorname{Gal}(\Ks/K)^\text{ab}}                              \\
+				      \only<7->{                        & =\varprojlim_{\mathclap{L/K\text{ abeliana finita}}}\operatorname{Gal}(L/K)}
+			      \end{align*}}
+		      % Infatti, questo è un gruppo profinito (in quanto limite inverso dei gruppi di Galois delle estensioni abeliani finite) e i suoi sottogruppi chiusi corrispondono alle estensioni abeliane di K.
+		\item<8-> Un gruppo topologico $G$ è profinito $\iff$ è compatto, Hausdorff e totalmente sconnesso.
+		      % In particolare, i sottogruppi aperti coincidono con quelli chiusi di indice finito. In tal caso, possiamo scrivere
+		      \[
+			      G=\varprojlim_{\mathclap{N\lhd G\text{ aperto}}}G/N
+		      \]
+	\end{itemize}
+	\begin{definition}<9->
+		Dato $G$ gruppo discreto, $\widehat{G}\coloneqq\varprojlim_N\nolimits{G/N}$ è il completamento profinito di $G$.
+	\end{definition}
+\end{frame}
+
+\begin{frame}[fragile]{Local Class Field Theory}
+	% Ora ci concentriamo sui campi locali:
+	\begin{definition}[Campo locale]<1->
+		Un campo completo rispetto ad una valutazione discreta di rango 1 con campo residuo finito.
+	\end{definition}
+	\begin{example}<2->
+		Un campo locale è un estensione finita di $\Q_p$ oppure di $\mathbb{F}_q((t))$.
+	\end{example}
+	% a seconda della sua caratteristica 0 o p primo. Per i campi p-adici, mostreremo che c'è un isomorfismo
+	\begin{theorem}<3->
+		Sia $K$ un campo $p$-adico con gruppo di Galois assoluto $\Gamma=\operatorname{Gal}{(\Ks /K)}$. Allora,
+		\[
+			\Gamma^\text{ab} \simeq \widehat{K^\times}
+		\]
+	\end{theorem}
+	% il gruppo di Galois della massima estensione abeliana di K è isomorfo al completamento profinito del gruppo moltiplcativo di K.
+	\only<4->{
+		Otteniamo una corrispondenza biunivoca
+		\[
+			\left\{ \substack{\text{estensioni abeliane} \\ \text{finite di } K} \right\} \longleftrightarrow \left\{ \substack{\text{sottogruppi} \\ \text{aperti di } \widehat{K^\times}} \right\}
+		\]
+	}
+
+\end{frame}
+
+% Che approccio prendiamo?
+\begin{frame}{Coomologia di Gruppi}
+	% Per poter studiare sistematicamente l'azione del gruppo di Galois assoluto sul gruppo additivo e quindi su quello moltiplicativo di \Ks, dato un gruppo G consideriamo
+	% la categoria degli \Z[G] moduli, con oggetti i gruppi abeliani dotati di un'azione di G che rispetta l'operazione di A, e morfismi gli omomorfismi di gruppi che commutano con l'azione di G.
+	\begin{itemize}
+		\item<1-> Vogliamo studiare l'azione $\Gamma \curvearrowright \Kx$
+		\item<2-> Dato $G$ gruppo, $\Gmod$ è la categoria degli $\Z[G]$-moduli
+		      % Come in Teoria di Galois, consideriamo il funtore dei "punti fissi" dell'azione di G su A
+		\item<3-> Il funtore
+		      \[
+			      \begin{aligned}
+				      F:\Gmod & \longrightarrow \Ab                                                                          \\
+				      A       & \longmapsto A^G = \{a\in A\mid g\cdot a=a\;\forall g\in G\} \only<4->{= \Hom_{\Z[G]}(\Z, A)}
+			      \end{aligned}
+		      \]
+		      % Questo coincide con i morfismi di G-moduli da \Z con l'azione banale ad A, e quindi
+		      \only<4->{è esatto a sinistra.}
+	\end{itemize}
+	% Quindi, definiamo la coomologia di G con coefficienti in A come i funtori derivati a destra di F:
+	\begin{definition}<5->
+		I gruppi di coomologia di $G$ con coefficienti in $A$ sono i funtori derivati
+		\[
+			\H{i}{G}{A}\coloneqq R^iF(A)
+		\]
+	\end{definition}
+	% In particolare, data una successione esatta corta di G-moduli, otteniamo una successione esatta lunga di gruppi di coomologia.
+	\begin{itemize}
+		\item<5-> Per $G$ profinito, richiediamo inoltre $A=\bigcup_U A^U$, e possiamo ridurci al caso finito:
+		      \[
+			      \H{i}{G}{A}=\varinjlim_U\H{i}{G/U}{A^U}
+		      \]
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Coomologia di Galois}
+	% Con questa tecnica, possiamo calcolare il primo gruppo di coomologia di \Kx:
+	\begin{theorem}[Hilbert 90]<1->
+		Sia $L/K$ estensione finita di campi. Allora, $\H{1}{\operatorname{Gal}(L/K)}{L^\times}=0$.
+		Passando al limite:
+		\[
+			\H{1}{\Gamma}{\Kx}=0
+		\]
+	\end{theorem}
+\end{frame}
+
 \end{document}
