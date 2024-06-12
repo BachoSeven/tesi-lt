@@ -1,5 +1,4 @@
 \documentclass[pdf]{beamer}
-\mode<presentation>{}
 
 \usepackage[T1]{fontenc}
 \usepackage{textcomp}
@@ -34,7 +33,7 @@
 % usage: \boxedeq{description}{equation}
 \newcommand{\boxedeq}[2]{\begin{empheq}[box={\fboxsep=6pt\fbox}]{align}\label{#1}#2\end{empheq}}
 
-\usetheme{Frankfurt}
+\usetheme{Madrid}
 \useinnertheme{rectangles}
 \useoutertheme{split}
 
@@ -46,7 +45,11 @@
     \begin{frame}
 \titlepage
     \end{frame}
-    \begin{frame}
-Prova
+
+    \begin{frame}{Motivazione}
+        \begin{itemize}
+            \item<1-> Class field theory: descrivere le estensioni abeliane di un campo $K$.
+            % in termini delle proprietà aritmetiche di $K$. Ad esempio possiamo pensare a $K = \Q$ (campi di numeri) o $K = \Qp
+        \end{itemize}
     \end{frame}
 \end{document}
