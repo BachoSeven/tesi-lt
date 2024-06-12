@@ -12,9 +12,6 @@ jobs:
         with:
           root_file: |
             tesi.tex
-      - uses: xu-cheng/latex-action@v2
-        with:
-          root_file: |
             presentazione/slides.tex
       - name: move
         run: mkdir -p github_deploy && mv tesi.pdf slides.pdf github_deploy/
