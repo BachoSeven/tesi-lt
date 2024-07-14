@@ -63,6 +63,9 @@
 
 \newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
 
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Osservazione}
+
 % Translation of environments
 \deftranslation[to=italian]{Example}{Esempio}
 \deftranslation[to=italian]{Definition}{Definizione}
@@ -95,37 +98,31 @@
 		\item<1-> \textit{Class field theory}: descrivere le estensioni abeliane di un campo $K$.
 		      % ovvero le estensioni di Galois con gruppo abeliano, in termini delle proprietà aritmetiche di K.
 
-		\item<2-> $K/\Q \rightsquigarrow K/\Q_p$\only<3->{, oppure $K/\mathbb{F}_q(t) \rightsquigarrow K/\mathbb{F}_q((t))$.}
-		      %  Ad esempio possiamo prendere K estensione finita di \Q (campo globale) o ad un suo completamento metrico rispetto ad un valore assoluto non archimedeo (campo locale).
+		\item<2-> $K/\Q \rightsquigarrow K/\Q_p$.
+		      %  Ad esempio possiamo prendere K estensione finita di \Q (campi globale). In questa presentazione, ci concentreremo invece sui cosiddetti campi p-adici, ovvero estensioni finite del suo completamento \Qp (campi locali)
 
-		\item<4-> Sia $\Ks$ una chiusura separabile di $K$, e $K^\text{ab}$ la massima estensione abeliana di $K$.
-		      % cioè il composto delle estensioni abeliane finite contenute in \Ks
-		      % Per corrispondenza di Galois, vogliamo quindi studiare il gruppo di Galois di K^ab su K
-		      \only<5->{\begin{align*}
-				      \operatorname{Gal}(K^\text{ab}/K) & \only<6->{=\operatorname{Gal}(\Ks/K)^\text{ab}}                              \\
-				      \only<7->{                        & =\varprojlim_{\mathclap{L/K\text{ abeliana finita}}}\operatorname{Gal}(L/K)}
-			      \end{align*}}
-		      % Infatti, questo è un gruppo profinito (in quanto limite inverso dei gruppi di Galois delle estensioni abeliani finite) e i suoi sottogruppi chiusi corrispondono alle estensioni abeliane di K.
-		\item<8-> Un gruppo topologico $G$ è profinito $\iff$ è compatto, Hausdorff e totalmente sconnesso.
-		      % In particolare, i sottogruppi aperti coincidono con quelli chiusi di indice finito. In tal caso, possiamo scrivere
-		      \[
-			      G=\varprojlim_{\mathclap{N\lhd G\text{ aperto}}}G/N
-		      \]
+		\item<3-> Data un'estensione di Galois $E/K$, il suo gruppo di Galois è profinito, ovvero limite inverso di gruppi finiti.
+		      \begin{remark}	Sia $\Ks$ una chiusura separabile di $K$, e $K^\text{ab}$ la massima estensione abeliana di $K$.
+			      % cioè il composto delle estensioni abeliane finite contenute in \Ks
+			      % Per corrispondenza di Galois, vogliamo quindi studiare il gruppo di Galois di K^ab su K
+			      \only<4->{\begin{equation*}
+					      \operatorname{Gal}(K^\text{ab}/K)  \only<5->{=\operatorname{Gal}(\Ks/K)^\text{ab}}
+					      \only<6->{                         =\varprojlim_{\mathclap{L/K\text{ abeliana finita}}}\operatorname{Gal}(L/K)}
+				      \end{equation*}}
+		      \end{remark}
+		      % In particolare, i suoi sottogruppi chiusi corrispondono alle estensioni abeliane di K.
 	\end{itemize}
-	\begin{definition}<9->
-		Dato $G$ gruppo discreto, $\widehat{G}\coloneqq\varprojlim_N\nolimits{G/N}$ è il completamento profinito di $G$.
+	\begin{definition}<7->
+		Dato $G$ gruppo discreto, $\widehat{G}\coloneqq\varprojlim_{N\lhd G}\nolimits{G/N}$ è il completamento profinito di $G$.
 	\end{definition}
 \end{frame}
 
 \begin{frame}{Local Class Field Theory}
 	% Ora ci concentriamo sui campi locali, che hanno una struttura particolarmente semplice:
 	\begin{definition}[Campo locale]<1->
-		Un campo completo rispetto ad una valutazione discreta di rango 1 con campo residuo finito.
-	\end{definition}
-	\begin{alertblock}{Fatto}<2->
 		Un campo locale è un estensione finita di $\Q_p$ oppure di $\mathbb{F}_q((t))$.
-	\end{alertblock}
-	% a seconda della sua caratteristica 0 o p primo. Per i campi p-adici, mostreremo che c'è un sorprendente isomorfismo
+	\end{definition}
+	% Per i campi p-adici, c'è un sorprendente isomorfismo
 	\begin{theorem}<3->
 		Sia $K$ un campo $p$-adico con gruppo di Galois assoluto $\Gamma=\operatorname{Gal}{(\Ks /K)}$. Allora,
 		\[
@@ -142,43 +139,54 @@
 \end{frame}
 
 % Che approccio prendiamo?
-\begin{frame}{Coomologia di Gruppi}
+\begin{frame}[fragile]{Coomologia di Gruppi}
 	% Per poter studiare sistematicamente l'azione del gruppo di Galois assoluto sul gruppo additivo e quindi su quello moltiplicativo di \Ks, dato un gruppo G consideriamo
-	% la categoria degli \Z[G] moduli, con oggetti i gruppi abeliani dotati di un'azione di G che rispetta l'operazione di A, e morfismi gli omomorfismi di gruppi che commutano con l'azione di G.
+	% la categoria degli \Z[G] moduli
 	\begin{itemize}
 		\item<1-> Vogliamo studiare l'azione $\Gamma \curvearrowright \Kx$
-		\item<2-> Dato $G$ gruppo, $\Gmod$ è la categoria degli $\Z[G]$-moduli
+		\item<2-> Dato $G$ gruppo profinito, consideriamo la categoria degli $G$-moduli discreti, ovvero moduli su $\Z[G]$ con $A=\bigcup_U A^U$
 		      % Come in Teoria di Galois, consideriamo il funtore dei "punti fissi" dell'azione di G su A
 		\item<3-> Il funtore
-		      \[
-			      \begin{aligned}
-				      F:\Gmod & \longrightarrow \Ab                                                                          \\
-				      A       & \longmapsto A^G = \{a\in A\mid g\cdot a=a\;\forall g\in G\} \only<4->{= \Hom_{\Z[G]}(\Z, A)}
-			      \end{aligned}
-		      \]
+		      \begin{align*}
+			      F:\Gmod & \longrightarrow \Ab &                                                        \\
+			      A       & \longmapsto A^G     & = \{a\in A\mid g\cdot a=a\;\forall g\in G\} \only<4->{ \\
+			              &                     & = \Hom_{\Z[G]}(\Z, A)}
+		      \end{align*}
 		      % Questo coincide con i morfismi di G-moduli da \Z con l'azione banale ad A, e quindi
 		      \only<4->{è esatto a sinistra.}
 	\end{itemize}
+\end{frame}
+
+\begin{frame}{Coomologia di Gruppi}
+
 	% Quindi, definiamo la coomologia di G con coefficienti in A come i funtori derivati a destra di F:
-	\begin{definition}<5->
+	\begin{definition}<1->
 		I gruppi di coomologia di $G$ con coefficienti in $A$ sono i funtori derivati
 		\[
 			\H{i}{G}{A}\coloneqq R^iF(A)
 		\]
 	\end{definition}
 	% In particolare, data una successione esatta corta di G-moduli, otteniamo una successione esatta lunga di gruppi di coomologia.
-	\begin{itemize}
-		\item<6-> Per $G$ profinito, richiediamo inoltre $A=\bigcup_U A^U$, e possiamo ridurci al caso finito:
-		      \[
-			      \H{i}{G}{A}=\varinjlim_U\H{i}{G/U}{A^U}
-		      \]
-	\end{itemize}
+
+	\begin{alertblock}{Fatto}<2->
+		\begin{itemize}
+			\item<2-> $\H{0}{G}{A}=A^G$,
+			\item<3-> $\H{1}{G}{A}=\Hom_{c}{(G,A)}$ se $A$ è banale.
+		\end{itemize}
+	\end{alertblock}
+
+	\begin{theorem}<4->
+		Possiamo sempre ridurci al caso finito:
+		\[
+			\H{i}{G}{A}=\varinjlim_U\H{i}{G/U}{A^U}
+		\]
+	\end{theorem}
 \end{frame}
 
 \begin{frame}{Coomologia di Galois}
 	% Con questa tecnica, possiamo calcolare il primo gruppo di coomologia di \Kx:
 	\begin{theorem}[Hilbert 90]<1->
-		Sia $L/K$ estensione finita di campi. Allora, $\H{1}{\operatorname{Gal}(L/K)}{L^\times}=0$.
+		Sia $L/K$ estensione finita di Galois. Allora, $\H{1}{\operatorname{Gal}(L/K)}{L^\times}=0$.
 		Passando al limite:
 		\[
 			\H{1}{\Gamma}{\Kx}=0
@@ -187,13 +195,16 @@
 	% Questo segue dal teorema di indipendenza dei caratteri di Dedekind,usando la scrittura degli 1-cocicli e 1-cobordi proveniente da una risoluzione esplicita standard.
 
 	% Se invece consideriamo il gruppo delle radici n-esime dell'unità contenute in \Ks
-	\only<2->{La successione esatta di Kummer
+	\begin{corollary}<2->
+		\[
+			\H{1}{\Gamma}{\mu_n}=\K^\times/\K^{\times n}
+		\]
+	\end{corollary}
+	\only<3->{La successione esatta di Kummer
 		\[
 			1\longrightarrow \mu_n\longrightarrow \Kx\overset{\cdot n}{\longrightarrow} \Kx\longrightarrow 1
 		\]
-		allora implica \[\H{1}{\Gamma}{\mu_n}=\K^\times/\K^{\times n}\]}
-	% come si vede dalla successione esatta lunga in coomologia usando Hilbert 90:
-	\only<3->{Infatti, la successione lunga è
+		induce una successione lunga
 		\[
 			\dots \to \K^\times \overset{\cdot n}{\to} \K^\times  \to \H{1}{\Gamma}{\mu_n} \to \cancel{\H{1}{\Gamma}{\Kx}} \to \dots
 		\]}
@@ -204,34 +215,69 @@
 	% Per quanto riguarda il secondo gruppo di coomologia, questo è noto come
 	\only<1->{Il \textit{gruppo di Brauer} è $\Br{K}\coloneqq\H{2}{\Gamma}{\Kx}$.}
 	% Gli elementi del gruppo di Brauer può essere interpretato come classi di equivalenza di algebre centrali di divisione su K
-	\begin{itemize}
-		\item<2-> Se $K$ è un campo finito o algebricamente chiuso, allora $\Br{K}=0$.
-		      % Algebricamente chiuso: banale perchè \Gamma=0, mentre mentre per \Fq è più complicato, ad esempio segue dal fatto che \Gal{\Fq}=\hat{\Z} ha coomologia in nulla in gradi >=2 sui moduli di torsione, e il gruppo moltiplicativo è di torsione.
+	\begin{example}
+		\begin{itemize}
+			\item<2-> Se $K$ è un campo finito o algebricamente chiuso, allora $\Br{K}=0$.
+			      % Algebricamente chiuso: banale perchè \Gamma=0, mentre mentre per \Fq è più complicato, ad esempio segue dal fatto che \Gal{\Fq}=\hat{\Z} ha coomologia in nulla in gradi >=2 sui moduli di torsione, e il gruppo moltiplicativo è di torsione.
 
-		\item<3-> Se $K=\R$, allora $\Br{K}=\Z/2\Z$.
-		      % Questo riformula un risultato classico di Frobenius che dimostra che le algebre centrali di divisione finite reali sono \R e \H (la classe non banale del Brauer).
-	\end{itemize}
-
+			\item<3-> Se $K=\R$, allora $\Br{K}=\Z/2\Z$.
+			      % Questo riformula un risultato classico di Frobenius, il quale afferma che le algebre centrali di divisione finite reali sono \R e \H (la classe non banale del Brauer).
+		\end{itemize}
+	\end{example}
 	% Infine, se K è un campo locale, allora \Br{K} è isomorfo a \Q/\Z per un risultato di Hasse.
-	\only<4->{Se $K$ è un campo locale, allora \[\Br{K}\simeq\Q/\Z\text{ (Hasse)}\]}
+	\begin{theorem}[Hasse]<4->
+		Se $K$ è un campo locale, allora \[\Br{K}\simeq\Q/\Z\]
+	\end{theorem}
 	% Per mostrarlo, ci si riduce alla massima estensione non ramificata di K, il cui gruppo di Galois su K è isomorfo al gruppo di Galois assoluto del campo residuo, e poi si usa la struttura del gruppo delle unità (ovvero gli elementi invertibili dell'anello degli interi) di un campo locale per concludere, assieme al fatto che il Brauer di un campo finito è banale.
 
 	% Abbiamo visto che H1(\Gamma,\mu_n)=K/K^{\times n}. Nel caso di un campo p-adico, le potenze n-esimo formano un sottogruppo aperto di indice finito, e quindi l'H1 è finito. Analogamente, usando successione esatta lunga associata alla successione di Kummer e il calcolo del Brauer possiamo mostrare che
 	\begin{corollary}<5->
 		Se $K$ è un campo $p$-adico, allora \[\H{2}{\Gamma}{\mu_n}=\Zn.\]
 	\end{corollary}
-	% Inoltre, il gruppo di Galois assoluto di un campo locale ha coomologia in nulla in gradi >=3 sui moduli di torsione, e \mu_n è di torsione.
+\end{frame}
 
-	% Utilizzando il calcolo dei gruppi di coomologia di \mu_n e la successione spettrale di Hoschild-Serre che mette in relazione la coomologia di un sottogruppo normale con quella del gruppo intero e del quoziente, segue che
-	\begin{theorem}<6->
-		Sia $M$ un $\Gamma$-modulo finito. Allora, i gruppi di coomologia $\H{i}{\Gamma}{M}$ sono tutti finiti.
+\begin{frame}{Dualità di Pontryagin}
+	% Siamo quasi pronti ad enunciare il teorema di dualità locale che ci permetterà di calcolare l'abelianizzato del gruppo di Galois assoluto di un campo p-adico. Per farlo, introduciamo due tipi di dualità, una per i gruppi ed una per i moduli.
+	\begin{definition}<1->
+		Sia $A$ un gruppo topologico. Definiamo il \textit{duale di Pontryagin} di $A$ come
+		\[
+			A^*\coloneqq\Hom_{c}{(A,\Q/\Z)}
+			.\]
+	\end{definition}
+	% omomorfismi continui di gruppi; questo coincide con il duale del suo abelianizzato.
+
+	\begin{theorem}[Dualità di Pontryagin]<2->
+		Se $A$ è abeliano discreto di torsione, allora $A^*$ è abeliano profinito e viceversa.\\
+		In entrambi i casi, il biduale $A^{**}$ è canonicamente isomorfo ad $A$.
 	\end{theorem}
 \end{frame}
 
+\begin{frame}{Dualità di Cartier}
+	\begin{definition}<1->
+		Sia $M$ un $\Gamma$-modulo finito. Il \textit{duale di Cartier} di $M$ è
+		\[
+			M^\prime \coloneqq \Hom_{\Gamma}(M, \mu)
+			.\]
+	\end{definition}
+	% morfismi di \Gamma moduli fra M e le radici dell'unità contenute in \Ks, che diventa un \Gamma modulo con la giusta azione. Di nuovo, il biduale di un modulo finito è isomorfo al modulo stesso.
+
+	\only<2->{
+		C'è un accoppiamento di $\Gamma$-moduli
+		\begin{align*}
+			M^\prime \times M & \to \mu      \\
+			(f,m)             & \mapsto f(m)
+		\end{align*}}
+
+	\begin{example}<3->
+		Se $M=\mu_n$, allora $M^\prime=\Zn$.
+	\end{example}
+	% \Zn con l'azione banale.
+\end{frame}
+
 \begin{frame}{Prodotto Cup}
-	% Un ingrediente fondamentale è il prodotto cup, che è una mappa biadditiva sui gruppi di coomologia che gli fornisce una struttura di algebra. Si può definire tramite la scrittura in cocatene dei gruppi di coomologia, come una mappa a valori nelle cocatene del prodotto tensore dei due moduli che induce coomologia.
+	% Un ingrediente fondamentale per il seguito è il prodotto cup, che è una mappa biadditiva sui gruppi di coomologia che gli fornisce una struttura di algebra. Si può definire tramite la scrittura in cocatene dei gruppi di coomologia, come una mappa a valori nelle cocatene del prodotto tensore dei due moduli.
 	\begin{definition}[Prodotto Cup]<1->
-		Sia $G$ un gruppo profinito, ed $A$ un $G$-modulo. Esiste una mappa biadditiva
+		Sia $G$ un gruppo profinito, ed $A,B$ dei $G$-moduli. Esiste una mappa biadditiva
 		\[
 			\cup:\H{i}{G}{A}\times\H{j}{G}{B}\longrightarrow \H{i+j}{G}{A\otimes B}
 		\]
@@ -252,54 +298,42 @@
 \end{frame}
 
 \begin{frame}{Dualità Locale di Tate}
-	% Siamo quasi pronti ad enunciare il teorema di dualità locale che ci permetterà di calcolare l'abelianizzato del gruppo di Galois assoluto di un campo p-adico. Per farlo, introduciamo due tipi di dualità, una per i gruppi ed una per i moduli.
-	\begin{definition}<1->
-		Sia $A$ un gruppo topologico. Il \textit{duale di Pontryagin} di $A$ è
-		\[
-			A^*\coloneqq\Hom_{c}{(A,\Q/\Z)}
-			.\]
-	\end{definition}
-	% omomorfismi continui di gruppi; questo coincide con il duale del suo abelianizzato. 
-	% Se A è un gruppo abeliano di torsione, allora il suo duale è abeliano profinito e viceversa, inoltre il biduale è isomorfo ad A.
-	\begin{definition}<2->
-		Sia $M$ un $\Gamma$-modulo finito. Il \textit{duale di Cartier} di $M$ è
-		\[
-			M^\prime \coloneqq \Hom_{\Gamma}(M, \mu)
-			.\]
-	\end{definition}
-	% morfismi di \Gamma moduli fra M e le radici dell'unità contenute in \Ks, che diventa un \Gamma modulo con la giusta azione. Di nuovo, il biduale di un modulo finito è isomorfo al modulo stesso.
+	% Utilizzando il calcolo dei gruppi di coomologia di \mu_n e la (successione spettrale di Hoschild-Serre che mette in) relazione la coomologia di un sottogruppo normale con quella del gruppo intero e del quoziente, segue che
+	\begin{theorem}<1->
+		Sia $M$ un $\Gamma$-modulo finito. Allora, i gruppi di coomologia $\H{i}{\Gamma}{M}$ sono finite per $i=0,1,2$.
+	\end{theorem}
 
-	% L'ovvio accoppiamento di valutazione fra M ed M' induce un prodotto sui loro gruppi di coomologia. Il teorema di dualità locale di Tate afferma che, per un campo p-adico, tale prodotto induce un isomorfismo
-	\begin{theorem}[Dualità Locale di Tate]<3->
+	% L'accoppiamento fra M ed M' induce un prodotto sui loro gruppi di coomologia. Il teorema di dualità locale di Tate afferma che, per un campo p-adico, tale prodotto induce un isomorfismo
+	\begin{theorem}[Dualità Locale di Tate]<2->
 		Sia $K$ un campo $p$-adico. Allora, il prodotto cup induce un isomorfismo
 		\[
 			\H{i}{\Gamma}{M}\simeq\H{2-i}{\Gamma}{M^\prime}^*
 		\]
 		per $i=0,1,2$.
 	\end{theorem}
-	% che ricorda la dualità di Poincaré per varietà compatte. In tale analogia, il calcolo del gruppo di Brauer corrisponde al calcolo della coomologia in grado n di una n-varietà compatta. Nella tesi dimostriamo questo teorema con un risultato di dualità astratto, che consente di rappresentare il duale della coomologia di \Gamma sui moduli finiti tramite un modulo di torsione, quindi con strumenti di algebra omologica
+	% che ricorda la dualità di Poincaré per varietà compatte. Nella tesi otteniamo questo teorema da un risultato di dualità astratto, che si dimostra con strumenti di algebra omologica.
 \end{frame}
 
 \begin{frame}
-	\begin{example}<1->
-		Se $M=\mu_n$, allora $M^\prime=\Zn$ e quindi \(\H{1}{\Gamma}{\mu_n}\simeq\H{1}{\Gamma}{\Zn}^*\).
-	\end{example}
-	% \Zn con l'azione banale.
-	\begin{theorem}<2->
+	\begin{theorem}<1->
 		Sia $K$ un campo $p$-adico. Allora,
 		\[
 			\Gamma^\text{ab} \simeq \widehat{K^\times}
 		\]
 	\end{theorem}
 	\begin{align*}
-		\only<3->{\Gamma^{\text{ab}} & = \Hom_{c}(\Gamma, \Q/\Z)^*\\}
-		\only<4->{                   & = \Hom_{c}(\Gamma, \varinjlim_n\nolimits \Zn)^*\\}
-		\only<5->{                   & = \varprojlim_n\nolimits \Hom_{c}(\Gamma, \Zn)^*\\}
-		\only<6->{                   & = \varprojlim_n\nolimits \H{1}{\Gamma}{\Zn}^*\\}
-		\only<7->{                   & = \varprojlim_n\nolimits \H{1}{\Gamma}{\mu_n}\\}
-		\only<8->{                   & = \varprojlim_n\nolimits K^{\times}/\K^{\times n}\\}
-		\only<9->{                   & = \widehat{\K^\times}\\}
+		\only<2->{\Gamma^{\text{ab}} & = \Hom(\Gamma, \Q/\Z)^*                           & \text{(per dualità di Pontryagin)} \\}
+		\only<3->{                   & = \Hom(\Gamma, \varinjlim_n\nolimits \Zn)^*       & \text{($\Q/\Z=\varinjlim_n\nolimits{\Zn}$)} \\}
+		\only<4->{                   & = \varprojlim_n\nolimits \Hom(\Gamma, \Zn)^*      & \text{(il limite commuta)}         \\}
+		\only<5->{                   & = \varprojlim_n\nolimits \H{1}{K}{\Zn}^*          & \text{(l'azione è banale)}         \\}
+		\only<6->{                   & = \varprojlim_n\nolimits \H{1}{K}{\mu_n}          & \text{(per Dualità Locale)}        \\}
+		\only<7->{                   & = \varprojlim_n\nolimits K^{\times}/\K^{\times n} & \text{(successione di Kummer)}     \\}
+		\only<8->{                   & = \widehat{\K^\times}                             & \text{(per cofinalità)}.}
 	\end{align*}
+\end{frame}
+
+\begin{frame}
+	\centering\Huge Grazie per l'attenzione!
 \end{frame}
 
 \end{document}
