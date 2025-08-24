@@ -1677,7 +1677,7 @@ We also need the following compatibility of the Brauer group isomorphism:
 
 	The second statament follows from the first, thanks the formula $\Cor \circ \Res = [L:K]$ (Theorem \ref{thm:CorRes}).
 
-	The first statement can be shown by considering an unramified extension of $K$ contained in $L$, as the procyclic structure absolute Galois group of its residue field makes the computation of the corestriction
+	The first statement can be shown by considering an unramified extension of $K$ contained in $L$, as the procyclic structure of the absolute Galois group of its residue field makes the computation of the corestriction
 	straightforward (see Proposition 6.3.7 of \cite{GilleSzamuely}).
 \end{proof}
 
@@ -2356,11 +2356,12 @@ The main result of local class field theory, the existence theorem, makes this c
 \end{definition}
 
 \begin{remark}
-	One can show that this has the same properties as the usual reciprocity map that are developed in loc. cit., Ch. 9, and which we will use in the following. In particular, the reciprocity map is surjective, with dense image (by definition of the profinite completion) and if $n>0$ it induces a map
+	One can show that this has the same properties as the usual reciprocity map that are developed in loc. cit., Ch. 9: for instance,
+    by definition of profinite completion $\omega$ has dense image. Moreover, note that for $n>0$ there is an induced map
 	\begin{equation}\label{eq:RecIso}
 		\omega_n:\K^\times / \K^{\times n} \to \Gamma^{\text{ab}}/n \simeq \H{1}{\K}{\Zn}^*,
 	\end{equation}
-	which is given by the isomorphism \eqref{eq:CupIso} of local duality. Above, we used the fact that \[\H{1}{\K}{\Zn}=
+	given by the isomorphism \eqref{eq:CupIso} of local duality. Above, we used the fact that \[\H{1}{\K}{\Zn}=
 		\Hom(\Gamma^{\text{ab}},\Zn)\simeq(\sfrac{\Gamma^{\text{ab}}}{n})^*.\]
 	Moreover, for any finite abelian Galois extension $L / K$ there is a diagram
 	\begin{equation}\label{eq:NormDiag}
@@ -2402,7 +2403,7 @@ The main result of local class field theory, the existence theorem, makes this c
 		\omega_{L/K}:\K^\times \to \operatorname{Gal}(L/K),
 	\]
 	which translates to an isomorphism \[\K^\times / N_{L/K}(L^\times) \simeq \operatorname{Gal}(L/K)\]
-	by density of the image of $\omega_\K$ and diagram chasing through \eqref{eq:NormDiag}.
+	as can be checked using the density of the image of $\omega_\K$ and some diagram chasing through \eqref{eq:NormDiag}.
 	This recovers the reciprocity isomorphism associated with the extension $L/K$ from loc. cit., Th. 9.2.
 \end{remark}
 
@@ -2425,7 +2426,7 @@ Therefore, the correspondence \eqref{eq:ClassField} in one direction is given by
 
 	Now, since $n\Gamma^{\text{ab}}$ is compact in $\Gamma^{\text{ab}}$, the reciprocity isomorphism \eqref{eq:RecIso} implies that $\Gamma^{\text{ab}}/n$ is a finite group, and so $n\Gamma^{\text{ab}}$ is closed of finite index in $\Gamma^{\text{ab}}$. By Galois theory, we can find a finite abelian extension $L/\K$ such that $\operatorname{Gal}{(L/K)}=\Gamma^{\text{ab}}/n$, and thus $\K^{\times n}=N_{L/\K}(L^\times)$ because it is the kernel of the surjection $\omega_{L/K}$.
 
-	As for uniqueness, given $L,M$ are finite abelian extensions of $\K$ with $N_{L/\K}(L^\times)=N_{M/\K}(M^\times)$ the preimages of the open subgroups $\operatorname{Gal}{(\K^\text{ab}/L)}$ and $\operatorname{Gal}{(\K^\text{ab}/M)}$ by $\omega_\K$ are the same. By density of the image of $\omega_\K$, we get $\operatorname{Gal}{(\K^\text{ab}/L)}=\operatorname{Gal}{(\K^\text{ab}/M)}$ and thus $L=M$ again by Galois theory.
+	As for uniqueness, given finite abelian extensions $L$ and $M$ of $\K$ with $N_{L/\K}(L^\times)=N_{M/\K}(M^\times)$, the preimages of the open subgroups $\operatorname{Gal}{(\K^\text{ab}/L)}$ and $\operatorname{Gal}{(\K^\text{ab}/M)}$ by $\omega_\K$ are the same. By density of the image of $\omega_\K$, we get $\operatorname{Gal}{(\K^\text{ab}/L)}=\operatorname{Gal}{(\K^\text{ab}/M)}$ and thus $L=M$ again by Galois theory.
 \end{proof}
 
 \nocite{*}
