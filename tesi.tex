@@ -78,7 +78,7 @@ In this chapter, $G$ will always denote a finite multiplicative group. We begin 
 	More generally, a $G$-module is the same as a (left) module over the ring $\Z[G]$: the action of $G$ extends linearly to multiplication by elements of $\Z[G]$. This does \textit{not} hold for discrete modules on profinite groups, as we will see later on, however many of the results that we prove in this chapter will hold in that context as well, provided we make some additional topological assumptions.
 \end{remark}
 
-As with any category, we need specify the morphisms between objects:
+As with any category, we need to specify the morphisms between objects:
 
 \begin{definition}
 	A morphism of $G$-modules is a group homomorphism $A\overset{f}{\to} B$ which commutes with the action of $G$, that is
@@ -2331,9 +2331,15 @@ Recall that the groups $\K^{\times n}$ are open in $\K^\times$ (Proposition \ref
 	                   & = \varprojlim_n\nolimits \Hom(\Gamma, \Zn)^*               & \text{(by contravariance)}            \\
 	                   & = \varprojlim_n\nolimits \H{1}{K}{\Zn}^*                   & \text{(by \ref{ex:TrivialModH1})}     \\
 	                   & = \varprojlim_n\nolimits \H{1}{K}{\mu_n}                   & \text{(by Tate Duality)}              \\
-	                   & = \varprojlim_n\nolimits \sfrac{K^{\times}}{\K^{\times n}} & \text{(by \ref{thm:CohomMuN})}        \\
+	                   & = \varprojlim_n\nolimits \sfrac{K^{\times}}{\K^{\times n}} & \text{(by \ref{prop:Kummer})}        \\
 	                   & = \widehat{\K^\times}                                      & \text{(by \ref{cor:KxOpen})}.
 \end{align*}
+Note that the isomorphism \eqref{eq:CupIso} can be viewed as an isomorphism
+	\begin{equation}\label{eq:RecIso}
+		\omega_n:\K^\times / \K^{\times n} \to \Gamma^{\text{ab}}/n
+	\end{equation}
+	using \eqref{prop:Kummer} and the fact that \[\H{1}{\K}{\Zn}=
+		\Hom(\Gamma^{\text{ab}},\Zn)\simeq(\sfrac{\Gamma^{\text{ab}}}{n})^*.\]
 
 \begin{remark}
 	Here by $G^{\text{ab}}$ we mean the quotient of $G$ by the \textit{closure} of its derived subgroup. If $K^{\text{ab}}$ is the maximal abelian extension of $K$, then we have an isomorphism
@@ -2350,20 +2356,14 @@ The main result of local class field theory, the existence theorem, makes this c
 \begin{definition}
 	The reciprocity map
 	\[
-		\omega:\K^\times \to \Gamma^{\text{ab}}
+		\omega_K:\K^\times \to \Gamma^{\text{ab}}
 	\]
 	is the composition of the inclusion $\K^\times \hookrightarrow \widehat{\K^\times}$ with the isomorphism $\widehat{\K^\times} \Iso \Gamma^{\text{ab}}$.
 \end{definition}
 
 \begin{remark}
 	One can show that this has the same properties as the usual reciprocity map that are developed in loc. cit., Ch. 9: for instance,
-    by definition of profinite completion $\omega$ has dense image. Moreover, note that for $n>0$ there is an induced map
-	\begin{equation}\label{eq:RecIso}
-		\omega_n:\K^\times / \K^{\times n} \to \Gamma^{\text{ab}}/n \simeq \H{1}{\K}{\Zn}^*,
-	\end{equation}
-	given by the isomorphism \eqref{eq:CupIso} of local duality. Above, we used the fact that \[\H{1}{\K}{\Zn}=
-		\Hom(\Gamma^{\text{ab}},\Zn)\simeq(\sfrac{\Gamma^{\text{ab}}}{n})^*.\]
-	Moreover, for any finite abelian Galois extension $L / K$ there is a diagram
+    by definition of profinite completion $\omega$ has dense image. Moreover, for any finite abelian Galois extension $L / K$ there is a diagram
 	\begin{equation}\label{eq:NormDiag}
 		\begin{tikzcd}
 			L^\times \ar[r, "\omega_L"] \ar[d, swap, "N_{L/\K}"] & \Gamma_L^{\text{ab}} \ar[d] \\
@@ -2410,7 +2410,7 @@ The main result of local class field theory, the existence theorem, makes this c
 Therefore, the correspondence \eqref{eq:ClassField} in one direction is given by $L \mapsto N_{L/\K}(L^\times)$. To conclude our exploration of local class field theory, we use the above properties to prove the existence theorem, which gives the correspondence in the other direction:
 
 \begin{theorem}[Existence Theorem]
-	Let $\K$ be a $p$-adic field and fix an algebraic closure $\overline{\K}$. Then, for any finite index subgroup $U\subset\widehat{\K^\times}$
+	Let $\K$ be a $p$-adic field and fix an algebraic closure $\overline{\K}$. Then, for any finite index subgroup $U\subset\K^\times$
 	there exists a unique finite abelian extension $L / \K$ such that $L \subset \overline{\K}$ and $U=N_{L/\K}(L^\times)$.
 \end{theorem}
 
@@ -2422,7 +2422,7 @@ Therefore, the correspondence \eqref{eq:ClassField} in one direction is given by
 			\ssfrac{\K^\times}{U} \ar[r, "\omega_K"] & \operatorname{Gal}{(M/K)}\ar[r, phantom, "\simeq"] &\ssfrac{\K^\times}{N_{M/\K}(M^\times)}
 		\end{tikzcd}
 	\]
-	for some finite abelian extension $M/K$ by Galois theory, and this implies that $U=N_{L/\K}(L^\times)$.
+	for some finite abelian extension $M/K$ by Galois theory, and this implies that $U=N_{M/\K}(M^\times)$.
 
 	Now, since $n\Gamma^{\text{ab}}$ is compact in $\Gamma^{\text{ab}}$, the reciprocity isomorphism \eqref{eq:RecIso} implies that $\Gamma^{\text{ab}}/n$ is a finite group, and so $n\Gamma^{\text{ab}}$ is closed of finite index in $\Gamma^{\text{ab}}$. By Galois theory, we can find a finite abelian extension $L/\K$ such that $\operatorname{Gal}{(L/K)}=\Gamma^{\text{ab}}/n$, and thus $\K^{\times n}=N_{L/\K}(L^\times)$ because it is the kernel of the surjection $\omega_{L/K}$.
 
